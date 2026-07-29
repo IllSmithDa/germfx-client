@@ -45,7 +45,7 @@ export default function BookmarkTabs({
   ];
 
   return (
-    <div className="space-y-5">
+    <div>
       <SharedTabs
         tabs={tabs}
         activeTab={defaultTab}

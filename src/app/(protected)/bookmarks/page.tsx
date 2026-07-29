@@ -37,12 +37,10 @@ export default async function BookmarksPage({
   return (
     <div className="min-h-[calc(100vh-57px)] bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
       <div className="mx-auto max-w-5xl space-y-6 px-4 py-6 sm:py-10">
-        <div>
           <h1 className="text-2xl font-bold sm:text-3xl">Bookmarks</h1>
           <p className="mt-2 text-sm text-[hsl(var(--muted-foreground))]">
             Access saved recalls and saved news stories in one place.
           </p>
-        </div>
 
         <BookmarkTabs
           defaultTab={defaultTab}
