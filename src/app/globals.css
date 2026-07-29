@@ -1,0 +1,272 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap");
+
+html {
+  font-size: 18px;
+}
+
+/* ── App-wide design tokens ─────────────────────────────────────────── */
+@layer base {
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 46%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+
+    --brand: 262 83% 58%;
+    --brand-foreground: 0 0% 100%;
+
+    --radius: 0.75rem;
+
+    /* ── Landing / footer tokens — light mode ─────────────────────────
+       These match the footer and marketing pages in light mode.
+       Use cool-white backgrounds with navy text, sky-blue accent.     */
+    --landing-bg:        210 30% 98%;
+    --landing-bg-card:   210 25% 95%;
+    --landing-fg:        222 40% 12%;
+    --landing-fg-muted:  220 18% 38%;
+    --landing-fg-subtle: 220 14% 58%;
+    --landing-border:    214 28% 86%;
+    --landing-accent:    210 80% 52%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+
+    --brand: 262 83% 70%;
+
+    /* ── Landing / footer tokens — dark mode ──────────────────────────
+       These are the original dark values, now available globally.     */
+    --landing-bg:        220 30% 6%;
+    --landing-bg-card:   220 25% 10%;
+    --landing-fg:        210 30% 94%;
+    --landing-fg-muted:  215 18% 62%;
+    --landing-fg-subtle: 215 14% 42%;
+    --landing-border:    220 20% 16%;
+    --landing-accent:    210 80% 62%;
+  }
+}
+
+/* ── Landing page tokens (always dark regardless of theme) ──────────── */
+/* These are scoped to .landing-root so marketing pages are always dark */
+.landing-root {
+  /* Force dark landing values even if user is in light mode */
+  --landing-bg:        220 30% 6%;
+  --landing-bg-card:   220 25% 10%;
+  --landing-fg:        210 30% 94%;
+  --landing-fg-muted:  215 18% 62%;
+  --landing-fg-subtle: 215 14% 42%;
+  --landing-border:    220 20% 16%;
+  --landing-accent:    210 80% 62%;
+
+  background-color: hsl(var(--landing-bg));
+  color: hsl(var(--landing-fg));
+  font-family: "DM Sans", system-ui, sans-serif;
+}
+
+/* ── Typography ─────────────────────────────────────────────────────── */
+.landing-display {
+  font-family: "DM Serif Display", Georgia, serif;
+  letter-spacing: -0.02em;
+}
+
+.landing-em {
+  /* Italic + gradient for the keyword in the headline */
+  font-style: italic;
+  background: linear-gradient(
+    95deg,
+    hsl(210 80% 72%) 0%,
+    hsl(195 80% 68%) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Background grid ─────────────────────────────────────────────────── */
+.landing-grid {
+  background-image:
+    linear-gradient(hsl(210 30% 60% / 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(210 30% 60% / 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────── */
+.landing-btn-primary {
+  background-color: hsl(var(--landing-accent));
+  color: hsl(220 30% 6%);
+  box-shadow: 0 0 24px hsl(var(--landing-accent) / 0.35);
+}
+
+.landing-btn-primary:hover {
+  box-shadow: 0 0 36px hsl(var(--landing-accent) / 0.5);
+  transform: translateY(-1px);
+}
+
+.landing-btn-ghost {
+  border: 1px solid hsl(var(--landing-border));
+  color: hsl(var(--landing-fg-muted));
+}
+
+.landing-btn-ghost:hover {
+  border-color: hsl(var(--landing-accent) / 0.5);
+  color: hsl(var(--landing-fg));
+}
+
+/* ── Feature cards ───────────────────────────────────────────────────── */
+.landing-feature-card {
+  background-color: hsl(var(--landing-bg-card));
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.landing-feature-card:hover {
+  border-color: hsl(var(--landing-accent) / 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px hsl(220 30% 4% / 0.5);
+}
+
+.landing-feature-icon {
+  border: 1px solid transparent;
+}
+
+.landing-feature-accent-violet {
+  background-color: hsl(262 60% 55% / 0.12);
+  border-color: hsl(262 60% 60% / 0.25);
+  color: hsl(262 70% 72%);
+}
+
+.landing-feature-accent-sky {
+  background-color: hsl(210 80% 55% / 0.12);
+  border-color: hsl(210 80% 62% / 0.25);
+  color: hsl(210 80% 72%);
+}
+
+.landing-feature-accent-emerald {
+  background-color: hsl(160 60% 45% / 0.12);
+  border-color: hsl(160 60% 50% / 0.25);
+  color: hsl(160 60% 62%);
+}
+
+/* ── How it works section ────────────────────────────────────────────── */
+.landing-steps-bg {
+  background-color: hsl(220 28% 8%);
+  border-top: 1px solid hsl(var(--landing-border));
+  border-bottom: 1px solid hsl(var(--landing-border));
+}
+
+.landing-step-badge {
+  background-color: hsl(var(--landing-accent) / 0.08);
+  border: 1px solid hsl(var(--landing-accent) / 0.2);
+}
+
+/* ── Strip (social proof) ────────────────────────────────────────────── */
+.landing-strip {
+  background-color: hsl(220 28% 8%);
+}
+
+/* ── ECG line animation ──────────────────────────────────────────────── */
+.landing-ecg {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  animation: ecg-draw 2.4s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards;
+}
+
+.landing-ecg-dot {
+  opacity: 0;
+  animation:
+    ecg-dot-appear 0.3s ease 3.1s forwards,
+    ecg-pulse 2s ease-in-out 3.4s infinite;
+}
+
+@keyframes ecg-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes ecg-dot-appear {
+  to { opacity: 1; }
+}
+
+@keyframes ecg-pulse {
+  0%, 100% { r: 4; opacity: 1; }
+  50%       { r: 6; opacity: 0.5; }
+}
+
+/* ── Hero staggered fade-in ──────────────────────────────────────────── */
+.landing-fade-1,
+.landing-fade-2,
+.landing-fade-3,
+.landing-fade-4,
+.landing-fade-5 {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: landing-fade-up 0.7s ease forwards;
+}
+
+.landing-fade-1 { animation-delay: 0.05s; }
+.landing-fade-2 { animation-delay: 0.15s; }
+.landing-fade-3 { animation-delay: 0.3s;  }
+.landing-fade-4 { animation-delay: 0.45s; }
+.landing-fade-5 { animation-delay: 0.6s;  }
+
+@keyframes landing-fade-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

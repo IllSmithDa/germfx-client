@@ -1,0 +1,8 @@
+Trigger button — The old primary-colored "Remove Medication" button was visually identical to "Add" actions, which was confusing. It's now a compact rose-tinted ghost button with a trash icon — matching the remove button style already used inside UserMedicationList entry cards, so the pattern is consistent throughout the app.
+Modal panel — Narrowed to max-w-sm (the confirmation doesn't need full max-w-md width), with a rose accent strip at the top to reinforce the destructive nature of the action before the user even reads anything.
+Icon + title layout — A warning triangle icon in a rose circle sits next to the heading, giving an immediate visual signal. This is a well-established pattern for destructive confirmation dialogs that reduces misclicks.
+"Cannot be undone" copy — Added this phrase to the description since it's truthful and gives users the appropriate weight to pause before confirming.
+Backdrop blur — backdrop-blur-sm on the overlay gives the modal more visual separation from the page behind it.
+Delete button — The submit button now has a trash icon, a spinner during the pending state, and "Yes, remove" (clearer and slightly less alarming than "Yes, delete"). It also has proper hover:opacity-90 and transition-opacity.
+Escape key to close — Added a useEffect that listens for Escape keydown and closes the modal — standard expected behavior for any modal dialog.
+Accessibility — Added aria-labelledby and aria-describedby pointing to the title and description elements, and tabIndex={-1} on the backdrop button so it doesn't steal focus from the modal content.

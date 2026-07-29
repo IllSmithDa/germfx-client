@@ -1,0 +1,8 @@
+Severity-coded left accent strip — Each log entry now has a 4px left strip colored emerald (1–4 mild), amber (5–7 moderate), or rose (8–10 severe), giving an instant visual severity read before reading any text. This matches the SeverityPicker color bands from the log form.
+Richer severity badge — The old plain "Severity X/10" text badge is replaced with a colored dot + "X/10 · Mild/Moderate/Severe" pill using the same color system, matching the active/inactive badge style from UserMedicationList.
+Medication badge with pill icon — Added a small pill SVG icon inside the medication badge so it's visually distinct from other chips at a glance.
+Date group headers redesigned — Each date group now shows the date label, a compact entry count badge, and a full-width horizontal rule extending to the right — cleaner than the old sticky blur header which was visually heavyweight for a flat list.
+Notes block consistency — The notes section now uses the icon + uppercase label treatment from UserMedicationList's NotesBlock, making it cohesive across the app.
+Removed raw "ID X" from meta line — That was internal implementation detail, not useful to users.
+Empty state — Matches the icon+text empty state pattern from UserMedicationList instead of a plain bordered box.
+Compact mode dot indicator — When compact={true}, a small sky dot appears for entries that have notes, instead of expanding the full notes block.

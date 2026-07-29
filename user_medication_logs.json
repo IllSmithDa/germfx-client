@@ -1,0 +1,77 @@
+[
+  {
+    "userId": "user001",
+    "medicationId": "617314",
+    "customName": "BP med",
+    "dosage": "10 mg",
+    "frequency": "Once daily",
+    "startDate": "2024-06-01",
+    "endDate": null,
+    "loggedSymptoms": [
+      "Fatigue",
+      "Cough"
+    ],
+    "notes": "Cough worsened in week 2",
+    "adherence": 90,
+    "timeOfDay": "Morning"
+  },
+  {
+    "userId": "user002",
+    "medicationId": "197361",
+    "customName": "Diabetes pill",
+    "dosage": "500 mg",
+    "frequency": "Twice daily",
+    "startDate": "2024-05-15",
+    "endDate": null,
+    "loggedSymptoms": [
+      "Nausea",
+      "Diarrhea"
+    ],
+    "notes": "Taking with food helps",
+    "adherence": 80,
+    "timeOfDay": "Evening"
+  },
+  {
+    "userId": "user001",
+    "medicationId": "308135",
+    "customName": "Thyroid med",
+    "dosage": "75 mcg",
+    "frequency": "Once daily",
+    "startDate": "2024-01-01",
+    "endDate": "2024-05-01",
+    "loggedSymptoms": [
+      "Hair loss"
+    ],
+    "notes": "Doctor switched to new brand",
+    "adherence": 95,
+    "timeOfDay": "Morning"
+  },
+  {
+    "userId": "user003",
+    "medicationId": "123456",
+    "customName": "Acid reflux",
+    "dosage": "20 mg",
+    "frequency": "Once daily",
+    "startDate": "2024-04-01",
+    "endDate": null,
+    "loggedSymptoms": [],
+    "notes": "No major issues",
+    "adherence": 100,
+    "timeOfDay": "Morning"
+  },
+  {
+    "userId": "user004",
+    "medicationId": "597623",
+    "customName": "BP backup",
+    "dosage": "5 mg",
+    "frequency": "Once daily",
+    "startDate": "2024-02-15",
+    "endDate": null,
+    "loggedSymptoms": [
+      "Dizziness"
+    ],
+    "notes": "Switched time to evening",
+    "adherence": 85,
+    "timeOfDay": "Evening"
+  }
+]

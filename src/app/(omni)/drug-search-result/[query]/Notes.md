@@ -1,0 +1,8 @@
+Results card with gradient accent — The plain bordered list gets the same top gradient accent strip (sky → violet → rose) used on the drug detail page header, tying the search result visually to what you'll find when you click through.
+Color-coded type badges — The old uppercase plain border badge is replaced with semantic color-coded pills: sky blue for Brand, violet for Generic, emerald for Substance. Each uses the same border/background/text token pattern established across the rest of the app.
+Match score bar — The raw "Match 84%" text is replaced with a ScoreBar component: a small filled progress bar (16px wide, color-coded green/amber/gray by score threshold) + the percentage label. Much easier to scan than reading numbers. Hidden on mobile to keep rows clean.
+Chevron affordance — A right-pointing chevron on every row makes each item clearly clickable as a navigable link, reinforcing the tap target on mobile.
+group-hover:underline on the name — The whole row is now the link, but the name text still gets an underline on hover to give clear visual feedback on where you'll navigate.
+Results count subtitle — Added a "N matches found" line under the heading so users immediately know how many results came back without counting rows.
+Home back link — A chevron-left Home button in the header gives quick escape back to the dashboard without using the browser back button.
+Empty state — Replaced the bare text with the icon + heading + suggestion pattern used throughout the app, with inline bolded examples for "Advil" and "ibuprofen" to make the hint more scannable.

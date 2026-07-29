@@ -1,0 +1,316 @@
+[
+  {
+    "id": "617314",
+    "medicinalProduct": "Lisinopril",
+    "brandNames": [
+      "Zestril"
+    ],
+    "genericNames": [
+      "Lisinopril"
+    ],
+    "form": "tablet",
+    "route": "oral",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "substanceName": [
+      "LISINOPRIL"
+    ],
+    "manufacturerName": [
+      "AstraZeneca Pharmaceuticals LP"
+    ],
+    "commonSideEffects": [
+      "Cough",
+      "Dizziness",
+      "Fatigue"
+    ],
+    "interactions": [
+      "Ibuprofen"
+    ],
+    "warnings": [
+      "Avoid alcohol",
+      "Monitor blood pressure"
+    ],
+    "rxcui": "617314"
+  },
+  {
+    "id": "197361",
+    "medicinalProduct": "Metformin",
+    "brandNames": [
+      "Glucophage"
+    ],
+    "genericNames": [
+      "Metformin"
+    ],
+    "form": "tablet",
+    "route": "oral",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "substanceName": [
+      "METFORMIN HYDROCHLORIDE"
+    ],
+    "manufacturerName": [
+      "Bristol-Myers Squibb"
+    ],
+    "commonSideEffects": [
+      "Nausea",
+      "Diarrhea",
+      "Bloating"
+    ],
+    "interactions": [
+      "Alcohol"
+    ],
+    "warnings": [
+      "May cause lactic acidosis"
+    ],
+    "rxcui": "197361"
+  },
+  {
+    "id": "617320",
+    "medicinalProduct": "Atorvastatin",
+    "brandNames": [
+      "Lipitor"
+    ],
+    "genericNames": [
+      "Atorvastatin"
+    ],
+    "form": "tablet",
+    "route": "oral",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "substanceName": [
+      "ATORVASTATIN CALCIUM"
+    ],
+    "manufacturerName": [
+      "Pfizer"
+    ],
+    "commonSideEffects": [
+      "Muscle pain",
+      "Diarrhea",
+      "Cold-like symptoms"
+    ],
+    "interactions": [
+      "Grapefruit juice"
+    ],
+    "warnings": [
+      "May cause liver damage"
+    ],
+    "rxcui": "617320"
+  },
+  {
+    "id": "597623",
+    "medicinalProduct": "Amlodipine",
+    "brandNames": [
+      "Norvasc"
+    ],
+    "genericNames": [
+      "Amlodipine"
+    ],
+    "form": "tablet",
+    "route": "oral",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "substanceName": [
+      "AMLODIPINE BESYLATE"
+    ],
+    "manufacturerName": [
+      "Pfizer"
+    ],
+    "commonSideEffects": [
+      "Swelling",
+      "Fatigue",
+      "Nausea"
+    ],
+    "interactions": [
+      "Simvastatin"
+    ],
+    "warnings": [
+      "May cause low blood pressure"
+    ],
+    "rxcui": "597623"
+  },
+  {
+    "id": "308135",
+    "medicinalProduct": "Levothyroxine",
+    "brandNames": [
+      "Synthroid"
+    ],
+    "genericNames": [
+      "Levothyroxine"
+    ],
+    "form": "tablet",
+    "route": "oral",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "substanceName": [
+      "LEVOTHYROXINE SODIUM"
+    ],
+    "manufacturerName": [
+      "AbbVie"
+    ],
+    "commonSideEffects": [
+      "Hair loss",
+      "Weight change",
+      "Palpitations"
+    ],
+    "interactions": [
+      "Calcium",
+      "Iron"
+    ],
+    "warnings": [
+      "Take on empty stomach"
+    ],
+    "rxcui": "308135"
+  },
+  {
+    "id": "123456",
+    "medicinalProduct": "Omeprazole",
+    "brandNames": [
+      "Prilosec"
+    ],
+    "genericNames": [
+      "Omeprazole"
+    ],
+    "form": "capsule",
+    "route": "oral",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "substanceName": [
+      "OMEPRAZOLE"
+    ],
+    "manufacturerName": [
+      "AstraZeneca"
+    ],
+    "commonSideEffects": [
+      "Headache",
+      "Stomach pain",
+      "Constipation"
+    ],
+    "interactions": [
+      "Clopidogrel"
+    ],
+    "warnings": [
+      "May cause low magnesium levels"
+    ],
+    "rxcui": "123456"
+  },
+  {
+    "id": "234567",
+    "medicinalProduct": "Simvastatin",
+    "brandNames": [
+      "Zocor"
+    ],
+    "genericNames": [
+      "Simvastatin"
+    ],
+    "form": "tablet",
+    "route": "oral",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "substanceName": [
+      "SIMVASTATIN"
+    ],
+    "manufacturerName": [
+      "Merck"
+    ],
+    "commonSideEffects": [
+      "Muscle pain",
+      "Constipation",
+      "Nausea"
+    ],
+    "interactions": [
+      "Amlodipine",
+      "Warfarin"
+    ],
+    "warnings": [
+      "Avoid grapefruit juice"
+    ],
+    "rxcui": "234567"
+  },
+  {
+    "id": "345678",
+    "medicinalProduct": "Albuterol",
+    "brandNames": [
+      "ProAir HFA"
+    ],
+    "genericNames": [
+      "Albuterol"
+    ],
+    "form": "inhaler",
+    "route": "inhalation",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "substanceName": [
+      "ALBUTEROL SULFATE"
+    ],
+    "manufacturerName": [
+      "Teva"
+    ],
+    "commonSideEffects": [
+      "Tremor",
+      "Nervousness",
+      "Headache"
+    ],
+    "interactions": [
+      "Beta blockers"
+    ],
+    "warnings": [
+      "Use only as needed"
+    ],
+    "rxcui": "345678"
+  },
+  {
+    "id": "456789",
+    "medicinalProduct": "Hydrochlorothiazide",
+    "brandNames": [
+      "Microzide"
+    ],
+    "genericNames": [
+      "Hydrochlorothiazide"
+    ],
+    "form": "tablet",
+    "route": "oral",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "substanceName": [
+      "HYDROCHLOROTHIAZIDE"
+    ],
+    "manufacturerName": [
+      "Various"
+    ],
+    "commonSideEffects": [
+      "Dizziness",
+      "Sun sensitivity",
+      "Low potassium"
+    ],
+    "interactions": [
+      "Lithium",
+      "NSAIDs"
+    ],
+    "warnings": [
+      "Monitor electrolytes"
+    ],
+    "rxcui": "456789"
+  },
+  {
+    "id": "567890",
+    "medicinalProduct": "Gabapentin",
+    "brandNames": [
+      "Neurontin"
+    ],
+    "genericNames": [
+      "Gabapentin"
+    ],
+    "form": "capsule",
+    "route": "oral",
+    "productType": "HUMAN PRESCRIPTION DRUG",
+    "substanceName": [
+      "GABAPENTIN"
+    ],
+    "manufacturerName": [
+      "Pfizer"
+    ],
+    "commonSideEffects": [
+      "Drowsiness",
+      "Dizziness",
+      "Fatigue"
+    ],
+    "interactions": [
+      "Antacids"
+    ],
+    "warnings": [
+      "May cause drowsiness"
+    ],
+    "rxcui": "567890"
+  }
+]
