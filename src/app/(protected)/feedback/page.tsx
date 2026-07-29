@@ -1,72 +1,35 @@
-"use client";
+// src/app/(protected)/feedback/page.tsx
 
-import { useState } from "react";
+import FeedbackButton from "@/components/UserFeedback/FeedbackButton";
 
-
-import FeedbackModal from "@/components/UserFeedback/FeedbackModal";
-import { FeedbackCategory } from "@/types/userFeedback";
-
-export type FeedbackButtonVariant = "button" | "link" | "floating";
-
-export type FeedbackButtonProps = {
-  label?: string;
-  variant?: FeedbackButtonVariant;
-  defaultCategory?: FeedbackCategory;
-  pageUrl?: string | null;
-  className?: string;
-};
-
-function buttonClassName(variant: FeedbackButtonVariant, className: string) {
-  const base = "font-semibold transition disabled:cursor-not-allowed disabled:opacity-60";
-
-  if (variant === "link") {
-    return [
-      base,
-      "text-sm text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]",
-      className,
-    ].join(" ");
-  }
-
-  if (variant === "floating") {
-    return [
-      base,
-      "fixed bottom-5 right-5 z-40 rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-4 py-3 text-sm shadow-lg hover:bg-[hsl(var(--muted))]",
-      className,
-    ].join(" ");
-  }
-
-  return [
-    base,
-    "rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-4 py-2 text-sm hover:bg-[hsl(var(--muted))]",
-    className,
-  ].join(" ");
-}
-
-export default function FeedbackPage({
-  label = "Feedback",
-  variant = "button",
-  defaultCategory = "general",
-  pageUrl,
-  className = "",
-}: FeedbackButtonProps) {
-  const [open, setOpen] = useState(false);
-
+export default function FeedbackPage() {
   return (
-    <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className={buttonClassName(variant, className)}
-      >
-        {label}
-      </button>
+    <main className="mx-auto min-h-[calc(100vh-57px)] max-w-3xl px-4 py-8">
+      <section className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 shadow-sm sm:p-8">
+        <div className="max-w-xl">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[hsl(var(--primary))]">
+            SideFX feedback
+          </p>
 
-      <FeedbackModal
-        open={open}
-        onOpenChange={setOpen}
-        defaultCategory={defaultCategory}
-        pageUrl={pageUrl}
-      />
-    </>
+          <h1 className="mt-2 text-2xl font-semibold text-[hsl(var(--foreground))]">
+            Help improve SideFX
+          </h1>
+
+          <p className="mt-2 text-sm leading-relaxed text-[hsl(var(--muted-foreground))]">
+            Share a bug report, feature request, or general feedback about your
+            experience using the application.
+          </p>
+
+          <div className="mt-6">
+            <FeedbackButton
+              label="Open feedback form"
+              defaultCategory="general"
+              pageUrl="/feedback"
+              className="bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:opacity-90"
+            />
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
