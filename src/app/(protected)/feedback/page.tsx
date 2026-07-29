@@ -42,7 +42,7 @@ function buttonClassName(variant: FeedbackButtonVariant, className: string) {
   ].join(" ");
 }
 
-export default function FeedbackButton({
+export default function FeedbackPage({
   label = "Feedback",
   variant = "button",
   defaultCategory = "general",
