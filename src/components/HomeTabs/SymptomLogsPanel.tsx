@@ -31,11 +31,14 @@ export default function SymptomLogsPanel({
       role="tabpanel"
       className="overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-3 shadow-sm sm:p-5"
     >
+      <h2 className="truncate text-base font-semibold leading-5 text-[hsl(var(--foreground))] sm:text-lg sm:leading-6">
+        My Symptoms
+      </h2>
       <div className="mb-4 space-y-3 sm:flex sm:items-center sm:justify-between sm:gap-3 sm:space-y-0">
         <p className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--muted))]/35 px-3 py-2 text-center text-xs font-medium text-[hsl(var(--muted-foreground))] sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:text-left sm:text-sm">
           {summaryText}
         </p>
-
+    
         <div className="grid grid-cols-2 gap-2 sm:flex sm:shrink-0 sm:items-center">
           <Link
             href={CLIENT_PATHS.symptomLogsPath()}

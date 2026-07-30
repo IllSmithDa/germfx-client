@@ -43,7 +43,7 @@ export default function NewsPanel({
       </div>
 
       <div className="px-3 py-3 sm:px-5 sm:py-4">
-        <div className="mb-4">
+        <div className="mb-4 hidden sm:block">
           <ContentSearchBar
             type="news"
             placeholder="Search health news..."

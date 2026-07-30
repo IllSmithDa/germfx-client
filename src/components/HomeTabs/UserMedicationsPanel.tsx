@@ -61,8 +61,8 @@ export default function MedicationsPanel({
       role="tabpanel"
       className="overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-sm"
     >
-      <div className="space-y-3 p-2.5 sm:space-y-4 sm:p-5">
-        <section className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-3 sm:rounded-2xl sm:p-5">
+      <div className="space-y-3 p-2.5 sm:space-y-4 sm:p-5 ">
+        <section className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-3 sm:rounded-2xl sm:p-5 hidden sm:block">
           <div className="mb-3 flex min-w-0 items-center justify-between gap-2 sm:mb-4">
             <div className="min-w-0">
               <h2 className="text-sm font-semibold leading-5 text-[hsl(var(--foreground))] sm:text-lg sm:leading-6">
@@ -78,7 +78,7 @@ export default function MedicationsPanel({
             </span>
           </div>
 
-          <div className="space-y-3 sm:space-y-4">
+          <div className="space-y-3 sm:space-y-4 ">
             <div>
               <FieldCaption>Drug name</FieldCaption>
               <DrugSearchBar
@@ -132,7 +132,10 @@ export default function MedicationsPanel({
 
         <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))]/60 p-2.5 sm:rounded-2xl sm:border-0 sm:bg-transparent sm:p-0">
           <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
-            <div className="flex min-w-0 flex-wrap items-center gap-1.5 sm:gap-2">
+            <div className="flex min-w-0 flex-wrap items-center gap-1.5 sm:gap-2 justify-between sm:justify-start">
+              <h2 className="truncate text-base font-semibold leading-5 text-[hsl(var(--foreground))] sm:text-lg sm:leading-6">
+                My Medications
+              </h2>
               {medications.length > 0 ? (
                 <>
                   <CountPill tone="active">
