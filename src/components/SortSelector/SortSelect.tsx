@@ -16,7 +16,6 @@ import {
   Select,
   SelectValue,
 } from "react-aria-components";
-import type { Key } from "react-aria-components";
 import {
   usePathname,
   useRouter,
@@ -144,11 +143,10 @@ export default function SortSelect<T extends string = string>({
       id={selectId}
       name={name}
       // ✅ Replaces deprecated selectedKey + onSelectionChange
-      selectedKey={value}
-      onSelectionChange={(key: Key) => {
-        if (key !== null) {
-          handleValueChange(String(key) as T);
-        }
+      selectionMode="single"
+      value={value}
+      onChange={(key) => {
+        handleValueChange(String(key) as T);
       }}
       isDisabled={disabled}
       aria-label={ariaLabel}
