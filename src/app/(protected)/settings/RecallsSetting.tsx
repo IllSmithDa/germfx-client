@@ -1,6 +1,22 @@
-import { US_STATES } from "@/lib/helpers/statesList";
+
 import type { RecallType } from "@/lib/client/userSettingsApi";
-import { SectionCard, SettingRow, selectClass } from "./SettingsUI";
+import { US_STATES } from "@/lib/helpers/statesList";
+import { SectionCard, SettingRow } from "./SettingsUI";
+import SortSelect, { SortSelectOption } from "@/components/SortSelector/SortSelect";
+
+const RECALL_TYPE_OPTIONS: readonly SortSelectOption<RecallType>[] = [
+  { value: "all", label: "All recalls" },
+  { value: "food", label: "Food recalls" },
+  { value: "drug", label: "Medication recalls" },
+];
+
+const RECALL_STATE_OPTIONS: readonly SortSelectOption<string>[] = [
+  { value: "all", label: "All states" },
+  ...US_STATES.map((state) => ({
+    value: state.code,
+    label: state.name,
+  })),
+];
 
 export default function RecallSettings({
   defaultRecallState,
@@ -24,18 +40,20 @@ export default function RecallSettings({
         label="Default recall type"
         description="Used when opening the dedicated recalls page without a type filter."
         control={
-          <select
+          <SortSelect<RecallType>
             value={defaultRecallType}
+            options={RECALL_TYPE_OPTIONS}
+            ariaLabel="Select default recall type"
+            label="Default recall type"
+            name="default_recall_type"
+            icon="none"
+            variant="field"
             disabled={savingKey === "default_recall_type"}
-            onChange={(e) =>
-              onDefaultRecallTypeChange(e.target.value as RecallType)
-            }
-            className={selectClass}
-          >
-            <option value="all">All recalls</option>
-            <option value="food">Food recalls</option>
-            <option value="drug">Medication recalls</option>
-          </select>
+            className="w-full sm:w-56"
+            onValueChange={(value) => {
+              void onDefaultRecallTypeChange(value);
+            }}
+          />
         }
       />
 
@@ -43,19 +61,20 @@ export default function RecallSettings({
         label="Default recall state"
         description="Used when opening the dedicated recalls page without a state filter."
         control={
-          <select
+          <SortSelect<string>
             value={defaultRecallState}
+            options={RECALL_STATE_OPTIONS}
+            ariaLabel="Select default recall state"
+            label="Default recall state"
+            name="default_recall_state"
+            icon="none"
+            variant="field"
             disabled={savingKey === "default_recall_state"}
-            onChange={(e) => onDefaultRecallStateChange(e.target.value)}
-            className={selectClass}
-          >
-            <option value="all">All states</option>
-            {US_STATES.map((state) => (
-              <option key={state.code} value={state.code}>
-                {state.name}
-              </option>
-            ))}
-          </select>
+            className="w-full sm:w-56"
+            onValueChange={(value) => {
+              void onDefaultRecallStateChange(value);
+            }}
+          />
         }
       />
     </SectionCard>

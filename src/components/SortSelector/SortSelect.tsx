@@ -170,8 +170,8 @@ export default function SortSelect<T extends string = string>({
           "focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]",
           "disabled:cursor-not-allowed",
           isField
-            ? "min-h-11 border border-[hsl(var(--input,var(--border)))] bg-[hsl(var(--background))] transition-shadow"
-            : "min-h-11 border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-sm transition-colors hover:bg-[hsl(var(--muted))] sm:min-h-9 sm:w-auto",
+            ? "min-h-11 border border-[hsl(var(--input,var(--border)))] bg-[hsl(var(--background))] transition-shadow hover:bg-[hsl(var(--muted))]"
+            : "min-h-11 border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-sm transition-colors hover:bg-[hsl(var(--muted))] sm:min-h-9 sm:w-auto ",
           selectClassName,
         )}
       >

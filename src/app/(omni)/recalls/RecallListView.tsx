@@ -138,7 +138,7 @@ function RecallCard({
 
   return (
     <article className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-4 shadow-sm">
-      <div className="flex items-start justify-between gap-3">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex flex-wrap items-center gap-2">
           <StatBadge className={sourceTone(item.source)}>
             {sourceLabel(item.source)}
@@ -158,7 +158,7 @@ function RecallCard({
         </div>
 
         {displayDate && (
-          <span className="shrink-0 text-xs text-[hsl(var(--muted-foreground))]">
+          <span className="self-start text-xs text-[hsl(var(--muted-foreground))] sm:shrink-0">
             {displayDate}
           </span>
         )}
@@ -232,7 +232,7 @@ function RecallCard({
           </div>
         )}
       </div>
-      <div className="mt-4 flex items-center gap-3">
+      <div className="mt-4 flex flex-wrap items-center gap-3">
         <SaveRecallButton
           recallId={item.id}
           initialSaved={savedStatus?.saved}
@@ -262,14 +262,39 @@ export default function RecallListView({
   
   return (
     <section className="border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-sm overflow-hidden">
-      <div className="flex items-center justify-between gap-3 border-b border-[hsl(var(--border))] px-5 py-4">
-        <div className="flex items-center gap-4">
-          <p>Filter by:</p>
-          <RecallTypeFilter value={source} />
-          <RecallStateFilter value={state} />
+      <div className="border-b border-[hsl(var(--border))] px-4 py-4 sm:px-5">
+        <div className="flex flex-col gap-4">
+          <div>
+            <h2 className="text-sm font-semibold text-[hsl(var(--foreground))]">
+              Browse recalls
+            </h2>
+            <p className="mt-1 text-xs leading-5 text-[hsl(var(--muted-foreground))]">
+              Filter by recall type and state, then choose how results are sorted.
+            </p>
+          </div>
 
-          <p>Sort by:</p>
-          <RecallSortSelect value={sort} />
+          <div className="grid grid-cols-1 gap-3 sm:flex sm:flex-wrap">
+            <div className="min-w-0 space-y-1.5 [&>*]:!w-full">
+              <p className="text-xs font-medium text-[hsl(var(--muted-foreground))]">
+                Recall type
+              </p>
+              <RecallTypeFilter value={source} />
+            </div>
+
+            <div className="min-w-0 space-y-1.5 [&>*]:!w-full">
+              <p className="text-xs font-medium text-[hsl(var(--muted-foreground))]">
+                State
+              </p>
+              <RecallStateFilter value={state} />
+            </div>
+
+            <div className="min-w-0 space-y-1.5 sm:col-span-2 lg:col-span-1 [&>*]:!w-full">
+              <p className="text-xs font-medium text-[hsl(var(--muted-foreground))]">
+                Sort by
+              </p>
+              <RecallSortSelect value={sort} />
+            </div>
+          </div>
         </div>
       </div>
 

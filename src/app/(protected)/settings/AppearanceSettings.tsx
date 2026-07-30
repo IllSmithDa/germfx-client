@@ -1,5 +1,13 @@
+
 import type { ThemeValue } from "@/lib/client/userSettingsApi";
-import { SectionCard, SettingRow, selectClass } from "./SettingsUI";
+import { SectionCard, SettingRow } from "./SettingsUI";
+import SortSelect, { SortSelectOption } from "@/components/SortSelector/SortSelect";
+
+const THEME_OPTIONS: readonly SortSelectOption<ThemeValue>[] = [
+  { value: "system", label: "System" },
+  { value: "light", label: "Light" },
+  { value: "dark", label: "Dark" },
+];
 
 export default function AppearanceSettings({
   theme,
@@ -16,16 +24,18 @@ export default function AppearanceSettings({
         label="Theme"
         description="Choose the appearance mode for the application."
         control={
-          <select
+          <SortSelect<ThemeValue>
             value={theme}
+            options={THEME_OPTIONS}
+            ariaLabel="Select application theme"
+            label="Theme"
+            name="theme"
+            icon="none"
+            variant="field"
             disabled={savingKey === "theme"}
-            onChange={(e) => onThemeChange(e.target.value as ThemeValue)}
-            className={selectClass}
-          >
-            <option value="system">System</option>
-            <option value="light">Light</option>
-            <option value="dark">Dark</option>
-          </select>
+            className="w-full sm:w-56"
+            onValueChange={onThemeChange}
+          />
         }
       />
     </SectionCard>
