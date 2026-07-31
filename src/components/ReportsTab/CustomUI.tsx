@@ -15,7 +15,7 @@ export function StatCard({
   accentClass?: string;
 }) {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 shadow-sm">
+    <div className="relative overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-2 sm:px-4 py-3 sm:py-4 shadow-sm">
       {/* Top accent strip */}
       <div className={["absolute inset-x-0 top-0 h-0.5", accentClass].join(" ")} />
 
@@ -54,7 +54,7 @@ export function SectionCard({
 }) {
   return (
     <section className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-sm overflow-hidden">
-      <div className="flex items-center justify-between gap-2 border-b border-[hsl(var(--border))] px-5 py-3.5">
+      <div className="flex items-center justify-between gap-2 border-b border-[hsl(var(--border))] px-2 sm:px-4 py-3 sm:py-4">
         <div className="flex items-center gap-2">
           {icon && (
             <span className="shrink-0 text-[hsl(var(--muted-foreground))]">{icon}</span>
@@ -72,14 +72,14 @@ export function SectionCard({
           </span>
         )}
       </div>
-      <div className="px-5 py-4">{children}</div>
+      <div className="px-2 sm:px-4 py-3 sm:py-4">{children}</div>
     </section>
   );
 }
 
 export function EmptyState({ text }: { text: string }) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-[hsl(var(--border))] px-4 py-10 text-center">
+    <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-[hsl(var(--border))] px-2 sm:px-4 py-3 sm:py-4 text-center">
       <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-[hsl(var(--muted))]">
         <svg
           className="w-5 h-5 text-[hsl(var(--muted-foreground))]"

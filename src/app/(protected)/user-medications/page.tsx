@@ -79,7 +79,7 @@ export default async function MedicationsPage({ searchParams }: Props) {
   return (
     <div className="min-h-[calc(100vh-57px)] bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
       
-      <main className="mx-auto max-w-5xl space-y-6 px-4 py-6 sm:py-10">
+      <main className="mx-auto max-w-5xl space-y-3 px-2 sm:px-4 py-3 sm:py-6 sm:py-10">
         <p className="flex items-start gap-1.5 px-1 text-xs text-[hsl(var(--muted-foreground))]">
           <svg
             className="mt-0.5 h-3.5 w-3.5 shrink-0 opacity-60"
@@ -95,43 +95,44 @@ export default async function MedicationsPage({ searchParams }: Props) {
           For personal tracking only — not medical advice.
         </p>
         <section className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-sm overflow-hidden">
-          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[hsl(var(--border))] px-5 py-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[hsl(var(--border))] px-2 sm:px-5 py-3 sm:py-4">
             <div>
-              <h1 className="text-xl font-bold sm:text-2xl">My Medications</h1>
+              <h1 className="text-lg font-bold sm:text-2xl">My Medications</h1>
               <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">
                 View, edit, and manage your saved medications.
               </p>
             </div>
+            <MedicationSortSelect value={sort} />
 
-            <div className="flex flex-wrap items-center gap-2">
-              <MedicationSortSelect value={sort} />
-
-              <Link
-                href={CLIENT_PATHS.drugSearchPage()}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-sky-400/40 bg-sky-500/10 px-3 py-1.5 text-xs font-semibold text-sky-600 transition-colors hover:bg-sky-500/20 dark:text-sky-400"
-              >
-                Add medication
-              </Link>
-            </div>
           </div>
 
-          <div className="px-5 py-4">
-            <div className="mb-4 flex flex-wrap items-center gap-2">
-              <span className="rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--muted))] px-2.5 py-1 text-xs text-[hsl(var(--muted-foreground))]">
-                {total} total
-              </span>
+          <div className="px-2 sm:px-5 py-3 sm:py-4">
 
-              <span className="rounded-full border border-green-400/40 bg-green-500/10 px-2.5 py-1 text-xs font-medium text-green-600 dark:text-green-400">
-                {activeCount} shown active
-              </span>
-
-              {inactiveCount > 0 ? (
+            <div className="flex justify-between mb-3">
+              <div className="flex flex-wrap items-center gap-2">
                 <span className="rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--muted))] px-2.5 py-1 text-xs text-[hsl(var(--muted-foreground))]">
-                  {inactiveCount} shown inactive
+                  {total} total
                 </span>
-              ) : null}
-            </div>
 
+                <span className="rounded-full border border-green-400/40 bg-green-500/10 px-2.5 py-1 text-xs font-medium text-green-600 dark:text-green-400 hidden sm:block">
+                  {activeCount} shown active
+                </span>
+
+                {inactiveCount > 0 ? (
+                  <span className="rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--muted))] px-2.5 py-1 text-xs text-[hsl(var(--muted-foreground))] hidden sm:block">
+                    {inactiveCount} shown inactive
+                  </span>
+                ) : null}
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <Link
+                  href={CLIENT_PATHS.drugSearchPage()}
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-sky-400/40 bg-sky-500/10 px-3 py-1.5 text-xs font-semibold text-sky-600 transition-colors hover:bg-sky-500/20 dark:text-sky-400"
+                >
+                  Add medication
+                </Link>
+              </div>
+            </div>
             {medications.length === 0 ? (
               <div className="rounded-xl border border-dashed border-[hsl(var(--border))] bg-[hsl(var(--muted))]/30 px-4 py-6 text-sm text-[hsl(var(--muted-foreground))]">
                 No medications found.

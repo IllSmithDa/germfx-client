@@ -15,7 +15,7 @@ function SectionCard({
   return (
     <section className="overflow-hidden rounded-2xl border border-rose-500/30 bg-[hsl(var(--card))] shadow-sm">
       <div className="h-0.5 w-full bg-gradient-to-r from-rose-500 via-orange-500 to-rose-500 opacity-70" />
-      <div className="border-b border-[hsl(var(--border))] px-6 py-4">
+      <div className="border-b border-[hsl(var(--border))] px-2 sm:px-4 py-3 sm:py-4">
         <h2 className="text-sm font-semibold text-rose-600 dark:text-rose-400">
           {title}
         </h2>
@@ -25,7 +25,7 @@ function SectionCard({
           </p>
         ) : null}
       </div>
-      <div className="space-y-5 px-6 py-5">{children}</div>
+      <div className="space-y-5 px-2 sm:px-4 py-3 sm:py-4">{children}</div>
     </section>
   );
 }

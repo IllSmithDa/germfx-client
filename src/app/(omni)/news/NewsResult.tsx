@@ -211,7 +211,7 @@ export default async function NewsResults({
   const nextPage = finalPage < totalPages ? finalPage + 1 : null;
 
   return (
-    <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-4 sm:p-5">
+    <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-2 sm:p-5">
       <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-[hsl(var(--muted-foreground))]">
           Page {finalPage} of {totalPages}
@@ -223,7 +223,7 @@ export default async function NewsResults({
         </div>
       </div>
 
-      <div className="mb-5">
+      <div className="mb-3">
         <UsageLimitNotice
           featureKey="saved_items"
           status={savedItemsUsageStatus}

@@ -68,7 +68,7 @@ function TopSymptomsList({ items }: { items: SymptomFrequencyReportItem[] }) {
           <div
             key={`${item.symptom_text}-${index}`}
             className={[
-              "flex items-center gap-3 rounded-xl border px-4 py-3 transition-colors",
+              "flex items-center gap-3 rounded-xl border px-2 sm:px-4 py-3 sm:py-4 transition-colors",
               isTop
                 ? "border-violet-400/30 bg-violet-500/5"
                 : "border-[hsl(var(--border))] bg-[hsl(var(--background))]",
@@ -312,7 +312,7 @@ export default function SymptomReportsPanel({
   const topSymptom = symptomFrequency[0] ?? null;
   const totalLogs = symptomFrequency.reduce((sum, item) => sum + item.count, 0);
   return (
-    <div role="tabpanel" className="space-y-5 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 shadow-sm">
+    <div role="tabpanel" className="space-y-5 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-2 sm:px-4 py-3 sm:py-4 shadow-sm">
       {/* Sub-header */}
       <div className="flex items-center justify-between gap-3">
         <p className="text-sm text-[hsl(var(--muted-foreground))]">

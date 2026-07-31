@@ -88,7 +88,7 @@ export default function AccountSubscriptionSection({
         ].join(" ")}
       />
 
-      <div className="border-b border-[hsl(var(--border))] px-6 py-4">
+      <div className="border-b border-[hsl(var(--border))] px-2 sm:px-4 py-3 sm:py-4">
         <h2 className="text-sm font-semibold text-[hsl(var(--foreground))]">
           Subscription
         </h2>
@@ -98,7 +98,7 @@ export default function AccountSubscriptionSection({
         </p>
       </div>
 
-      <div className="space-y-4 px-6 py-5">
+      <div className="space-y-4 px-2 sm:px-4 py-3 sm:py-4">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">

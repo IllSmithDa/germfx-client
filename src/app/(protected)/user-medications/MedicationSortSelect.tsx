@@ -24,6 +24,7 @@ export default function MedicationSortSelect({
       defaultValue="latest"
       basePath="/user-medications"
       ariaLabel="Sort medications"
+      variant="toolbar"
       label="Sort medications"
     />
   );

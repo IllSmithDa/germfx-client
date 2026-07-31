@@ -23,7 +23,7 @@ export default async function AccountPage() {
 
   return (
     <div className="min-h-[calc(100vh-57px)] bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
-      <div className="mx-auto max-w-5xl space-y-6 px-4 py-8">
+      <div className="mx-auto max-w-5xl space-y-3 sm:space-y-6 px-2 sm:px-4 py-2 sm:py-4">
         <div>
           <h1 className="text-2xl font-bold">Account</h1>
           <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">
@@ -55,7 +55,7 @@ export default async function AccountPage() {
           </div>
 
           <div className="grid grid-cols-2 divide-x divide-[hsl(var(--border))] border-t border-[hsl(var(--border))]">
-            <div className="px-6 py-3">
+            <div className="px-2 sm:px-4 py-3 sm:py-4">
               <p className="text-[10px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))]">
                 Username
               </p>
@@ -63,7 +63,7 @@ export default async function AccountPage() {
                 {user.username || "—"}
               </p>
             </div>
-            <div className="px-6 py-3">
+            <div className="px-2 sm:px-4 py-3 sm:py-4">
               <p className="text-[10px] font-semibold uppercase tracking-widest text-[hsl(var(--muted-foreground))]">
                 Email
               </p>

@@ -70,29 +70,35 @@ export default async function ReportsPage() {
   const medicationUsage = medicationUsageResult.data;
 
   return (
-    <div className="mx-auto min-h-[calc(100vh-57px)] max-w-5xl px-4 py-8">
-      <UsageLimitNotice
-        featureKey="pdf_downloads"
-        status={pdfDownloadUsageStatus}
-      />
-
-      <div className="mb-5 mt-5 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+    <div className="mx-auto min-h-[calc(100vh-57px)] max-w-5xl px-2 sm:px-5 py-2 sm:py-6">
+      <div className="hidden sm:block my-5">
+        <UsageLimitNotice
+          featureKey="pdf_downloads"
+          status={pdfDownloadUsageStatus}
+        />
+      </div>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold">Reports</h1>
           <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">
             Review symptom patterns and medication history over time.
           </p>
-          <p className="mb-1 text-xs text-[hsl(var(--muted-foreground))]">
+          <p className="mb-1 text-xs text-[hsl(var(--muted-foreground))] hidden sm:block">
             Current default range: {reportRange}
           </p>
-          <p className="mb-1 text-xs text-[hsl(var(--muted-foreground))]">
+          <p className="mb-1 text-xs text-[hsl(var(--muted-foreground))] hidden sm:block">
             Current top symptoms limit: {symptomLimit}
           </p>
-          <p className="mb-1 text-xs text-[hsl(var(--muted-foreground))]">
+          <p className="mb-1 text-xs text-[hsl(var(--muted-foreground))] hidden sm:block">
             (Edit these values in settings)
           </p>
         </div>
-
+        <div className="block sm:hidden">
+          <UsageLimitNotice
+            featureKey="pdf_downloads"
+            status={pdfDownloadUsageStatus}
+          />
+        </div>
         <DownloadReportPdfButton
           userId={user.id}
           days={days}

@@ -14,14 +14,14 @@ type FeedbackState = {
 } | null;
 
 const inputClass =
-  "w-full rounded-xl border border-[hsl(var(--input,var(--border)))] bg-[hsl(var(--background))] px-3 py-2.5 text-sm text-[hsl(var(--foreground))] outline-none transition-shadow focus:ring-2 focus:ring-[hsl(var(--ring))] placeholder:text-[hsl(var(--muted-foreground))/50]";
+  "w-full rounded-xl border border-[hsl(var(--input,var(--border)))] bg-[hsl(var(--background))] px-2 sm:px-4 py-3 sm:py-4 text-sm text-[hsl(var(--foreground))] outline-none transition-shadow focus:ring-2 focus:ring-[hsl(var(--ring))] placeholder:text-[hsl(var(--muted-foreground))/50]";
 
 function Feedback({ state }: { state: FeedbackState }) {
   if (!state) return null;
   return (
     <div
       className={[
-        "rounded-xl border px-3.5 py-3 text-sm",
+        "rounded-xl border px-2 sm:px-4 py-3 sm:py-4 text-sm",
         state.ok
           ? "border-emerald-400/40 bg-emerald-500/8 text-emerald-700 dark:text-emerald-400"
           : "border-rose-400/40 bg-rose-500/8 text-rose-700 dark:text-rose-400",
@@ -75,7 +75,7 @@ function Modal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4">
       <div className="w-full max-w-md rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-2xl">
-        <div className="border-b border-[hsl(var(--border))] px-5 py-4">
+        <div className="border-b border-[hsl(var(--border))] px-2 sm:px-4 py-3 sm:py-4">
           <h3 className="text-base font-semibold text-[hsl(var(--foreground))]">
             {title}
           </h3>
@@ -85,7 +85,7 @@ function Modal({
             </p>
           ) : null}
         </div>
-        <div className="px-5 py-4">{children}</div>
+        <div className="px-2 sm:px-4 py-3 sm:py-4">{children}</div>
       </div>
     </div>
   );
@@ -131,7 +131,7 @@ export default function DeactivateAccountCard() {
 
   return (
     <>
-      <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-4">
+      <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-2 sm:px-4 py-3 sm:py-4">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <h3 className="text-sm font-semibold text-[hsl(var(--foreground))]">

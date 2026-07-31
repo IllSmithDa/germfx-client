@@ -643,3 +643,19 @@ Next test priorities:
 4. Confirm user subscription updates from pending to active.
 5. Add or polish /billing/success UI.
 ```
+
+# .Next filesystem Error: 
+
+[Error: EINVAL: invalid argument, readlink 'C:\Users\thebl\OneDrive\Documents\Projects\sidefx-app\.next\server\interception-route-rewrite-manifest.js'] {
+  errno: -4071,
+  code: 'EINVAL',
+  syscall: 'readlink',
+  path: 'C:\\Users\\thebl\\OneDrive\\Documents\\Projects\\sidefx-app\\.next\\server\\interception-route-rewrite-manifest.js'
+}
+
+1. Similar Windows .next filesystem problems have been reported in Next.js, while Microsoft documents limitations and complications around links inside OneDrive-managed folders.
+
+3. Stop the development server, then run this from the project root in PowerShell:
+
+Remove-Item -Recurse -Force .next
+npm run dev:https

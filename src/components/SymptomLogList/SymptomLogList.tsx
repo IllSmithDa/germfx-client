@@ -154,7 +154,7 @@ export default function SymptomLogList({
 }: Props) {
   if (!logs?.length) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-[hsl(var(--border))] px-4 py-10 text-center sm:py-14">
+      <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-[hsl(var(--border))] px-2 sm:px-4 py-4 sm:py-6 text-center sm:py-14">
         <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))] sm:h-12 sm:w-12">
           <ClipboardList
             className="h-5 w-5 sm:h-6 sm:w-6"
@@ -224,7 +224,7 @@ export default function SymptomLogList({
                     ].join(" ")}
                   />
 
-                  <div className="pl-5 pr-3 pt-4 sm:pr-4">
+                  <div className="px-3 sm:px-4 py-2 sm:py-3">
                     <div className="min-w-0">
                       <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
                         {hasSeverity && tokens ? (
@@ -319,7 +319,7 @@ export default function SymptomLogList({
                     ) : null}
 
                     {!compact && hasDetails ? (
-                      <div className="mt-3 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2.5">
+                      <div className="mt-3 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2">
                         <div className="mb-1 flex items-center gap-1.5">
                           <NotesIcon />
                           <span className="text-[10px] font-semibold uppercase tracking-wide text-[hsl(var(--muted-foreground))] sm:text-xs">
@@ -334,7 +334,7 @@ export default function SymptomLogList({
                     ) : null}
                   </div>
 
-                  <div className="mt-4 flex flex-wrap items-center justify-end gap-2 border-t border-[hsl(var(--border))] px-3 py-3 pl-5 sm:px-4 sm:pl-5">
+                  <div className="mt-2 flex flex-wrap items-center justify-end gap-2 border-t border-[hsl(var(--border))] px-3 py-3">
                     <EditSymptomLogModal
                       userId={Number(userId)}
                       log={log}

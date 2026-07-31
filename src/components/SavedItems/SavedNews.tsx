@@ -182,7 +182,7 @@ export default function SavedNewsTab({
   const totalPages = Math.max(1, Math.ceil((news.total || 0) / pageSize));
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-3 shadow-sm sm:p-5">
+    <div className="overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-2 shadow-sm sm:p-4">
       <div className="mb-4 w-full sm:flex sm:justify-end">
         <SavedItemsSortSelect
           value={sort}
@@ -198,7 +198,7 @@ export default function SavedNewsTab({
       </div>
 
       {news.items.length === 0 ? (
-        <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 text-sm text-[hsl(var(--muted-foreground))]">
+        <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-2 sm:p-4 text-sm text-[hsl(var(--muted-foreground))]">
           No saved news found.
         </div>
       ) : (

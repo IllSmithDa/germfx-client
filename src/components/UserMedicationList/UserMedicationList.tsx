@@ -71,7 +71,7 @@ function NotesBlock({ notes }: { notes: string }) {
   const needsExpand = preview !== trimmed;
 
   return (
-    <div className="mt-3 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--muted)/0.4)] px-3 py-2.5">
+    <div className="mt-3 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--muted)/0.4)] px-2 sm:px-4 py-2 sm:py-3">
       <div className="mb-1 flex items-center gap-1.5">
         <svg
           className="h-3 w-3 text-[hsl(var(--muted-foreground))]"
@@ -225,7 +225,7 @@ export default function UserMedicationList({ medications }: Props) {
               ].join(" ")}
             />
 
-            <div className="p-3 pl-4 sm:p-5 sm:pl-6">
+            <div className="p-2 pl-4 sm:p-5 sm:pl-6">
               <div className="min-w-0">
                 <div className="mb-2 flex max-w-full flex-wrap items-center gap-1.5 sm:mb-3 sm:gap-2">
                   <span

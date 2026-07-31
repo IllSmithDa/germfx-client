@@ -117,7 +117,7 @@ export default function UsageLimitNotice({
   return (
     <div
       className={[
-        "rounded-2xl border px-4 py-3 text-sm shadow-sm",
+        "rounded-2xl border px-2 sm:px-4 py-2 sm:py-3 text-sm shadow-sm",
         isReached
           ? "border-rose-400/30 bg-rose-500/10"
           : "border-[hsl(var(--border))] bg-[hsl(var(--card))]",

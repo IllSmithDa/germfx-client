@@ -47,29 +47,29 @@ export default function SavedItemPagination({
       {currentPage > 1 ? (
         <Link
           href={buildHref(currentPage - 1)}
-          className="rounded-lg px-3 py-1.5 text-sm font-medium hover:bg-[hsl(var(--muted))]"
+          className="rounded-lg px-3 py-1.5 text-xs sm:text-sm font-medium hover:bg-[hsl(var(--muted))]"
         >
           ← Previous
         </Link>
       ) : (
-        <span className="rounded-lg px-3 py-1.5 text-sm font-medium opacity-40">
+        <span className="rounded-lg px-3 py-1.5 text-xs sm:text-sm font-medium opacity-40">
           ← Previous
         </span>
       )}
 
-      <span className="text-sm text-[hsl(var(--muted-foreground))]">
+      <span className="text-sm text-[hsl(var(--muted-foreground))] text-xs sm:text-sm">
         Page {currentPage} of {totalPages}
       </span>
 
       {currentPage < totalPages ? (
         <Link
           href={buildHref(currentPage + 1)}
-          className="rounded-lg px-3 py-1.5 text-sm font-medium hover:bg-[hsl(var(--muted))]"
+          className="rounded-lg px-3 py-1.5 text-xs sm:text-sm font-medium hover:bg-[hsl(var(--muted))]"
         >
           Next →
         </Link>
       ) : (
-        <span className="rounded-lg px-3 py-1.5 text-sm font-medium opacity-40">
+        <span className="rounded-lg px-3 py-1.5 text-xs sm:text-sm font-medium opacity-40">
           Next →
         </span>
       )}

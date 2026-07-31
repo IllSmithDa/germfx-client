@@ -36,7 +36,7 @@ type FeedbackState = { ok: boolean; message: string } | null;
 // ── Shared styles ─────────────────────────────────────────────────────────────
 
 const inputClass =
-  "w-full rounded-xl border border-[hsl(var(--input,var(--border)))] bg-[hsl(var(--background))] px-3 py-2.5 text-sm text-[hsl(var(--foreground))] outline-none transition-shadow focus:ring-2 focus:ring-[hsl(var(--ring))] placeholder:text-[hsl(var(--muted-foreground))/50]";
+  "w-full rounded-xl border border-[hsl(var(--input,var(--border)))] bg-[hsl(var(--background))] px-2 sm:px-4 py-3 sm:py-4 text-sm text-[hsl(var(--foreground))] outline-none transition-shadow focus:ring-2 focus:ring-[hsl(var(--ring))] placeholder:text-[hsl(var(--muted-foreground))/50]";
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
@@ -56,7 +56,7 @@ function SectionCard({
   return (
     <section className="overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-sm">
       <div className={["h-0.5 w-full opacity-60", accentClass].join(" ")} />
-      <div className="flex items-center gap-2.5 border-b border-[hsl(var(--border))] px-6 py-4">
+      <div className="flex items-center gap-2.5 border-b border-[hsl(var(--border))] px-2 sm:px-4 py-3 sm:py-4">
         {icon && (
           <span className="shrink-0 text-[hsl(var(--muted-foreground))]">{icon}</span>
         )}
@@ -67,7 +67,7 @@ function SectionCard({
           )}
         </div>
       </div>
-      <div className="px-6 py-5">{children}</div>
+      <div className="px-2 sm:px-4 py-3 sm:py-4">{children}</div>
     </section>
   );
 }

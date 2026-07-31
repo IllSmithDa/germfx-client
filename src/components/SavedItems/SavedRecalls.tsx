@@ -33,14 +33,14 @@ function RecallSavedCard({ item }: { item: SavedItem }) {
   const distribution = getSnapshotString(item, "distribution");
 
   return (
-    <article className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-4 shadow-sm">
-      <div className="flex flex-wrap items-center gap-2">
-        <span className="rounded-full border border-amber-400/30 bg-amber-500/10 px-2.5 py-1 text-[11px] font-medium text-amber-600 dark:text-amber-400">
+    <article className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-2 sm:p-4 shadow-sm">
+      <div className="flex flex-wrap items-center gap-2 justify-between sm:justify-start">
+        <span className="rounded-full border border-amber-400/30 bg-amber-500/10 px-2.5 py-1 text-[11px] font-medium text-amber-600 dark:text-amber-400 hidden sm:block">
           Saved Recall
         </span>
 
         {classification && (
-          <span className="rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--muted))] px-2 py-1 text-[11px] text-[hsl(var(--muted-foreground))]">
+          <span className="rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--muted))] px-2 py-1 text-[11px] text-[hsl(var(--muted-foreground))] hidden sm:block">
             {classification}
           </span>
         )}
@@ -54,7 +54,7 @@ function RecallSavedCard({ item }: { item: SavedItem }) {
         <UnsaveButton savedItemId={item.id} />
       </div>
 
-      <h3 className="mt-3 text-base font-semibold leading-6">{item.title}</h3>
+      <h3 className="mt-3 text-sm sm:text-base font-semibold leading-6">{item.title}</h3>
 
       {item.summary && (
         <p className="mt-2 text-sm leading-6 text-[hsl(var(--muted-foreground))]">
@@ -104,8 +104,8 @@ export default function SavedRecalls({
   const totalPages = Math.max(1, Math.ceil((recalls.total || 0) / pageSize));
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-3 shadow-sm sm:p-5">
-      <div className="mb-4 w-full sm:flex sm:justify-end">
+    <div className="overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-2 shadow-sm sm:p-4">
+      <div className="mb-3 w-full sm:flex sm:justify-end">
         <SavedItemSortSelect
           value={sort}
           baseUrl={baseUrl as string}
@@ -135,7 +135,7 @@ export default function SavedRecalls({
         */}
 
       {recalls.items.length === 0 ? (
-        <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 text-sm text-[hsl(var(--muted-foreground))]">
+        <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-2 sm:p-4 text-sm text-[hsl(var(--muted-foreground))]">
           No saved recalls found.
         </div>
       ) : (

@@ -93,7 +93,7 @@ function MedicationUsageTable({ items }: { items: MedicationUsageReportItem[] })
             {["Medication", "Start", "End", "Status", "Days"].map((h) => (
               <th
                 key={h}
-                className="pb-3 pr-4 text-left text-xs font-medium uppercase tracking-wide text-[hsl(var(--muted-foreground))] last:pr-0"
+                className="px-2 sm:px-4 py-3 sm:py-4 text-left text-xs font-medium uppercase tracking-wide text-[hsl(var(--muted-foreground))] last:pr-0"
               >
                 {h}
               </th>
@@ -108,7 +108,7 @@ function MedicationUsageTable({ items }: { items: MedicationUsageReportItem[] })
                 key={item.user_medication_id}
                 className="border-b border-[hsl(var(--border))] last:border-b-0 hover:bg-[hsl(var(--muted)/0.3)] transition-colors"
               >
-                <td className="py-3 pr-4">
+                <td className="px-2 sm:px-4 py-3 sm:py-4">
                   <div className="flex items-center gap-2">
                     <span
                       className={[
@@ -119,15 +119,15 @@ function MedicationUsageTable({ items }: { items: MedicationUsageReportItem[] })
                     <span className="font-medium">{label}</span>
                   </div>
                 </td>
-                <td className="py-3 pr-4 text-[hsl(var(--muted-foreground))]">
+                <td className="px-2 sm:px-4 py-3 sm:py-4 text-[hsl(var(--muted-foreground))]">
                   {item.start_date ?? "—"}
                 </td>
-                <td className="py-3 pr-4 text-[hsl(var(--muted-foreground))]">
+                <td className="px-2 sm:px-4 py-3 sm:py-4 text-[hsl(var(--muted-foreground))]">
                   {item.end_date ?? (
                     <span className="text-green-600 dark:text-green-400 font-medium">Active</span>
                   )}
                 </td>
-                <td className="py-3 pr-4">
+                <td className="px-2 sm:px-4 py-3 sm:py-4">
                   {item.is_active ? (
                     <span className="inline-flex items-center gap-1 rounded-full border border-green-400/40 bg-green-500/10 px-2 py-0.5 text-xs font-medium text-green-600 dark:text-green-400">
                       <span className="inline-block h-1.5 w-1.5 rounded-full bg-green-500" />
@@ -203,7 +203,7 @@ export default function MedicationReportsPanel({
   const inactiveCount = Math.max(medicationUsage.length - activeMedicationCount, 0);
 
   return (
-    <div role="tabpanel" className="space-y-5 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 shadow-sm">
+    <div role="tabpanel" className="space-y-5 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-2 sm:px-4 py-3 sm:py-4 shadow-sm">
       {/* Sub-header */}
       <div className="flex items-center justify-between gap-3">
         <p className="text-sm text-[hsl(var(--muted-foreground))]">

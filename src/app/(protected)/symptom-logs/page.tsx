@@ -81,39 +81,38 @@ export default async function SymptomLogsPage({ searchParams }: Props) {
 
   return (
     <div className="min-h-[calc(100vh-57px)] bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
-      <main className="mx-auto max-w-5xl space-y-6 px-4 py-6 sm:py-10">
+      <main className="mx-auto max-w-5xl space-y-6 px-2 sm:px-5 py-3 sm:py-5 sm:py-10">
         <section className="overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-sm">
-          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[hsl(var(--border))] px-5 py-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[hsl(var(--border))] px-2 sm:px-5 py-3 sm:py-4">
             <div>
-              <h1 className="text-xl font-bold sm:text-2xl">Symptom Logs</h1>
+              <h1 className="text-lg font-bold sm:text-2xl">Symptom Logs</h1>
               <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">
                 Review, edit, and manage your logged symptoms.
               </p>
             </div>
-
-            <div className="flex flex-wrap items-center gap-2">
-              <SymptomLogSortSelect value={sort} />
-
-              <Link
-                href={CLIENT_PATHS.logSymptomsPath()}
-                className="inline-flex items-center rounded-lg border border-violet-400/40 bg-violet-500/10 px-3 py-1.5 text-xs font-semibold text-violet-600 hover:bg-violet-500/20 dark:text-violet-400"
-              >
-                Log symptom
-              </Link>
-            </div>
+            <SymptomLogSortSelect value={sort} />
           </div>
 
-          <div className="px-5 py-4">
-            <div className="mb-4 flex flex-wrap items-center gap-2">
-              <span className="rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--muted))] px-2.5 py-1 text-xs text-[hsl(var(--muted-foreground))]">
-                {total} total logs
-              </span>
+          <div className="px-2 sm:px5 py-3 sm:py-4">
+            <div className="flex justify-between mb-3">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--muted))] px-2.5 py-1 text-xs text-[hsl(var(--muted-foreground))]">
+                  {total} total logs
+                </span>
 
-              <span className="rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--muted))] px-2.5 py-1 text-xs text-[hsl(var(--muted-foreground))]">
-                {logs.length} shown
-              </span>
+                <span className="rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--muted))] px-2.5 py-1 text-xs text-[hsl(var(--muted-foreground))] hidden sm:block">
+                  {logs.length} shown
+                </span>
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <Link
+                  href={CLIENT_PATHS.logSymptomsPath()}
+                  className="inline-flex items-center rounded-lg border border-violet-400/40 bg-violet-500/10 px-3 py-1.5 text-xs font-semibold text-violet-600 hover:bg-violet-500/20 dark:text-violet-400"
+                >
+                  Log symptom
+                </Link>
+              </div>
             </div>
-
             <SymptomLogList
               logs={logs}
               userId={user.id}

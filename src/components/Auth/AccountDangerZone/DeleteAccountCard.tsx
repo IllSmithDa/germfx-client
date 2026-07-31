@@ -22,7 +22,7 @@ function Feedback({ state }: { state: FeedbackState }) {
   return (
     <div
       className={[
-        "rounded-xl border px-3.5 py-3 text-sm",
+        "rounded-xl border px-2 sm:px-4 py-3 sm:py-4 text-sm",
         state.ok
           ? "border-emerald-400/40 bg-emerald-500/8 text-emerald-700 dark:text-emerald-400"
           : "border-rose-400/40 bg-rose-500/8 text-rose-700 dark:text-rose-400",
@@ -41,7 +41,7 @@ function WarningBox({
   lines: string[];
 }) {
   return (
-    <div className="rounded-xl border border-rose-400/30 bg-rose-500/8 px-4 py-3">
+    <div className="rounded-xl border border-rose-400/30 bg-rose-500/8 px-2 sm:px-4 py-3 sm:py-4">
       <p className="text-sm font-semibold text-rose-700 dark:text-rose-400">
         {title}
       </p>
@@ -97,7 +97,7 @@ function Modal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4">
       <div className="w-full max-w-md rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-2xl">
-        <div className="border-b border-[hsl(var(--border))] px-5 py-4">
+        <div className="border-b border-[hsl(var(--border))] px-2 sm:px-4 py-3 sm:py-4">
           <h3 className="text-base font-semibold text-[hsl(var(--foreground))]">
             {title}
           </h3>
@@ -107,7 +107,7 @@ function Modal({
             </p>
           ) : null}
         </div>
-        <div className="px-5 py-4">{children}</div>
+        <div className="px-2 sm:px-4 py-3 sm:py-4">{children}</div>
       </div>
     </div>
   );
@@ -157,7 +157,7 @@ export default function DeleteAccountCard() {
 
   return (
     <>
-      <div className="rounded-xl border border-rose-400/30 bg-rose-500/8 p-4">
+      <div className="rounded-xl border border-rose-400/30 bg-rose-500/8 px-2 sm:px-4 py-3 sm:py-4">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <h3 className="text-sm font-semibold text-rose-700 dark:text-rose-400">

@@ -137,7 +137,7 @@ function RecallCard({
   const displayDate = formatRecallDate(item.report_date || item.recall_date);
 
   return (
-    <article className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-4 shadow-sm">
+    <article className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-2 sm:p-4 shadow-sm">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex flex-wrap items-center gap-2">
           <StatBadge className={sourceTone(item.source)}>
@@ -165,7 +165,7 @@ function RecallCard({
       </div>
 
       <div className="mt-3 space-y-3">
-        <h3 className="text-base font-semibold leading-6 text-[hsl(var(--foreground))]">
+        <h3 className="text-sm sm:text-base font-semibold leading-6 text-[hsl(var(--foreground))]">
           {item.title}
         </h3>
 
@@ -262,7 +262,7 @@ export default function RecallListView({
   
   return (
     <section className="border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-sm overflow-hidden">
-      <div className="border-b border-[hsl(var(--border))] px-4 py-4 sm:px-5">
+      <div className="border-b border-[hsl(var(--border))] px-2 sm:px-4 py-3 sm:py-4 sm:px-5">
         <div className="flex flex-col gap-4">
           <div>
             <h2 className="text-sm font-semibold text-[hsl(var(--foreground))]">
@@ -298,7 +298,7 @@ export default function RecallListView({
         </div>
       </div>
 
-      <div className="px-5 py-4">
+      <div className="px-2 sm:px-4 py-3 sm:py-4">
         <div className="mb-4 flex flex-wrap gap-2">
           <StatBadge className="border-[hsl(var(--border))] bg-[hsl(var(--muted))] text-[hsl(var(--foreground))]">
             {items.length} shown
