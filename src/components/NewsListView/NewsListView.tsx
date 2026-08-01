@@ -285,7 +285,7 @@ function DesktopArticleCard({
   const reactionSummary = reactionMap?.[article.id];
 
   return (
-    <article className="hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-4 shadow-sm transition-colors hover:bg-[hsl(var(--muted)/0.35)] sm:block">
+    <article className="hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-2 sm:p-4 shadow-sm transition-colors hover:bg-[hsl(var(--muted)/0.35)] sm:block">
       <div className="flex items-start gap-4">
         <ArticleImageLink article={article} />
 
@@ -314,7 +314,7 @@ function DesktopArticleCard({
         </div>
       </div>
 
-      <div className="mt-4 border-t border-[hsl(var(--border))] pt-3">
+      <div className="mt-2 sm:mt-4 border-t border-[hsl(var(--border))] pt-3">
         <ArticleActions
           article={article}
           savedStatus={savedStatus}
@@ -382,7 +382,7 @@ export default function NewsListView({
   return (
     <div
       role={role}
-      className={["space-y-4 sm:space-y-3", className].filter(Boolean).join(" ")}
+      className={["space-y-3 sm:space-y-5", className].filter(Boolean).join(" ")}
     >
       {articles.map((article) => (
         <NewsArticleCard

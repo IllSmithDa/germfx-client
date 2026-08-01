@@ -96,7 +96,7 @@ export default async function DrugSearchResultPage(
 
   return (
     <div className="min-h-[calc(100vh-57px)] bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
-      <main className="mx-auto max-w-5xl px-4 py-8 space-y-6">
+      <main className="mx-auto max-w-5xl px-2 sm:px-4 py-4 sm:py-8 space-y-2 sm:space-y-6">
 
         {/* Search bar */}
         <DrugSearchBar action={searchDrug} />
@@ -105,7 +105,7 @@ export default async function DrugSearchResultPage(
         <CodeLookupBar />
 
         {/* Results header */}
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center justify-between gap-3 pt-2 sm:pt-4">
           <div>
             <h1 className="text-lg font-bold sm:text-xl">
               Results for{" "}
@@ -131,10 +131,22 @@ export default async function DrugSearchResultPage(
               </p>
             )}
           </div>
-            
+          <div className="hidden sm:block">
+            <Link
+              href={CLIENT_PATHS.homePath()}
+              className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] transition-colors shrink-0"
+            >
+              <svg className="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <polyline points="10,3 4,8 10,13" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Home
+            </Link>
+          </div>
+        </div>
+        <div className="flex justify-end">
           <Link
             href={CLIENT_PATHS.homePath()}
-            className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] transition-colors shrink-0"
+            className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] transition-colors shrink-0 align-right block sm:hidden"
           >
             <svg className="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
               <polyline points="10,3 4,8 10,13" strokeLinecap="round" strokeLinejoin="round" />
@@ -142,7 +154,6 @@ export default async function DrugSearchResultPage(
             Home
           </Link>
         </div>
-
         {/* Results list */}
         {results.length > 0 ? (
           <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-sm overflow-hidden">
@@ -156,7 +167,7 @@ export default async function DrugSearchResultPage(
                   <li key={`${r.type}:${r.name}:${idx}`} className="group">
                     <Link
                       href={CLIENT_PATHS.drugInfoPath(r.id, r.name)}
-                      className="flex items-center justify-between gap-4 px-5 py-4 hover:bg-[hsl(var(--background))] focus:outline-none focus:bg-[hsl(var(--background))] transition-colors"
+                      className="flex items-center justify-between gap-4 px-2 sm:px-4 py-3 sm:py-4 hover:bg-[hsl(var(--background))] focus:outline-none focus:bg-[hsl(var(--background))] transition-colors"
                     >
                       {/* Left */}
                       <div className="min-w-0 flex-1">

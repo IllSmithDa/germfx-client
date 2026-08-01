@@ -182,7 +182,7 @@ export default async function DrugDetailPage({
 
           <div className="flex flex-col gap-4 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-5 sm:py-5">
             <div className="min-w-0">
-              <h1 className="break-words text-2xl font-bold capitalize leading-tight sm:text-3xl">
+              <h1 className="break-words text-lg font-bold capitalize leading-tight sm:text-3xl">
                 {displayName}
               </h1>
 

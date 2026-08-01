@@ -161,7 +161,7 @@ export default function UserMedicationControls({
           }
           className={[
             "mt-2 inline-flex cursor-pointer items-center gap-2 rounded-xl border border-[hsl(var(--border))]",
-            "bg-[hsl(var(--card))] px-4 py-2 text-sm font-medium",
+            "bg-[hsl(var(--card))] px-4 py-2 text-xs sm:text-sm font-medium",
             "text-[hsl(var(--foreground))] shadow-sm transition-colors",
             "hover:opacity-90",
             "disabled:cursor-not-allowed disabled:opacity-60",
@@ -207,7 +207,7 @@ export default function UserMedicationControls({
           <div className="relative z-10 w-full max-w-lg overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-xl">
             <div className="h-0.5 w-full bg-gradient-to-r from-sky-500 via-violet-500 to-rose-500 opacity-60" />
 
-            <div className="flex items-center justify-between gap-3 border-b border-[hsl(var(--border))] px-5 py-4">
+            <div className="flex items-center justify-between gap-3 border-b border-[hsl(var(--border))] px-2 sm:px-4 py-2 sm:py-4">
               <div className="flex items-center gap-2.5">
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-sky-400/30 bg-sky-500/10">
                   <svg
@@ -307,7 +307,7 @@ export default function UserMedicationControls({
               </div>
             )}
 
-            <div className="max-h-[calc(100svh-14rem)] overflow-y-auto px-5 py-5">
+            <div className="max-h-[calc(100svh-14rem)] overflow-y-auto px-2 sm:px-4 py-2 sm:py-4">
               <UserMedicationForm
                 error={error ?? undefined}
                 isSaving={isSaving}

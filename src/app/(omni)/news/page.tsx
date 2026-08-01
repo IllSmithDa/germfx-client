@@ -47,9 +47,9 @@ export default async function NewsPage({
     <div className="min-h-[calc(100vh-57px)] bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
       <main className="mx-auto max-w-5xl space-y-3 sm:space-y-6 px-2 py-2 sm:py-6">
         <section>
-          <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
+          <div className="mb-3 flex flex-wrap items-end justify-between gap-2 sm:gap-5">
             <div>
-              <h1 className="text-xl font-bold sm:text-2xl">Health News</h1>
+              <h1 className="text-lg font-bold sm:text-2xl">Health News</h1>
               <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">
                 Browse recent medication, recall, and health-related stories.
               </p>

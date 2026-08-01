@@ -300,7 +300,7 @@ export default function SymptomLogList({
                     {hasTrigger || hasManagement ? (
                       <div
                         className={[
-                          "mt-3 grid gap-2",
+                          "mt-2 sm:mt-4 grid gap-2",
                           contextCount === 2
                             ? "sm:grid-cols-2"
                             : "sm:grid-cols-1",
@@ -319,7 +319,7 @@ export default function SymptomLogList({
                     ) : null}
 
                     {!compact && hasDetails ? (
-                      <div className="mt-3 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2">
+                      <div className=" mt-2sm:mt-4 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2">
                         <div className="mb-1 flex items-center gap-1.5">
                           <NotesIcon />
                           <span className="text-[10px] font-semibold uppercase tracking-wide text-[hsl(var(--muted-foreground))] sm:text-xs">
@@ -334,7 +334,7 @@ export default function SymptomLogList({
                     ) : null}
                   </div>
 
-                  <div className="mt-2 flex flex-wrap items-center justify-end gap-2 border-t border-[hsl(var(--border))] px-3 py-3">
+                  <div className="flex flex-wrap items-center justify-end gap-2 border-t border-[hsl(var(--border))] px-3 py-3">
                     <EditSymptomLogModal
                       userId={Number(userId)}
                       log={log}

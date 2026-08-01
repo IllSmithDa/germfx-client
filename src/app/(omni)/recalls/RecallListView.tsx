@@ -2,10 +2,8 @@
 
 import ContentReactionBar from "@/components/ContentReactionBar/ContentReactionBar";
 import SaveRecallButton from "@/components/SaveRecallButton/SaveRecallButton";
-import RecallSortSelect from "./RecallSortSelect";
+import RecallFiltersPanel from "./RecallFiltersPanel";
 import type { RecallItem, RecallSort } from "@/types/recalls";
-import RecallTypeFilter from "@/components/RecallFilters/RecallTypeFilter";
-import RecallStateFilter from "@/components/RecallFilters/RecallStateFilter";
 import type {
   ReactionSummaryMap,
   SavedCheckMap,
@@ -262,40 +260,12 @@ export default function RecallListView({
   
   return (
     <section className="border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-sm overflow-hidden">
-      <div className="border-b border-[hsl(var(--border))] px-2 sm:px-4 py-3 sm:py-4 sm:px-5">
-        <div className="flex flex-col gap-4">
-          <div>
-            <h2 className="text-sm font-semibold text-[hsl(var(--foreground))]">
-              Browse recalls
-            </h2>
-            <p className="mt-1 text-xs leading-5 text-[hsl(var(--muted-foreground))]">
-              Filter by recall type and state, then choose how results are sorted.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-3 sm:flex sm:flex-wrap">
-            <div className="min-w-0 space-y-1.5 [&>*]:!w-full">
-              <p className="text-xs font-medium text-[hsl(var(--muted-foreground))]">
-                Recall type
-              </p>
-              <RecallTypeFilter value={source} />
-            </div>
-
-            <div className="min-w-0 space-y-1.5 [&>*]:!w-full">
-              <p className="text-xs font-medium text-[hsl(var(--muted-foreground))]">
-                State
-              </p>
-              <RecallStateFilter value={state} />
-            </div>
-
-            <div className="min-w-0 space-y-1.5 sm:col-span-2 lg:col-span-1 [&>*]:!w-full">
-              <p className="text-xs font-medium text-[hsl(var(--muted-foreground))]">
-                Sort by
-              </p>
-              <RecallSortSelect value={sort} />
-            </div>
-          </div>
-        </div>
+      <div className="border-b border-[hsl(var(--border))] px-3 py-3 sm:px-5 sm:py-4">
+        <RecallFiltersPanel
+          source={source}
+          state={state}
+          sort={sort}
+        />
       </div>
 
       <div className="px-2 sm:px-4 py-3 sm:py-4">

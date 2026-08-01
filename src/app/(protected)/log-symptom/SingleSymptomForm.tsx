@@ -165,12 +165,12 @@ export default function SingleSymptomForm({
 
   return (
     <div className="min-h-[calc(100vh-57px)] bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
-      <div className="mx-auto max-w-5xl px-4 py-6 pb-28 sm:py-10 sm:pb-10">
+      <div className="mx-auto max-w-5xl p-2 sm:p-4 pb-20">
         <UsageLimitNotice
           featureKey="symptom_logs"
           status={symptomLogUsageStatus}
         />
-        <div className="mb-6 mt-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mb-2 sm:mb-6 mt-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-xl font-bold sm:text-2xl">{title}</h1>
 
@@ -202,23 +202,12 @@ export default function SingleSymptomForm({
 
         <form
           onSubmit={handleSubmit(onSubmitForm)}
-          className="overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-sm"
+          className="overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-sm "
         >
-          <div className="space-y-4 px-5 py-5">
             <div className="relative overflow-hidden rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))]">
               <div className="absolute inset-y-0 left-0 w-0.5 bg-violet-500/50" />
 
-              <div className="space-y-4 py-4 pl-4 pr-4">
-                <div className="flex items-center gap-2">
-                  <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-violet-400/30 bg-violet-500/15 text-[10px] font-bold text-violet-600 dark:text-violet-400">
-                    1
-                  </span>
-
-                  <span className="text-xs font-semibold uppercase tracking-wide text-[hsl(var(--muted-foreground))]">
-                    Symptom entry
-                  </span>
-                </div>
-
+              <div className="space-y-4 sm:space-y-6 p-3 sm:p-5">
                 <div>
                   <FieldLabel>Date</FieldLabel>
 
@@ -413,7 +402,6 @@ export default function SingleSymptomForm({
                 {submitError}
               </div>
             ) : null}
-          </div>
 
           <div className="flex items-center justify-end gap-2 border-t border-[hsl(var(--border))] px-5 py-4">
             <Link

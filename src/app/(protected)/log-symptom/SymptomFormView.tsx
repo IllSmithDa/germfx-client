@@ -139,12 +139,12 @@ export default function SymptomFormView({
 
   return (
     <div className="min-h-[calc(100vh-57px)] bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
-      <div className="mx-auto max-w-3xl px-4 py-6 pb-28 sm:py-10 sm:pb-10">
+      <div className="mx-auto max-w-5xl px-2 sm:px-4 py-2 sm:py-4 sm:py-10">
 
         {/* Page header */}
         <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-xl font-bold sm:text-2xl">Log Symptoms</h1>
+            <h1 className="text-lg font-bold sm:text-2xl">Log Symptoms</h1>
             <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">{description}</p>
           </div>
           <Link
@@ -163,7 +163,7 @@ export default function SymptomFormView({
           onSubmit={handleSubmit(onSubmitForm)}
           className="overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-sm"
         >
-          <div className="space-y-4 px-5 py-5">
+          <div className="space-y-2 px-2 py-2 sm:px-4 sm:py-4 sm:space-y-4">
 
             {/* Entries list header */}
             <div className="flex items-center justify-between">
@@ -214,7 +214,7 @@ export default function SymptomFormView({
                   {/* Left violet accent strip */}
                   <div className="absolute inset-y-0 left-0 w-0.5 bg-violet-500/50" />
 
-                  <div className="space-y-4 py-4 pl-4 pr-4">
+                  <div className="space-y-2 py-2 px-2 sm:px-4 sm:py-4">
 
                     {/* Entry header */}
                     <div className="flex items-center justify-between gap-2">
@@ -320,7 +320,7 @@ export default function SymptomFormView({
                         </select>
                       </div>
                     )}
-                    <div className="rounded-xl border border-dashed border-[hsl(var(--border))] bg-[hsl(var(--muted))]/20 p-4">
+                    <div className="rounded-xl border border-dashed border-[hsl(var(--border))] bg-[hsl(var(--muted))]/20 p-2 sm:p-4">
                       <div className="mb-4">
                         <span className="text-xs font-semibold uppercase tracking-wide">
                           Additional context optional
@@ -398,9 +398,8 @@ export default function SymptomFormView({
               );
             })}
           </div>
-
           {/* Footer actions */}
-          <div className="flex items-center justify-end gap-2 border-t border-[hsl(var(--border))] px-5 py-4">
+          <div className="flex items-center justify-end gap-2 border-t border-[hsl(var(--border))] p-2 sm:p-4">
             <Link
               href={CLIENT_PATHS.homePath()}
               className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-4 py-2 text-sm font-medium transition-colors hover:bg-[hsl(var(--muted))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] cursor-pointer"
@@ -411,7 +410,7 @@ export default function SymptomFormView({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="inline-flex items-center gap-2 rounded-xl bg-[hsl(var(--primary))] px-4 py-2 text-sm font-semibold text-[hsl(var(--primary-foreground))] shadow-sm transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] cursor-pointer"
+              className="inline-flex items-center gap-2 rounded-xl bg-[hsl(var(--primary))] p-2 sm:p-4 text-sm font-semibold text-[hsl(var(--primary-foreground))] shadow-sm transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] cursor-pointer"
             >
               {isSubmitting ? (
                 <>

@@ -212,7 +212,7 @@ export default async function NewsResults({
 
   return (
     <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-2 sm:p-5">
-      <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mb-2 sm:mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-[hsl(var(--muted-foreground))]">
           Page {finalPage} of {totalPages}
         </p>

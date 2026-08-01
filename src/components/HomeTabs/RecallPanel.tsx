@@ -265,7 +265,7 @@ export default function RecallPanel({
 }: RecallPanelProps) {
   return (
     <section className="overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-sm">
-      <div className="flex items-center justify-between gap-3 border-b border-[hsl(var(--border))] px-3 py-3 sm:px-5 sm:py-4">
+      <div className="flex items-center justify-between gap-3 border-b border-[hsl(var(--border))] p-2 sm:p-4">
         <div className="min-w-0">
           <h2 className="truncate text-base font-semibold leading-5 text-[hsl(var(--foreground))] sm:text-lg sm:leading-6">
             {title}

@@ -200,7 +200,7 @@ export default function UserMedicationForm({
   }
 
   return (
-    <form onSubmit={form.handleSubmit(handleValid)} className="min-w-0 space-y-4 overflow-x-hidden sm:space-y-5">
+    <form onSubmit={form.handleSubmit(handleValid)} className="min-w-0 space-y-2 overflow-x-hidden sm:space-y-5">
       <UsageLimitNotice
         featureKey="user_medications"
         status={userMedicationUsageStatus}
@@ -212,7 +212,7 @@ export default function UserMedicationForm({
 
       {/* Root error */}
       {form.formState.errors.root?.message && (
-        <div className="rounded-xl border border-[hsl(var(--destructive))] bg-[hsl(var(--destructive)/0.08)] px-3 py-2.5 text-sm leading-5 text-[hsl(var(--destructive))] sm:px-4">
+        <div className="rounded-xl border border-[hsl(var(--destructive))] bg-[hsl(var(--destructive)/0.08)] px-2 py-2 sm:px-3 sm:py-3 text-sm leading-5 text-[hsl(var(--destructive))] sm:px-4">
           {form.formState.errors.root.message}
         </div>
       )}
@@ -224,7 +224,7 @@ export default function UserMedicationForm({
       )}
 
       {/* ── Status toggle ── */}
-      <div className="flex items-center justify-between gap-3 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-3 sm:gap-4 sm:px-4">
+      <div className="flex items-center justify-between gap-3 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-2 py-2 sm:gap-4 sm:px-4">
         <div className="min-w-0">
           <div className="text-sm font-semibold leading-5">Currently taking</div>
           <div className="mt-0.5 text-xs leading-5 text-[hsl(var(--muted-foreground))]">
@@ -367,7 +367,7 @@ export default function UserMedicationForm({
           type="button"
           disabled={submitting}
           onClick={() => setShowAdvanced((v) => !v)}
-          className="flex min-h-11 w-full cursor-pointer items-center justify-between gap-2 px-3 py-3 text-sm font-medium transition-colors hover:bg-[hsl(var(--muted)/0.5)] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[hsl(var(--ring))] sm:px-4"
+          className="flex min-h-11 w-full cursor-pointer items-center justify-between gap-2 px-3 py-2 text-sm font-medium transition-colors hover:bg-[hsl(var(--muted)/0.5)] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[hsl(var(--ring))] sm:px-4"
         >
           <span className="flex min-w-0 items-center gap-2 text-[hsl(var(--foreground))]">
             <svg className="w-3.5 h-3.5 text-[hsl(var(--muted-foreground))]" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -395,7 +395,7 @@ export default function UserMedicationForm({
         </button>
 
         {showAdvanced && (
-          <div className="min-w-0 space-y-3 overflow-hidden border-t border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-3 sm:space-y-4 sm:px-4 sm:py-4">
+          <div className="min-w-0 space-y-3 overflow-hidden border-t border-[hsl(var(--border))] bg-[hsl(var(--background))] px-2 py-2 sm:space-y-4 sm:px-4 sm:py-4">
             {/* Dosage */}
             <div className={fieldClass}>
               <FieldLabel htmlFor="dosage" optional>Dosage</FieldLabel>

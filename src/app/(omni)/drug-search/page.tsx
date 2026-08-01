@@ -38,9 +38,9 @@ const typeColors: Record<string, string> = {
 export default function DrugSearchPage() {
   return (
     <div className="min-h-[calc(100vh-57px)] bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
-      <main className="min-h-[calc(100vh-57px)] mx-auto flex max-w-2xl flex-col items-center justify-center px-4 py-16">
+      <main className="min-h-[calc(100vh-57px)] mx-auto flex max-w-2xl flex-col items-center justify-center px-2 sm:px-4 py-4 sm:py-16">
         {/* Back to home */}
-        <div className="mb-10 self-start">
+        <div className="mb-2 sm:mb-10 self-start">
           <Link
             href={CLIENT_PATHS.homePath()}
             className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] transition-colors"
@@ -139,7 +139,7 @@ export default function DrugSearchPage() {
         </div>
 
         {/* Divider */}
-        <div className="mt-12 flex items-center gap-3 w-full max-w-xs">
+        <div className="mt-4 sm:mt-12 flex items-center gap-3 w-full max-w-xs">
           <div className="flex-1 h-px bg-[hsl(var(--border))]" />
           <span className="text-xs text-[hsl(var(--muted-foreground))]">
             or
