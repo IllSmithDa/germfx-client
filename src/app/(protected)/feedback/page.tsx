@@ -4,8 +4,8 @@ import FeedbackButton from "@/components/UserFeedback/FeedbackButton";
 
 export default function FeedbackPage() {
   return (
-    <main className="mx-auto min-h-[calc(100vh-57px)] max-w-3xl px-4 py-8">
-      <section className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 shadow-sm sm:p-8">
+    <main className="mx-auto min-h-[calc(100vh-57px)] max-w-3xl px-2 sm:px-4 py-4 sm:py-8">
+      <section className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-2 shadow-sm sm:p-4">
         <div className="max-w-xl">
           <p className="text-xs font-semibold uppercase tracking-widest text-[hsl(var(--primary))]">
             SideFX feedback

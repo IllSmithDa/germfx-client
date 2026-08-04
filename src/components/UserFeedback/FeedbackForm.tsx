@@ -290,15 +290,12 @@ export default function FeedbackForm({
   return (
     <form onSubmit={handleSubmit} className={["space-y-5", className].join(" ")}>
       {error ? (
-        <div className="rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">
+        <div className="rounded-xl border border-red-500/40 bg-red-500/10 p-2 sm:p-4 text-sm text-red-700 dark:text-red-300">
           {error}
         </div>
       ) : null}
 
       <div className="space-y-2">
-        <label htmlFor="feedback-category" className="text-sm font-semibold">
-          Feedback type
-        </label>
         <select
           id="feedback-category"
           value={category}
@@ -318,7 +315,7 @@ export default function FeedbackForm({
         ) : null}
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-1 sm:space-y-2">
         <div className="flex items-center justify-between gap-3">
           <label className="text-sm font-semibold">Rating</label>
           <button
@@ -346,7 +343,7 @@ export default function FeedbackForm({
         </p>
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-1 sm:space-y-2">
         <div className="flex items-center justify-between gap-3">
           <label htmlFor="feedback-message" className="text-sm font-semibold">
             Message

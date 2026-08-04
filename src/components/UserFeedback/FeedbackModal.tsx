@@ -53,7 +53,7 @@ export default function FeedbackModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center px-2 py-2 sm:px-4 sm:py-6">
       <button
         type="button"
         aria-label="Close feedback form"
@@ -68,15 +68,15 @@ export default function FeedbackModal({
         aria-describedby="feedback-modal-description"
         className="relative max-h-[calc(100vh-3rem)] w-full max-w-2xl overflow-y-auto rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-2xl"
       >
-        <div className="sticky top-0 z-10 border-b border-[hsl(var(--border))] bg-[hsl(var(--card))]/95 px-5 py-4 backdrop-blur">
+        <div className="sticky top-0 z-10 border-b border-[hsl(var(--border))] bg-[hsl(var(--card))]/95 px-2 py-2 sm:py-5 sm:px-4 backdrop-blur">
           <div className="flex items-start justify-between gap-4">
-            <div>
-              <h2 id="feedback-modal-title" className="text-xl font-bold">
+            <div className="p-2">
+              <h2 id="feedback-modal-title" className="text-sm sm:text-xl font-bold">
                 {title}
               </h2>
               <p
                 id="feedback-modal-description"
-                className="mt-1 text-sm leading-6 text-[hsl(var(--muted-foreground))]"
+                className="mt-1 text-xs sm:text-sm leading-6 text-[hsl(var(--muted-foreground))] hidden sm:block"
               >
                 {description}
               </p>
@@ -86,14 +86,14 @@ export default function FeedbackModal({
               ref={closeButtonRef}
               type="button"
               onClick={() => onOpenChange(false)}
-              className="rounded-full border border-[hsl(var(--border))] px-3 py-1.5 text-sm font-semibold transition hover:bg-[hsl(var(--muted))] cursor-pointer"
+              className="rounded-full border border-[hsl(var(--border))] py-2 sm:py-3 px-3 sm:px-4 text-sm font-semibold transition hover:bg-[hsl(var(--muted))] cursor-pointer"
             >
               Close
             </button>
           </div>
         </div>
 
-        <div className="px-5 py-5">
+        <div className="p-2 sm:p-4">
           <FeedbackForm
             {...formProps}
             showCancel
