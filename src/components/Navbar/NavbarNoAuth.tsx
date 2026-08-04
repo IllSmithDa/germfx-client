@@ -275,6 +275,11 @@ export default function NavbarNoAuth() {
       label: "Recalls",
       icon: <AlertTriangle size={16} />,
     },
+    {
+      href: CLIENT_PATHS.drugSearchPage(),
+      label: "Search Medications",
+      icon: <Search size={16} />,
+    },
   ];
 
   const secondaryLinks = [

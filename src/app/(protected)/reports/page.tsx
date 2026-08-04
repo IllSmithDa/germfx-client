@@ -79,8 +79,8 @@ export default async function ReportsPage() {
       </div>
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold">Reports</h1>
-          <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">
+          <h1 className="text-md sm:text-2xl font-semibold">Reports</h1>
+          <p className="mt-1 text-xs sm:text-sm text-[hsl(var(--muted-foreground))]">
             Review symptom patterns and medication history over time.
           </p>
           <p className="mb-1 text-xs text-[hsl(var(--muted-foreground))] hidden sm:block">

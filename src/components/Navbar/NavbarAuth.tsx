@@ -22,6 +22,7 @@ import {
   ShieldCheck,
   MessageSquare,
   Sparkles,
+  Search,
 } from "lucide-react";
 import { ThemeToggle } from "../ThemeToggle/ThemeToggle";
 import FeedbackModal from "../UserFeedback/FeedbackModal";
@@ -370,6 +371,24 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
     </span>
   );
 
+  const mobileNavigationAvatar = user?.avatarUrl ? (
+    <Image
+      src={user.avatarUrl}
+      alt=""
+      width={36}
+      height={36}
+      className="size-full object-cover"
+      aria-hidden="true"
+    />
+  ) : (
+    <span
+      aria-hidden="true"
+      className="text-xs font-semibold text-sky-600 dark:text-sky-400"
+    >
+      {initials}
+    </span>
+  );
+
   const largeUserAvatar = user?.avatarUrl ? (
     <Image
       src={user.avatarUrl}
@@ -415,6 +434,11 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
       label: "Recalls",
       icon: <AlertTriangle size={16} />,
     },
+    {
+      href: CLIENT_PATHS.drugSearchPage(),
+      label: "Search Medications",
+      icon: <Search size={16} />,
+    },
     { href: "/bookmarks", label: "Bookmarks", icon: <Bookmark size={16} /> },
     { href: "/reports", label: "Reports", icon: <FileText size={16} /> },
     { href: "/account", label: "Account", icon: <User size={16} /> },
@@ -450,13 +474,13 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
           <div className="flex min-w-0 items-center gap-2">
             <button
               type="button"
-              className="inline-flex cursor-pointer items-center justify-center rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-1 text-[hsl(var(--foreground))] transition-colors hover:bg-[hsl(var(--muted))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] lg:hidden"
+              className="inline-grid size-9 shrink-0 cursor-pointer place-items-center overflow-hidden rounded-full border border-sky-400/30 bg-sky-500/15 text-sky-600 transition-colors hover:border-sky-400/50 hover:bg-sky-500/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(var(--muted))] dark:text-sky-400 lg:hidden"
               aria-label="Open account navigation"
               aria-expanded={drawerOpen}
               aria-controls="authenticated-mobile-menu"
               onClick={openMobileMenu}
             >
-              {userAvatar}
+              {mobileNavigationAvatar}
             </button>
 
             <Link
@@ -491,14 +515,14 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 ">
             <div className="relative" ref={searchRef}>
               {searchOpen ? (
                 <form
                   onSubmit={handleSearchSubmit}
                   className="flex items-center"
                 >
-                  <div className="relative">
+                  <div className="relative ">
                     <input
                       ref={searchInputRef}
                       type="text"
@@ -539,7 +563,7 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
                     setSearchOpen(true);
                   }}
                   aria-label="Search drugs"
-                  className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--muted-foreground))] transition-colors hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+                  className="hidden lg:inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--muted-foreground))] transition-colors hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
                 >
                   <svg
                     className="h-4 w-4"

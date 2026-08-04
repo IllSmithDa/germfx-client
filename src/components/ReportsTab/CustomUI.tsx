@@ -30,7 +30,7 @@ export function StatCard({
         )}
       </div>
 
-      <p className="mt-3 text-2xl font-bold tracking-tight">{value}</p>
+      <p className="mt-3 text-sm sm:text-xl font-bold tracking-tight">{value}</p>
 
       {subtitle && (
         <p className="mt-1.5 text-xs text-[hsl(var(--muted-foreground))]">{subtitle}</p>
