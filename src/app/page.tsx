@@ -132,7 +132,7 @@ export default async function Home() {
       {isLoggedIn && user ? <NavbarAuth user={user} /> : <NavbarNoAuth />}
 
       <div className="min-h-[calc(100vh-57px)] bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
-        <main className="mx-auto max-w-5xl space-y-4 px-2 py-4 sm:px-5 sm:py-6 md:space-y-8 md:py-10">
+        <main className="mx-auto max-w-5xl px-2 py-2 sm:px-5 sm:py-5 space-y-4 md:space-y-8 md:py-10">
           <section>
             <div className="hidden md:block">
               <p className="mb-3 flex items-start gap-1.5 px-1 text-xs text-[hsl(var(--muted-foreground))]">

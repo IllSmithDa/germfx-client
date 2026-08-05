@@ -136,7 +136,7 @@ export default function HomeTabs({
 
   return (
     <div>
-      <div className="mb-4 w-full px-0 sm:px-1">
+      <div className="mb-1 sm:mb-4 w-full px-0 sm:px-1">
         <div className="mx-auto w-full max-w-3xl">
           <SharedTabs
             tabs={tabs}
