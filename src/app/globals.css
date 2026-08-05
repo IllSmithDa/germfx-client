@@ -24,6 +24,9 @@ html {
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
 
+    /* Shared tab surface: slightly cooler/darker than the page background. */
+    --tabs-surface: 210 30% 97%;
+
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
@@ -69,6 +72,9 @@ html {
 
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
+
+    /* Shared tab surface: slightly raised from the dark page background. */
+    --tabs-surface: 220 36% 8%;
 
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;

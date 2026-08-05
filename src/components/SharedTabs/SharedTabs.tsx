@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import type React from "react";
+import { useEffect } from "react";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -41,6 +42,7 @@ export default function SharedTabs<T extends string>({
   hideCountsUntil = "never",
   layout = "auto",
   align = "start",
+  mobileBottomBar = true,
 }: {
   tabs: SharedTabItem<T>[];
   activeTab: T;
@@ -58,7 +60,18 @@ export default function SharedTabs<T extends string>({
   layout?: SharedTabsLayout;
   /** Alignment used by the compact desktop layout. */
   align?: SharedTabsAlign;
+  /** Pins the tabs to the bottom of mobile screens. */
+  mobileBottomBar?: boolean;
 }) {
+  useEffect(() => {
+    if (!mobileBottomBar || tabs.length === 0) return;
+
+    document.body.classList.add("has-shared-mobile-tabs");
+    return () => {
+      document.body.classList.remove("has-shared-mobile-tabs");
+    };
+  }, [mobileBottomBar, tabs.length]);
+
   if (tabs.length === 0) {
     return null;
   }
@@ -67,7 +80,10 @@ export default function SharedTabs<T extends string>({
     layout === "compact" || (layout === "auto" && tabs.length <= 2);
 
   const labelClass = cls(
-    "min-w-0 max-w-full truncate whitespace-nowrap leading-5",
+    "min-w-0 max-w-full truncate whitespace-nowrap",
+    mobileBottomBar
+      ? "text-[10px] leading-4 sm:text-inherit sm:leading-5"
+      : "leading-5",
     hideLabelsUntil === "md" && "hidden md:inline",
     hideLabelsUntil === "lg" && "hidden lg:inline",
   );
@@ -90,30 +106,43 @@ export default function SharedTabs<T extends string>({
 
   function tabButtonClass(isActive: boolean, disabled: boolean) {
     return cls(
-      "relative flex min-w-0 items-center justify-center",
-      isCompact
-        ? cls(
-            // Full width on mobile; content-sized tab bar on sm+.
-            "min-h-12 w-full border-r border-[hsl(var(--border))]",
-            "last:border-r-0 px-4 py-3 sm:min-w-40",
-          )
-        : cls(
-            "min-h-12 w-full border-r border-[hsl(var(--border))]",
-            "last:border-r-0 px-2 py-2.5 sm:px-3 sm:py-3",
-          ),
-      "text-center text-xs font-semibold leading-normal sm:text-sm",
+      "relative flex min-w-0 items-center justify-center touch-manipulation",
+      mobileBottomBar
+        ? "min-h-14 w-full border-r border-[hsl(var(--border))] px-1.5 py-1.5 sm:min-h-12 sm:px-3 sm:py-3"
+        : isCompact
+          ? cls(
+              "min-h-12 w-full border-r border-[hsl(var(--border))]",
+              "last:border-r-0 px-4 py-3 sm:min-w-40",
+            )
+          : cls(
+              "min-h-12 w-full border-r border-[hsl(var(--border))]",
+              "last:border-r-0 px-2 py-2.5 sm:px-3 sm:py-3",
+            ),
+      "last:border-r-0",
+      mobileBottomBar
+        ? "text-center text-[10px] font-semibold leading-tight sm:text-sm sm:leading-normal"
+        : "text-center text-xs font-semibold leading-normal sm:text-sm",
       "transition-[background-color,color] duration-150",
       "focus:outline-none focus-visible:z-10",
       "focus-visible:ring-2 focus-visible:ring-inset",
       "focus-visible:ring-[hsl(var(--ring))]",
-      disabled ? "cursor-not-allowed opacity-40" : "cursor-pointer",
+      disabled
+        ? "cursor-not-allowed opacity-40"
+        : "cursor-pointer active:bg-[hsl(var(--muted)/0.8)]",
       isActive
-        ? isCompact
-          ? "bg-transparent text-[hsl(var(--foreground))]"
-          : "bg-[hsl(var(--background))] text-[hsl(var(--foreground))]"
+        ? mobileBottomBar
+          ? cls(
+              "bg-[hsl(var(--primary)/0.1)] text-[hsl(var(--primary))]",
+              isCompact
+                ? "sm:bg-transparent sm:text-[hsl(var(--foreground))]"
+                : "sm:bg-[hsl(var(--background))] sm:text-[hsl(var(--foreground))]",
+            )
+          : isCompact
+            ? "bg-transparent text-[hsl(var(--foreground))]"
+            : "bg-[hsl(var(--background))] text-[hsl(var(--foreground))]"
         : cls(
             "text-[hsl(var(--muted-foreground))]",
-            isCompact ? "bg-transparent" : "bg-[hsl(var(--card))]",
+            "bg-transparent",
             !disabled &&
               cls(
                 "hover:text-[hsl(var(--foreground))]",
@@ -140,7 +169,14 @@ export default function SharedTabs<T extends string>({
   function renderContent(tab: SharedTabItem<T>, isActive: boolean) {
     return (
       <>
-        <span className="flex min-w-0 max-w-full items-center justify-center gap-1.5 leading-normal sm:gap-2">
+        <span
+          className={cls(
+            "flex min-w-0 max-w-full items-center justify-center",
+            mobileBottomBar
+              ? "flex-col gap-0.5 sm:flex-row sm:gap-2"
+              : "gap-1.5 leading-normal sm:gap-2",
+          )}
+        >
           {tab.icon && (
             <span
               aria-hidden="true"
@@ -149,9 +185,7 @@ export default function SharedTabs<T extends string>({
                 "[&>svg]:block [&>svg]:h-4 [&>svg]:w-4",
                 "sm:[&>svg]:h-[18px] sm:[&>svg]:w-[18px]",
                 isActive
-                  ? isCompact
-                    ? "text-[hsl(var(--primary))]"
-                    : "text-[hsl(var(--foreground))]"
+                  ? "text-[hsl(var(--primary))]"
                   : "text-[hsl(var(--muted-foreground))]",
               )}
             >
@@ -164,7 +198,12 @@ export default function SharedTabs<T extends string>({
           {tab.count != null &&
             tab.count > 0 &&
             hideCountsUntil !== "always" && (
-              <span className={countBadgeClass(tab, isActive)}>
+              <span
+                className={cls(
+                  countBadgeClass(tab, isActive),
+                  mobileBottomBar && "max-sm:absolute max-sm:right-1 max-sm:top-1",
+                )}
+              >
                 {tab.count > 99 ? "99+" : tab.count}
               </span>
             )}
@@ -173,7 +212,8 @@ export default function SharedTabs<T extends string>({
         <span
           aria-hidden="true"
           className={cls(
-            "absolute inset-x-0 bottom-0 h-0.5 bg-[hsl(var(--primary))]",
+            "absolute inset-x-0 h-0.5 bg-[hsl(var(--primary))]",
+            mobileBottomBar ? "top-0 sm:top-auto sm:bottom-0" : "bottom-0",
             "transition-[opacity,transform] duration-150",
             isActive
               ? "scale-x-100 opacity-100"
@@ -185,76 +225,81 @@ export default function SharedTabs<T extends string>({
   }
 
   return (
-    <div
-      role="none"
-      className={cls(
-        "flex w-full",
-        isCompact ? compactAlignmentClass : "justify-stretch",
-      )}
-    >
+    <>
+      {mobileBottomBar ? (
+        <style jsx global>{`
+          @media (max-width: 639px) {
+            body.has-shared-mobile-tabs {
+              padding-bottom: calc(3.5rem + env(safe-area-inset-bottom));
+            }
+          }
+        `}</style>
+      ) : null}
+
       <div
-        role="tablist"
-        aria-label={ariaLabel}
-        aria-orientation="horizontal"
+        role="none"
         className={cls(
-          isCompact
-            ? cls(
-                // One shared surface with equal-width touch targets on mobile.
-                "grid w-full overflow-hidden rounded-xl border",
-                "border-[hsl(var(--border))]",
-                "bg-[hsl(var(--card))] shadow-sm",
-                // Compact, content-sized control on larger screens.
-                "sm:inline-grid sm:w-auto",
-              )
-            : cls(
-                "grid w-full overflow-hidden rounded-xl border",
-                "border-[hsl(var(--border))]",
-                "bg-[hsl(var(--card))] shadow-sm",
-              ),
+          "flex w-full",
+          mobileBottomBar &&
+            "fixed inset-x-0 bottom-0 z-50 border-t border-[hsl(var(--border))] bg-[hsl(var(--tabs-surface))] pb-[env(safe-area-inset-bottom)] backdrop-blur sm:static sm:z-auto sm:border-t-0 sm:bg-transparent sm:pb-0 sm:backdrop-blur-none",
+          isCompact ? compactAlignmentClass : "justify-stretch",
         )}
-        style={{
-          gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))`,
-        }}
       >
-        {tabs.map((tab) => {
-          const isActive = activeTab === tab.id;
-          const disabled = tab.disabled ?? false;
+        <div
+          role="tablist"
+          aria-label={ariaLabel}
+          aria-orientation="horizontal"
+          className={cls(
+            "grid w-full overflow-hidden bg-[hsl(var(--tabs-surface))]",
+            mobileBottomBar
+              ? "border-0 shadow-none sm:rounded-xl sm:border sm:border-[hsl(var(--border))] sm:shadow-sm"
+              : "rounded-xl border border-[hsl(var(--border))] shadow-sm",
+            isCompact && "sm:inline-grid sm:w-auto",
+          )}
+          style={{
+            gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))`,
+          }}
+        >
+          {tabs.map((tab) => {
+            const isActive = activeTab === tab.id;
+            const disabled = tab.disabled ?? false;
 
-          const sharedProps = {
-            role: "tab" as const,
-            "aria-selected": isActive,
-            "aria-disabled": disabled || undefined,
-            "aria-label": tab.label,
-            title: tab.label,
-            className: tabButtonClass(isActive, disabled),
-          };
+            const sharedProps = {
+              role: "tab" as const,
+              "aria-selected": isActive,
+              "aria-disabled": disabled || undefined,
+              "aria-label": tab.label,
+              title: tab.label,
+              className: tabButtonClass(isActive, disabled),
+            };
 
-          if (tab.href && !disabled) {
+            if (tab.href && !disabled) {
+              return (
+                <Link
+                  key={tab.id}
+                  href={tab.href}
+                  aria-current={isActive ? "page" : undefined}
+                  {...sharedProps}
+                >
+                  {renderContent(tab, isActive)}
+                </Link>
+              );
+            }
+
             return (
-              <Link
+              <button
                 key={tab.id}
-                href={tab.href}
-                aria-current={isActive ? "page" : undefined}
+                type="button"
+                disabled={disabled}
+                onClick={disabled ? undefined : () => onChange?.(tab.id)}
                 {...sharedProps}
               >
                 {renderContent(tab, isActive)}
-              </Link>
+              </button>
             );
-          }
-
-          return (
-            <button
-              key={tab.id}
-              type="button"
-              disabled={disabled}
-              onClick={disabled ? undefined : () => onChange?.(tab.id)}
-              {...sharedProps}
-            >
-              {renderContent(tab, isActive)}
-            </button>
-          );
-        })}
+          })}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
