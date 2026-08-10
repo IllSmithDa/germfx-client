@@ -52,7 +52,7 @@ export default function SharedTabs<T extends string>({
   hideCountsUntil?: HideCountUntil;
   /**
    * auto:
-   * - 1–2 tabs use a compact segmented control on sm+ screens.
+   * - 1–2 tabs use a compact segmented control on lg+ screens.
    * - 3+ tabs retain the full-width tab bar.
    *
    * compact and full can be used to override the automatic behavior.
@@ -82,7 +82,7 @@ export default function SharedTabs<T extends string>({
   const labelClass = cls(
     "min-w-0 max-w-full truncate whitespace-nowrap",
     mobileBottomBar
-      ? "text-[10px] leading-4 sm:text-inherit sm:leading-5"
+      ? "text-[10px] leading-4 lg:text-[12px] lg:leading-5"
       : "leading-5",
     hideLabelsUntil === "md" && "hidden md:inline",
     hideLabelsUntil === "lg" && "hidden lg:inline",
@@ -99,29 +99,29 @@ export default function SharedTabs<T extends string>({
 
   const compactAlignmentClass =
     align === "center"
-      ? "sm:justify-center"
+      ? "lg:justify-center"
       : align === "end"
-        ? "sm:justify-end"
-        : "sm:justify-start";
+        ? "lg:justify-end"
+        : "lg:justify-start";
 
   function tabButtonClass(isActive: boolean, disabled: boolean) {
     return cls(
       "relative flex min-w-0 items-center justify-center touch-manipulation",
       mobileBottomBar
-        ? "min-h-14 w-full border-r border-[hsl(var(--border))] px-1.5 py-1.5 sm:min-h-12 sm:px-3 sm:py-3"
+        ? "min-h-14 w-full border-r border-[hsl(var(--border))] px-1.5 py-1.5 lg:min-h-12 lg:px-3 lg:py-3"
         : isCompact
           ? cls(
               "min-h-12 w-full border-r border-[hsl(var(--border))]",
-              "last:border-r-0 px-4 py-3 sm:min-w-40",
+              "last:border-r-0 px-4 py-3 lg:min-w-40",
             )
           : cls(
               "min-h-12 w-full border-r border-[hsl(var(--border))]",
-              "last:border-r-0 px-2 py-2.5 sm:px-3 sm:py-3",
+              "last:border-r-0 px-2 py-2.5 lg:px-3 lg:py-3",
             ),
       "last:border-r-0",
       mobileBottomBar
-        ? "text-center text-[10px] font-semibold leading-tight sm:text-sm sm:leading-normal"
-        : "text-center text-xs font-semibold leading-normal sm:text-sm",
+        ? "text-center text-[10px] font-semibold leading-tight lg:text-sm lg:leading-normal"
+        : "text-center text-xs font-semibold leading-normal sm:text-md",
       "transition-[background-color,color] duration-150",
       "focus:outline-none focus-visible:z-10",
       "focus-visible:ring-2 focus-visible:ring-inset",
@@ -134,8 +134,8 @@ export default function SharedTabs<T extends string>({
           ? cls(
               "bg-[hsl(var(--primary)/0.1)] text-[hsl(var(--primary))]",
               isCompact
-                ? "sm:bg-transparent sm:text-[hsl(var(--foreground))]"
-                : "sm:bg-[hsl(var(--background))] sm:text-[hsl(var(--foreground))]",
+                ? "lg:bg-transparent lg:text-[hsl(var(--foreground))]"
+                : "lg:bg-[hsl(var(--background))] lg:text-[hsl(var(--foreground))]",
             )
           : isCompact
             ? "bg-transparent text-[hsl(var(--foreground))]"
@@ -173,7 +173,7 @@ export default function SharedTabs<T extends string>({
           className={cls(
             "flex min-w-0 max-w-full items-center justify-center",
             mobileBottomBar
-              ? "flex-col gap-0.5 sm:flex-row sm:gap-2"
+              ? "flex-col gap-0.5 lg:flex-row lg:gap-2"
               : "gap-1.5 leading-normal sm:gap-2",
           )}
         >
@@ -183,7 +183,9 @@ export default function SharedTabs<T extends string>({
               className={cls(
                 "shrink-0 leading-none",
                 "[&>svg]:block [&>svg]:h-4 [&>svg]:w-4",
-                "sm:[&>svg]:h-[18px] sm:[&>svg]:w-[18px]",
+                mobileBottomBar
+                  ? "lg:[&>svg]:h-[18px] lg:[&>svg]:w-[18px]"
+                  : "sm:[&>svg]:h-[18px] sm:[&>svg]:w-[18px]",
                 isActive
                   ? "text-[hsl(var(--primary))]"
                   : "text-[hsl(var(--muted-foreground))]",
@@ -201,7 +203,7 @@ export default function SharedTabs<T extends string>({
               <span
                 className={cls(
                   countBadgeClass(tab, isActive),
-                  mobileBottomBar && "max-sm:absolute max-sm:right-1 max-sm:top-1",
+                  mobileBottomBar && "max-lg:absolute max-lg:right-1 max-lg:top-1",
                 )}
               >
                 {tab.count > 99 ? "99+" : tab.count}
@@ -213,7 +215,7 @@ export default function SharedTabs<T extends string>({
           aria-hidden="true"
           className={cls(
             "absolute inset-x-0 h-0.5 bg-[hsl(var(--primary))]",
-            mobileBottomBar ? "top-0 sm:top-auto sm:bottom-0" : "bottom-0",
+            mobileBottomBar ? "top-0 lg:top-auto lg:bottom-0" : "bottom-0",
             "transition-[opacity,transform] duration-150",
             isActive
               ? "scale-x-100 opacity-100"
@@ -228,7 +230,7 @@ export default function SharedTabs<T extends string>({
     <>
       {mobileBottomBar ? (
         <style jsx global>{`
-          @media (max-width: 639px) {
+          @media (max-width: 1023px) {
             body.has-shared-mobile-tabs {
               padding-bottom: calc(3.5rem + env(safe-area-inset-bottom));
             }
@@ -241,7 +243,7 @@ export default function SharedTabs<T extends string>({
         className={cls(
           "flex w-full",
           mobileBottomBar &&
-            "fixed inset-x-0 bottom-0 z-50 border-t border-[hsl(var(--border))] bg-[hsl(var(--tabs-surface))] pb-[env(safe-area-inset-bottom)] backdrop-blur sm:static sm:z-auto sm:border-t-0 sm:bg-transparent sm:pb-0 sm:backdrop-blur-none",
+            "fixed inset-x-0 bottom-0 z-50 border-t border-[hsl(var(--border))] bg-[hsl(var(--tabs-surface))] pb-[env(safe-area-inset-bottom)] backdrop-blur lg:static lg:z-auto lg:border-t-0 lg:bg-transparent lg:pb-0 lg:backdrop-blur-none",
           isCompact ? compactAlignmentClass : "justify-stretch",
         )}
       >
@@ -252,9 +254,9 @@ export default function SharedTabs<T extends string>({
           className={cls(
             "grid w-full overflow-hidden bg-[hsl(var(--tabs-surface))]",
             mobileBottomBar
-              ? "border-0 shadow-none sm:rounded-xl sm:border sm:border-[hsl(var(--border))] sm:shadow-sm"
+              ? "border-0 shadow-none lg:rounded-xl lg:border lg:border-[hsl(var(--border))] lg:shadow-sm"
               : "rounded-xl border border-[hsl(var(--border))] shadow-sm",
-            isCompact && "sm:inline-grid sm:w-auto",
+            isCompact && "lg:inline-grid lg:w-auto",
           )}
           style={{
             gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))`,
