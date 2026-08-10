@@ -74,6 +74,23 @@ export default function HomeTabs({
 }: Props) {
   const [activeTab, setActiveTab] = useState<Tab>("news");
 
+  function handleTabChange(nextTab: Tab) {
+    if (nextTab === activeTab) {
+      return;
+    }
+
+    setActiveTab(nextTab);
+
+    // All panels share the browser window's scroll position.
+    // Reset it whenever the user switches panels so the new panel
+    // always starts from the top.
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto",
+    });
+  }
+
   const activeMeds = medications.filter((m) => m.is_active);
   const inactiveMeds = medications.filter((m) => !m.is_active);
 
@@ -141,7 +158,7 @@ export default function HomeTabs({
           <SharedTabs
             tabs={tabs}
             activeTab={activeTab}
-            onChange={setActiveTab}
+            onChange={handleTabChange}
             ariaLabel="Home dashboard tabs"
             hideLabelsUntil="lg"
             hideCountsUntil="always"

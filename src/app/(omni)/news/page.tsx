@@ -49,18 +49,11 @@ export default async function NewsPage({
         <section>
           <div className="mb-3 flex flex-wrap items-end justify-between gap-2 sm:gap-5">
             <div>
-              <h1 className="text-lg font-bold sm:text-2xl">Health News</h1>
+              <h1 className="text-md font-bold sm:text-2xl">Health News</h1>
               <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">
                 Browse recent medication, recall, and health-related stories.
               </p>
             </div>
-
-            <Link
-              href={CLIENT_PATHS.homePath()}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-3 py-1.5 text-xs font-semibold text-[hsl(var(--foreground))] transition-colors hover:bg-[hsl(var(--muted)/0.5)]"
-            >
-              Back to dashboard
-            </Link>
           </div>
 
           <NewsTabs view={view} query={query} sort={sort} />

@@ -171,10 +171,10 @@ export default function Login() {
         aria-hidden
       />
 
-      <div className="relative flex min-h-[calc(100vh-57px)] flex-col items-center justify-center px-4 py-16">
+      <div className="relative flex min-h-[calc(100vh-57px)] flex-col items-center justify-center px-2 py-4 sm:px-4 sm:py-16">
         <Link
           href="/"
-          className="landing-display mb-10 text-2xl font-bold text-slate-950 transition-opacity hover:opacity-80 dark:text-[hsl(var(--landing-fg))]"
+          className="hidden sm:block landing-display mb-10 text-2xl font-bold text-slate-950 transition-opacity hover:opacity-80 dark:text-[hsl(var(--landing-fg))]"
         >
           <Image
             src="/logo/sidefx-logo.png"
@@ -188,10 +188,10 @@ export default function Login() {
         <div className="w-full max-w-md overflow-hidden rounded-2xl border border-slate-200/90 bg-white/95 shadow-2xl shadow-slate-900/10 backdrop-blur-sm dark:border-[hsl(220_20%_16%)] dark:bg-[hsl(220_28%_9%/0.96)] dark:shadow-black/40">
           <div className="h-0.5 w-full bg-gradient-to-r from-transparent via-sky-500 to-transparent dark:via-[hsl(210_80%_62%)]" />
 
-          <div className="px-6 py-8 sm:px-8">
-            <div className="mb-8 text-center">
-              <h1 className="landing-display text-2xl font-bold text-slate-950 dark:text-[hsl(var(--landing-fg))]">
-                Welcome back
+          <div className="px-2 py-4 sm:py-8 sm:px-8">
+            <div className="mb-4 sm:mb-8 text-center">
+              <h1 className="landing-display text-lg sm:text-2xl font-bold text-slate-950 dark:text-[hsl(var(--landing-fg))]">
+                Welcome
               </h1>
               <p className="mt-1.5 text-sm text-slate-600 dark:text-[hsl(var(--landing-fg-muted))]">
                 Sign in to continue tracking your health
@@ -199,7 +199,7 @@ export default function Login() {
             </div>
 
             <form
-              className="space-y-5"
+              className="space-y-3 sm:space-y-5"
               onSubmit={handleSubmit(onSubmit)}
               noValidate
             >
@@ -378,7 +378,7 @@ export default function Login() {
                     type="checkbox"
                     checked={rememberEmail}
                     onChange={(event) => setRememberEmail(event.target.checked)}
-                    className="h-4 w-4 rounded border-slate-300 bg-white accent-[hsl(var(--landing-accent))] dark:border-slate-600 dark:bg-[hsl(220_25%_12%)]"
+                    className="h-3 2-3sm:h-4 sm:w-4 rounded border-slate-300 bg-white accent-[hsl(var(--landing-accent))] dark:border-slate-600 dark:bg-[hsl(220_25%_12%)]"
                   />
                   Remember my email
                 </label>

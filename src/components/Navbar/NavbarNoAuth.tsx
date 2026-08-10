@@ -306,17 +306,21 @@ export default function NavbarNoAuth() {
           <div className="flex min-w-0 items-center gap-2">
             <button
               type="button"
-              className="cursor-pointer rounded-lg p-1.5 text-[hsl(var(--muted-foreground))] transition-colors hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] lg:hidden"
+              className="touch-manipulation select-none cursor-pointer rounded-lg p-1.5 text-[hsl(var(--muted-foreground))] transition-[background-color,color,transform] duration-100 hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] active:scale-[0.92] active:bg-[hsl(var(--primary)/0.15)] active:text-[hsl(var(--primary))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none lg:hidden"
               aria-label={drawerOpen ? "Close menu" : "Open menu"}
               aria-expanded={drawerOpen}
               onClick={toggleMobileDrawer}
             >
-              {drawerOpen ? <X size={18} /> : <Menu size={18} />}
+              {drawerOpen ? (
+                <X size={18} />
+              ) : (
+                <Menu size={22} strokeWidth={2.25} />
+              )}
             </button>
 
             <Link
               href={CLIENT_PATHS.homePath()}
-              className="flex shrink-0 items-center gap-1.5 rounded-md px-0 transition-opacity hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] sm:px-1"
+              className="flex shrink-0 touch-manipulation select-none items-center gap-1.5 rounded-md px-0 transition-[opacity,transform] duration-100 hover:opacity-80 active:scale-[0.98] active:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none sm:px-1"
             >
               <SideFxLogoImage />
             </Link>
@@ -341,7 +345,7 @@ export default function NavbarNoAuth() {
                     <button
                       type="submit"
                       aria-label="Submit drug search"
-                      className="absolute inset-y-0 left-3 flex cursor-pointer items-center text-[hsl(var(--muted-foreground))]"
+                      className="absolute inset-y-0 left-3 flex touch-manipulation select-none cursor-pointer items-center text-[hsl(var(--muted-foreground))] transition-[color,transform] duration-100 active:scale-[0.9] active:text-[hsl(var(--primary))] motion-reduce:transform-none"
                     >
                       <Search size={14} />
                     </button>
@@ -352,7 +356,7 @@ export default function NavbarNoAuth() {
                   type="button"
                   onClick={() => setSearchOpen(true)}
                   aria-label="Search drugs"
-                  className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--muted-foreground))] transition-colors hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+                  className="inline-flex h-8 w-8 touch-manipulation select-none cursor-pointer items-center justify-center rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--muted-foreground))] transition-[background-color,color,transform] duration-100 hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] active:scale-[0.92] active:bg-[hsl(var(--muted))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
                 >
                   <Search size={16} />
                 </button>
@@ -364,7 +368,7 @@ export default function NavbarNoAuth() {
             <div className="hidden items-center gap-2 sm:flex">
               <Link
                 href={CLIENT_PATHS.clientLoginPath()}
-                className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-3 text-sm font-medium text-[hsl(var(--foreground))] transition-colors hover:bg-[hsl(var(--muted))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+                className="inline-flex h-8 touch-manipulation select-none items-center gap-1.5 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-3 text-sm font-medium text-[hsl(var(--foreground))] transition-[background-color,transform] duration-100 hover:bg-[hsl(var(--muted))] active:scale-[0.97] active:bg-[hsl(var(--muted))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
               >
                 <LogIn size={14} />
                 Log in
@@ -372,7 +376,7 @@ export default function NavbarNoAuth() {
 
               <Link
                 href={CLIENT_PATHS.clientRegisterPath()}
-                className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-[hsl(var(--primary))] px-3 text-sm font-semibold text-[hsl(var(--primary-foreground))] shadow-sm transition-all hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+                className="inline-flex h-8 touch-manipulation select-none items-center gap-1.5 rounded-lg bg-[hsl(var(--primary))] px-3 text-sm font-semibold text-[hsl(var(--primary-foreground))] shadow-sm transition-[opacity,transform] duration-100 hover:opacity-90 active:scale-[0.97] active:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
               >
                 <UserPlus size={14} />
                 Get started
@@ -395,7 +399,7 @@ export default function NavbarNoAuth() {
               <Link
                 href={CLIENT_PATHS.homePath()}
                 onClick={() => setDrawerOpen(false)}
-                className="flex items-center gap-1.5 rounded-md px-1 transition-opacity hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+                className="flex touch-manipulation select-none items-center gap-1.5 rounded-md px-1 transition-[opacity,transform] duration-100 hover:opacity-80 active:scale-[0.98] active:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
               >
                 <SideFxLogoImage />
               </Link>
@@ -404,7 +408,7 @@ export default function NavbarNoAuth() {
                 type="button"
                 onClick={() => setDrawerOpen(false)}
                 aria-label="Close menu"
-                className="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--muted-foreground))] transition-colors hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+                className="inline-flex h-9 w-9 touch-manipulation select-none cursor-pointer items-center justify-center rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--muted-foreground))] transition-[background-color,color,transform] duration-100 hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] active:scale-[0.92] active:bg-[hsl(var(--primary)/0.15)] active:text-[hsl(var(--primary))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
               >
                 <X size={18} />
               </button>
@@ -426,7 +430,7 @@ export default function NavbarNoAuth() {
                   <button
                     type="submit"
                     aria-label="Submit drug search"
-                    className="absolute inset-y-0 left-3 flex cursor-pointer items-center text-[hsl(var(--muted-foreground))]"
+                    className="absolute inset-y-0 left-3 flex touch-manipulation select-none cursor-pointer items-center text-[hsl(var(--muted-foreground))] transition-[color,transform] duration-100 active:scale-[0.9] active:text-[hsl(var(--primary))] motion-reduce:transform-none"
                   >
                     <Search size={16} />
                   </button>
@@ -439,7 +443,7 @@ export default function NavbarNoAuth() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setDrawerOpen(false)}
-                    className="flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium text-[hsl(var(--foreground))] transition-colors hover:bg-[hsl(var(--muted))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+                    className="flex touch-manipulation select-none items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium text-[hsl(var(--foreground))] transition-[background-color,transform] duration-100 hover:bg-[hsl(var(--muted))] active:scale-[0.985] active:bg-[hsl(var(--muted))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
                   >
                     <span className="text-[hsl(var(--muted-foreground))]">
                       {link.icon}
@@ -463,7 +467,7 @@ export default function NavbarNoAuth() {
                 <Link
                   href={CLIENT_PATHS.clientLoginPath()}
                   onClick={() => setDrawerOpen(false)}
-                  className="flex items-center justify-center gap-2 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-3 text-sm font-semibold text-[hsl(var(--foreground))] transition-colors hover:bg-[hsl(var(--muted))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+                  className="flex touch-manipulation select-none items-center justify-center gap-2 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-3 text-sm font-semibold text-[hsl(var(--foreground))] transition-[background-color,transform] duration-100 hover:bg-[hsl(var(--muted))] active:scale-[0.985] active:bg-[hsl(var(--muted))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
                 >
                   <LogIn size={16} />
                   Log in
@@ -472,7 +476,7 @@ export default function NavbarNoAuth() {
                 <Link
                   href={CLIENT_PATHS.clientRegisterPath()}
                   onClick={() => setDrawerOpen(false)}
-                  className="flex items-center justify-center gap-2 rounded-lg bg-[hsl(var(--primary))] px-3 py-3 text-sm font-semibold text-[hsl(var(--primary-foreground))] transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+                  className="flex touch-manipulation select-none items-center justify-center gap-2 rounded-lg bg-[hsl(var(--primary))] px-3 py-3 text-sm font-semibold text-[hsl(var(--primary-foreground))] transition-[opacity,transform] duration-100 hover:opacity-90 active:scale-[0.985] active:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
                 >
                   <UserPlus size={16} />
                   Get started

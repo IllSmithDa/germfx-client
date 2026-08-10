@@ -474,7 +474,7 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
           <div className="flex min-w-0 items-center gap-2">
             <button
               type="button"
-              className="inline-grid size-9 shrink-0 cursor-pointer place-items-center overflow-hidden rounded-full border border-sky-400/30 bg-sky-500/15 text-sky-600 transition-colors hover:border-sky-400/50 hover:bg-sky-500/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(var(--muted))] dark:text-sky-400 lg:hidden"
+              className="inline-grid size-9 shrink-0 touch-manipulation select-none cursor-pointer place-items-center overflow-hidden rounded-full border border-sky-400/30 bg-sky-500/15 text-sky-600 transition-[background-color,border-color,color,transform] duration-100 hover:border-sky-400/50 hover:bg-sky-500/20 active:scale-[0.94] active:border-sky-400/60 active:bg-sky-500/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(var(--muted))] motion-reduce:transform-none dark:text-sky-400 lg:hidden"
               aria-label="Open account navigation"
               aria-expanded={drawerOpen}
               aria-controls="authenticated-mobile-menu"
@@ -485,7 +485,7 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
 
             <Link
               href={CLIENT_PATHS.homePath()}
-              className="flex shrink-0 items-center gap-1.5 rounded-md px-0 transition-opacity hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] sm:px-1"
+              className="flex shrink-0 touch-manipulation select-none items-center gap-1.5 rounded-md px-0 transition-[opacity,transform] duration-100 hover:opacity-80 active:scale-[0.98] active:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none sm:px-1"
             >
               <SideFxLogoImage />
             </Link>
@@ -494,7 +494,7 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
               <button
                 type="button"
                 onClick={openFeedback}
-                className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-3 py-1.5 text-sm font-medium text-[hsl(var(--foreground))] transition-colors hover:bg-[hsl(var(--muted))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+                className="inline-flex touch-manipulation select-none cursor-pointer items-center gap-1.5 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-3 py-1.5 text-sm font-medium text-[hsl(var(--foreground))] transition-[background-color,transform] duration-100 hover:bg-[hsl(var(--muted))] active:scale-[0.97] active:bg-[hsl(var(--muted))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
               >
                 <MessageSquare
                   size={14}
@@ -506,7 +506,7 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
               {shouldShowUpgradeButton ? (
                 <Link
                   href={CLIENT_PATHS.pricingPath()}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-sky-400/40 bg-sky-500/10 px-3 py-1.5 text-sm font-semibold text-sky-600 transition-colors hover:bg-sky-500/20 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] dark:text-sky-400"
+                  className="inline-flex touch-manipulation select-none items-center gap-1.5 rounded-lg border border-sky-400/40 bg-sky-500/10 px-3 py-1.5 text-sm font-semibold text-sky-600 transition-[background-color,transform] duration-100 hover:bg-sky-500/20 active:scale-[0.97] active:bg-sky-500/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none dark:text-sky-400"
                 >
                   <Sparkles size={14} className="shrink-0" />
                   Upgrade
@@ -534,7 +534,7 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
                     <button
                       type="submit"
                       aria-label="Submit drug search"
-                      className="absolute inset-y-0 left-3 flex cursor-pointer items-center text-[hsl(var(--muted-foreground))]"
+                      className="absolute inset-y-0 left-3 flex touch-manipulation select-none cursor-pointer items-center text-[hsl(var(--muted-foreground))] transition-[color,transform] duration-100 active:scale-[0.9] active:text-[hsl(var(--primary))] motion-reduce:transform-none"
                     >
                       <svg
                         className="h-3.5 w-3.5 text-[hsl(var(--muted-foreground))]"
@@ -563,7 +563,7 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
                     setSearchOpen(true);
                   }}
                   aria-label="Search drugs"
-                  className="hidden lg:inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--muted-foreground))] transition-colors hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+                  className="hidden lg:inline-flex h-8 w-8 touch-manipulation select-none cursor-pointer items-center justify-center rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--muted-foreground))] transition-[background-color,color,transform] duration-100 hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] active:scale-[0.92] active:bg-[hsl(var(--muted))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
                 >
                   <svg
                     className="h-4 w-4"
@@ -594,7 +594,7 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
                   setDrawerOpen(false);
                   setMenuOpen((v) => !v);
                 }}
-                className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-2.5 py-1.5 text-sm transition-colors hover:bg-[hsl(var(--muted))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+                className="inline-flex touch-manipulation select-none cursor-pointer items-center gap-2 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-2.5 py-1.5 text-sm transition-[background-color,transform] duration-100 hover:bg-[hsl(var(--muted))] active:scale-[0.97] active:bg-[hsl(var(--muted))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
                 aria-haspopup="menu"
                 aria-expanded={menuOpen}
                 aria-label="User menu"
@@ -709,7 +709,7 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
                         href={href}
                         role="menuitem"
                         onClick={() => setMenuOpen(false)}
-                        className="flex items-center gap-2.5 px-3.5 py-2 text-sm text-[hsl(var(--foreground))] transition-colors hover:bg-[hsl(var(--muted))] focus:bg-[hsl(var(--muted))] focus:outline-none"
+                        className="flex touch-manipulation select-none items-center gap-2.5 px-3.5 py-2 text-sm text-[hsl(var(--foreground))] transition-[background-color,transform] duration-100 hover:bg-[hsl(var(--muted))] active:scale-[0.99] active:bg-[hsl(var(--muted))] focus:bg-[hsl(var(--muted))] focus:outline-none motion-reduce:transform-none"
                       >
                         <span className="text-[hsl(var(--muted-foreground))]">
                           {icon}
@@ -724,7 +724,7 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
                       type="button"
                       onClick={openFeedback}
                       role="menuitem"
-                      className="flex w-full cursor-pointer items-center gap-2.5 px-3.5 py-2 text-sm text-[hsl(var(--foreground))] transition-colors hover:bg-[hsl(var(--muted))] focus:bg-[hsl(var(--muted))] focus:outline-none"
+                      className="flex w-full touch-manipulation select-none cursor-pointer items-center gap-2.5 px-3.5 py-2 text-sm text-[hsl(var(--foreground))] transition-[background-color,transform] duration-100 hover:bg-[hsl(var(--muted))] active:scale-[0.99] active:bg-[hsl(var(--muted))] focus:bg-[hsl(var(--muted))] focus:outline-none motion-reduce:transform-none"
                     >
                       <MessageSquare
                         size={14}
@@ -737,7 +737,7 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
                       type="button"
                       onClick={logout}
                       role="menuitem"
-                      className="flex w-full cursor-pointer items-center gap-2.5 px-3.5 py-2 text-sm text-[hsl(var(--destructive))] transition-colors hover:bg-[hsl(var(--muted))] focus:bg-[hsl(var(--muted))] focus:outline-none"
+                      className="flex w-full touch-manipulation select-none cursor-pointer items-center gap-2.5 px-3.5 py-2 text-sm text-[hsl(var(--destructive))] transition-[background-color,transform] duration-100 hover:bg-[hsl(var(--muted))] active:scale-[0.99] active:bg-[hsl(var(--destructive)/0.1)] focus:bg-[hsl(var(--muted))] focus:outline-none motion-reduce:transform-none"
                     >
                       <LogOut size={14} />
                       Log out
@@ -776,7 +776,7 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
               type="button"
               aria-label="Close account navigation"
               onClick={closeMobileMenu}
-              className="cursor-pointer rounded-lg p-2 text-[hsl(var(--muted-foreground))] transition-colors hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+              className="touch-manipulation select-none cursor-pointer rounded-lg p-2 text-[hsl(var(--muted-foreground))] transition-[background-color,color,transform] duration-100 hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] active:scale-[0.92] active:bg-[hsl(var(--primary)/0.15)] active:text-[hsl(var(--primary))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
             >
               <X size={20} />
             </button>
@@ -790,7 +790,7 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
                     key={link.href}
                     href={link.href}
                     onClick={closeMobileMenu}
-                    className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-[hsl(var(--foreground))] transition-colors hover:bg-[hsl(var(--muted))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+                    className="flex touch-manipulation select-none items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-[hsl(var(--foreground))] transition-[background-color,transform] duration-100 hover:bg-[hsl(var(--muted))] active:scale-[0.985] active:bg-[hsl(var(--muted))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
                   >
                     <span className="text-[hsl(var(--muted-foreground))]">
                       {link.icon}
@@ -806,7 +806,7 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
                 <Link
                   href={CLIENT_PATHS.pricingPath()}
                   onClick={closeMobileMenu}
-                  className="mb-1 flex w-full items-center gap-3 rounded-xl border border-sky-400/40 bg-sky-500/10 px-3 py-3 text-sm font-semibold text-sky-600 transition-colors hover:bg-sky-500/20 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] dark:text-sky-400"
+                  className="mb-1 flex w-full touch-manipulation select-none items-center gap-3 rounded-xl border border-sky-400/40 bg-sky-500/10 px-3 py-3 text-sm font-semibold text-sky-600 transition-[background-color,transform] duration-100 hover:bg-sky-500/20 active:scale-[0.985] active:bg-sky-500/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none dark:text-sky-400"
                 >
                   <Sparkles size={17} className="shrink-0" />
                   Upgrade
@@ -816,7 +816,7 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
               <button
                 type="button"
                 onClick={openFeedback}
-                className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-[hsl(var(--foreground))] transition-colors hover:bg-[hsl(var(--muted))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+                className="flex w-full touch-manipulation select-none cursor-pointer items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-[hsl(var(--foreground))] transition-[background-color,transform] duration-100 hover:bg-[hsl(var(--muted))] active:scale-[0.985] active:bg-[hsl(var(--muted))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
               >
                 <MessageSquare
                   size={17}
@@ -828,7 +828,7 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
               <button
                 type="button"
                 onClick={logout}
-                className="mt-1 flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-[hsl(var(--destructive))] transition-colors hover:bg-[hsl(var(--muted))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+                className="mt-1 flex w-full touch-manipulation select-none cursor-pointer items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-[hsl(var(--destructive))] transition-[background-color,transform] duration-100 hover:bg-[hsl(var(--muted))] active:scale-[0.985] active:bg-[hsl(var(--destructive)/0.1)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
               >
                 <LogOut size={17} />
                 Log out

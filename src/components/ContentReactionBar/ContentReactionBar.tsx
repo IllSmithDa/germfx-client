@@ -213,15 +213,20 @@ export default function ContentReactionBar({
                 : "Log in to react to this article"
             }
             className={[
-              "inline-flex min-h-7 cursor-pointer items-center justify-center gap-1.5 rounded-full border px-2 py-1 text-[12px] font-medium leading-none transition-colors sm:min-h-8 sm:gap-1.5 sm:px-3 sm:py-1 sm:text-xs",
-              "focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] disabled:opacity-60",
+              "group no-touch-feedback inline-flex min-h-7 touch-manipulation select-none cursor-pointer items-center justify-center gap-1.5 rounded-full border px-2 py-1 text-[12px] font-medium leading-none sm:min-h-8 sm:gap-1.5 sm:px-3 sm:py-1 sm:text-xs",
+              "transition-[background-color,border-color,color,transform] duration-100 ease-out",
+              "active:scale-[0.94] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]",
+              "disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100 motion-reduce:transform-none",
               active
-                ? "border-violet-400/50 bg-violet-500/15 text-violet-700 dark:text-violet-300"
-                : "border-[hsl(var(--border))] bg-[hsl(var(--background))] text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--muted))]",
+                ? "border-violet-400/50 bg-violet-500/15 text-violet-700 active:border-violet-400/70 active:bg-violet-500/25 dark:text-violet-300"
+                : "border-[hsl(var(--border))] bg-[hsl(var(--background))] text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--muted))] active:border-[hsl(var(--primary)/0.4)] active:bg-[hsl(var(--primary)/0.12)] active:text-[hsl(var(--primary))]",
               isLoading ? "animate-pulse" : "",
             ].join(" ")}
           >
-            <span aria-hidden className="text-xs leading-none sm:text-sm">
+            <span
+              aria-hidden
+              className="text-xs leading-none transition-transform duration-100 group-active:scale-110 motion-reduce:transform-none sm:text-sm"
+            >
               {reaction.icon}
             </span>
 

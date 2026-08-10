@@ -51,6 +51,11 @@ html {
 
     --radius: 0.75rem;
 
+    /* ── Touch feedback — light mode ──────────────────────────────────
+       Native buttons darken slightly while physically pressed.        */
+    --touch-feedback-brightness: 0.94;
+    --touch-feedback-scale: 0.97;
+
     /* ── Landing / footer tokens — light mode ─────────────────────────
        These match the footer and marketing pages in light mode.
        Use cool-white backgrounds with navy text, sky-blue accent.     */
@@ -97,6 +102,11 @@ html {
 
     --brand: 262 83% 70%;
 
+    /* ── Touch feedback — dark mode ───────────────────────────────────
+       Dark surfaces brighten slightly while physically pressed.       */
+    --touch-feedback-brightness: 1.12;
+    --touch-feedback-scale: 0.97;
+
     /* ── Landing / footer tokens — dark mode ──────────────────────────
        These are the original dark values, now available globally.     */
     --landing-bg:        220 30% 6%;
@@ -106,6 +116,61 @@ html {
     --landing-fg-subtle: 215 14% 42%;
     --landing-border:    220 20% 16%;
     --landing-accent:    210 80% 62%;
+  }
+}
+
+/* ── Global touch / press feedback ────────────────────────────────────
+   Applies only when the primary input behaves like a touchscreen.
+   `scale` is used instead of `transform` so component transforms are
+   less likely to be overwritten.
+
+   Add `.no-touch-feedback` to any control that should opt out.
+   Add `.touch-feedback` to link-like controls that should opt in.      */
+@media (hover: none) and (pointer: coarse) {
+  button:not(:disabled):not(.no-touch-feedback),
+  input[type="button"]:not(:disabled):not(.no-touch-feedback),
+  input[type="submit"]:not(:disabled):not(.no-touch-feedback),
+  input[type="reset"]:not(:disabled):not(.no-touch-feedback),
+  a[href]:not([aria-disabled="true"]):not(.no-touch-feedback),
+  [role="button"]:not([aria-disabled="true"]):not(.no-touch-feedback),
+  .touch-feedback:not([aria-disabled="true"]) {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button:not(:disabled):not(.no-touch-feedback):active,
+  input[type="button"]:not(:disabled):not(.no-touch-feedback):active,
+  input[type="submit"]:not(:disabled):not(.no-touch-feedback):active,
+  input[type="reset"]:not(:disabled):not(.no-touch-feedback):active,
+  a[href]:not([aria-disabled="true"]):not(.no-touch-feedback):active,
+  [role="button"]:not([aria-disabled="true"]):not(.no-touch-feedback):active,
+  .touch-feedback:not([aria-disabled="true"]):active {
+    scale: var(--touch-feedback-scale);
+    filter: brightness(var(--touch-feedback-brightness));
+  }
+
+  /*
+   * Plain inline text links should still receive color/brightness feedback,
+   * but their layout generally cannot visually scale. Flex/grid/block links
+   * (the common shape used by Next.js Link "buttons") receive the full press
+   * treatment automatically.
+   */
+  a[href]:not([aria-disabled="true"]):not(.no-touch-feedback):active {
+    transition:
+      filter 100ms ease-out,
+      scale 100ms ease-out;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) and (prefers-reduced-motion: reduce) {
+  button:not(:disabled):not(.no-touch-feedback):active,
+  input[type="button"]:not(:disabled):not(.no-touch-feedback):active,
+  input[type="submit"]:not(:disabled):not(.no-touch-feedback):active,
+  input[type="reset"]:not(:disabled):not(.no-touch-feedback):active,
+  a[href]:not([aria-disabled="true"]):not(.no-touch-feedback):active,
+  [role="button"]:not([aria-disabled="true"]):not(.no-touch-feedback):active,
+  .touch-feedback:not([aria-disabled="true"]):active {
+    scale: 1;
   }
 }
 

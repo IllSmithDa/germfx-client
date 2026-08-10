@@ -163,13 +163,16 @@ export default function SortSelect<T extends string = string>({
         type="button"
         className={joinClasses(
           // ✅ Use flex + items-center so all children (icons + text) share one flex row
-          "group/trigger relative flex w-full min-w-0 cursor-pointer items-center gap-0",
+          "group/trigger relative flex w-full min-w-0 touch-manipulation select-none cursor-pointer items-center gap-0",
           "overflow-hidden rounded-xl outline-none",
+          "transition-[background-color,border-color,box-shadow,transform] duration-100 ease-out",
+          "active:scale-[0.985]",
           "focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]",
-          "disabled:cursor-not-allowed",
+          "disabled:cursor-not-allowed disabled:active:scale-100",
+          "motion-reduce:transform-none",
           isField
-            ? "min-h-11 border border-[hsl(var(--input,var(--border)))] bg-[hsl(var(--background))] transition-shadow hover:bg-[hsl(var(--muted))]"
-            : "min-h-11 border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-sm transition-colors hover:bg-[hsl(var(--muted))] sm:min-h-9 sm:w-auto ",
+            ? "min-h-11 border border-[hsl(var(--input,var(--border)))] bg-[hsl(var(--background))] hover:bg-[hsl(var(--muted))] active:border-[hsl(var(--primary)/0.4)] active:bg-[hsl(var(--primary)/0.12)]"
+            : "min-h-11 border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-sm hover:bg-[hsl(var(--muted))] active:border-[hsl(var(--primary)/0.4)] active:bg-[hsl(var(--primary)/0.12)] sm:min-h-9 sm:w-auto ",
           selectClassName,
         )}
       >
@@ -177,7 +180,7 @@ export default function SortSelect<T extends string = string>({
         {hasLeadingIcon && (
           <span
             aria-hidden="true"
-            className="flex shrink-0 items-center pl-3 pr-1.5 text-[hsl(var(--muted-foreground))] transition-colors group-hover/trigger:text-[hsl(var(--foreground))]"
+            className="flex shrink-0 items-center pl-3 pr-1.5 text-[hsl(var(--muted-foreground))] transition-colors group-hover/trigger:text-[hsl(var(--foreground))] group-active/trigger:text-[hsl(var(--primary))]"
           >
             <LeadingIcon className="h-3.5 w-3.5" />
           </span>
@@ -200,7 +203,7 @@ export default function SortSelect<T extends string = string>({
         {/* Trailing chevron — absolute so it overlaps the pr-9 gap cleanly */}
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute right-3 flex items-center text-[hsl(var(--muted-foreground))] transition-transform duration-150 group-data-[open]/select:rotate-180 group-hover/trigger:text-[hsl(var(--foreground))]"
+          className="pointer-events-none absolute right-3 flex items-center text-[hsl(var(--muted-foreground))] transition-[color,transform] duration-150 group-data-[open]/select:rotate-180 group-hover/trigger:text-[hsl(var(--foreground))] group-active/trigger:text-[hsl(var(--primary))]"
         >
           <ChevronDown className="h-4 w-4" />
         </span>
@@ -223,12 +226,14 @@ export default function SortSelect<T extends string = string>({
               id={option.value}
               textValue={option.label}
               className={joinClasses(
-                "group/item flex cursor-pointer items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm outline-none transition-colors",
+                "group/item flex touch-manipulation select-none cursor-pointer items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm outline-none",
+                "transition-[background-color,color,transform] duration-100 ease-out",
                 "text-[hsl(var(--foreground))]",
                 "data-[hovered]:bg-[hsl(var(--muted))]",
                 "data-[focused]:bg-[hsl(var(--muted))]",
-                "data-[pressed]:bg-[hsl(var(--accent,var(--muted)))]",
+                "data-[pressed]:scale-[0.985] data-[pressed]:bg-[hsl(var(--primary)/0.12)] data-[pressed]:text-[hsl(var(--primary))]",
                 "data-[selected]:bg-[hsl(var(--muted))] data-[selected]:font-semibold",
+                "motion-reduce:data-[pressed]:transform-none",
               )}
             >
               {({ isSelected }) => (
