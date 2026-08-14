@@ -21,9 +21,9 @@ const dmSerif = DM_Serif_Display({
 });
 
 export const metadata: Metadata = {
-  title: "SideFX.ai – Understand Your Meds",
+  title: "GermFx – Understand Your Meds",
   description:
-    "Track your medication side effects, log symptoms, and generate doctor-ready reports with SideFX.ai.",
+    "Track your medication side effects, log symptoms, and generate doctor-ready reports with GermFx.",
 };
 
 export default async function RootLayout({

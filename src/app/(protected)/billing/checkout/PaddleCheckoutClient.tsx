@@ -176,7 +176,7 @@ export default function PaddleCheckoutClient() {
       <div className="mx-auto flex max-w-xl flex-col gap-6 rounded-3xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-8 shadow-sm">
         <div>
           <p className="text-sm font-semibold uppercase tracking-wide text-sky-500">
-            SideFX Plus
+            GermFx Plus
           </p>
           <h1 className="mt-2 text-3xl font-bold">Opening checkout</h1>
           <p className="mt-3 text-[hsl(var(--muted-foreground))]">

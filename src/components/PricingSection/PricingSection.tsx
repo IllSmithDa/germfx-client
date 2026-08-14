@@ -46,7 +46,7 @@ export default function PricingSection() {
           </h1>
 
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-[hsl(var(--landing-fg-muted))]">
-            SideFX is built to help you track symptoms, understand medications,
+            GermFx is built to help you track symptoms, understand medications,
             and organize health information without complicated pricing.
           </p>
         </div>
@@ -63,7 +63,7 @@ export default function PricingSection() {
 
           <PricingCard
             featured
-            name="SideFX Plus"
+            name="GermFx Plus"
             price="$2.99"
             suffix="/ month"
             description="For deeper tracking, reports, bookmarks, and exports."

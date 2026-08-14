@@ -200,7 +200,7 @@ export default function VerifyEmailChangeClient({
 
               <p className="mt-2 text-sm text-[hsl(var(--landing-fg-muted))]">
                 {isSuccess
-                  ? "Your SideFX account email has been updated."
+                  ? "Your GermFx account email has been updated."
                   : isError
                     ? "We could not complete this email change."
                     : "Please wait while we confirm this verification link."}

@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 
 type LogoTheme = "light" | "dark";
 
-const LOGO_LIGHT_SRC = "/logo/sidefx-logo-light.png";
-const LOGO_DARK_SRC = "/logo/sidefx-logo.png";
+const LOGO_LIGHT_SRC = "/logo/germfx-logo-light.png";
+const LOGO_DARK_SRC = "/logo/germfx-logo.png";
 
 function readExplicitThemeValue(): LogoTheme | null {
   if (typeof document === "undefined") {
@@ -246,7 +246,7 @@ export default function Footer() {
 
         {/* Bottom row */}
         <div className="flex flex-col items-start justify-between gap-3 border-t border-[hsl(var(--landing-border))] pt-6 text-xs text-[hsl(var(--landing-fg-subtle))] sm:flex-row sm:items-center">
-          <p>&copy; {currentYear} SideFX.ai. All rights reserved.</p>
+          <p>&copy; {currentYear} GermFx. All rights reserved.</p>
 
           <div className="flex items-center gap-4">
             <Link
@@ -264,7 +264,7 @@ export default function Footer() {
             </Link>
             <span className="opacity-30">·</span>
             <a
-              href="mailto:hello@sidefx.ai"
+              href="mailto:hello@GermFx"
               className="transition-colors hover:text-[hsl(var(--landing-fg-muted))]"
             >
               Contact

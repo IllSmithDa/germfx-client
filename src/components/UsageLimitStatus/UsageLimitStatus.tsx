@@ -30,7 +30,7 @@ export default function UsageLimitNotice({ status, label }: Props) {
 
       <p className="mt-1 text-xs">
         {status.limit_reached
-          ? "You have reached the free/demo limit. Upgrade to SideFX Plus for unlimited access."
+          ? "You have reached the free/demo limit. Upgrade to GermFx Plus for unlimited access."
           : `${remaining} remaining on the free/demo plan.`}
       </p>
     </div>

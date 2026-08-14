@@ -205,8 +205,8 @@ export default function Register() {
           className="hidden sm:block landing-display mb-4 sm:mb-10 text-2xl font-bold text-slate-950 transition-opacity hover:opacity-80 dark:text-[hsl(var(--landing-fg))]"
         >
           <Image
-            src="/logo/sidefx-logo.png"
-            alt="SideFX"
+            src="/logo/germfx-logo.png"
+            alt="GermFx"
             width={128}
             height={64}
             priority

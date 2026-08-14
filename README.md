@@ -1,8 +1,8 @@
-# SideFX Next.js Client
+# GermFx Next.js Client
 
-This is the Next.js frontend for **SideFX**, a medication tracking, symptom logging, health news, recall, reporting, and subscription management app.
+This is the Next.js frontend for **GermFx**, a medication tracking, symptom logging, health news, recall, reporting, and subscription management app.
 
-The client communicates with the SideFX FastAPI backend and uses Paddle for SideFX Plus subscription checkout.
+The client communicates with the GermFx FastAPI backend and uses Paddle for GermFx Plus subscription checkout.
 
 ---
 
@@ -222,7 +222,7 @@ The browser may show a local certificate warning the first time. Accepting the l
 
 ## Paddle Checkout Flow
 
-Current SideFX Plus checkout flow:
+Current GermFx Plus checkout flow:
 
 ```txt
 User logs in

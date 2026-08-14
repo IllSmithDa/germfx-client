@@ -8,11 +8,11 @@ export default function FeedbackPage() {
       <section className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-2 shadow-sm sm:p-4">
         <div className="max-w-xl">
           <p className="text-xs font-semibold uppercase tracking-widest text-[hsl(var(--primary))]">
-            SideFX feedback
+            GermFx feedback
           </p>
 
           <h1 className="mt-2 text-2xl font-semibold text-[hsl(var(--foreground))]">
-            Help improve SideFX
+            Help improve GermFx
           </h1>
 
           <p className="mt-2 text-sm leading-relaxed text-[hsl(var(--muted-foreground))]">

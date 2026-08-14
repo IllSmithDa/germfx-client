@@ -51,7 +51,7 @@ export default async function RegisterSuccessPage({ searchParams }: Props) {
 
             <div className="mt-5 text-center">
               <h1 className="landing-display text-2xl font-bold text-[hsl(var(--landing-fg))]">
-                Welcome to SideFX
+                Welcome to GermFx
               </h1>
               <p className="mt-2 text-sm text-[hsl(var(--landing-fg-muted))]">
                 Your account has been created successfully.
@@ -85,7 +85,7 @@ export default async function RegisterSuccessPage({ searchParams }: Props) {
                 <p>Here’s what happens next:</p>
                 <ul className="space-y-2">
                   <li>• Open your inbox and click the verification link.</li>
-                  <li>• After verification, return to SideFX and sign in.</li>
+                  <li>• After verification, return to GermFx and sign in.</li>
                   <li>• Start tracking medications, symptoms, and reports in one place.</li>
                 </ul>
               </div>

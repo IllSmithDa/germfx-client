@@ -237,7 +237,7 @@ export async function generateMetadata(
       .trim() || "Code Search";
 
   return {
-    title: `Code: ${code} | SideFX`,
+    title: `Code: ${code} | GermFx`,
   };
 }
 

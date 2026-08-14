@@ -22,8 +22,8 @@ export default function Navbar() {
           className="flex items-center gap-2 rounded-md px-1 transition-opacity hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-sky-500/50 "
         >
           <Image
-            src="/logo/sidefx-logo.png"
-            alt="SideFX"
+            src="/logo/germfx-logo.png"
+            alt="GermFx"
             // width seems to dictate the size of rest of the image. Keep note of this for now
             width={120}
             height={63}

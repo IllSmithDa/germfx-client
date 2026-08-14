@@ -2,9 +2,9 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "About – SideFX.ai",
+  title: "About – GermFx",
   description:
-    "Learn why SideFX.ai was built and how it helps people understand their medications.",
+    "Learn why GermFx was built and how it helps people understand their medications.",
 };
 
 export default function AboutPage() {
@@ -31,7 +31,7 @@ export default function AboutPage() {
             Built for patients, not paperwork.
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-[hsl(var(--landing-fg-muted))]">
-            SideFX.ai started with a simple frustration — it&apos;s too hard to
+            GermFx started with a simple frustration — it&apos;s too hard to
             track how medications actually affect your daily life.
           </p>
         </div>
@@ -60,7 +60,7 @@ export default function AboutPage() {
                 that burden falls entirely on the patient.
               </p>
               <p>
-                SideFX.ai gives that burden a home. A place to log how you feel,
+                GermFx gives that burden a home. A place to log how you feel,
                 see what changed when, and walk into your next appointment with
                 something concrete — not just &ldquo;I think it got worse around two weeks ago, maybe.&ldquo;
               </p>
@@ -150,13 +150,13 @@ export default function AboutPage() {
             <div className="space-y-4 text-[hsl(var(--landing-fg-muted))] leading-relaxed">
               <p>
                 We believe your health data belongs to you — not advertisers, not
-                data brokers. SideFX.ai does not sell your information. The data
+                data brokers. GermFx does not sell your information. The data
                 you log exists for one purpose: to help you understand your own
                 health story.
               </p>
               <p>
                 We&apos;re building toward a future where patients walk into appointments
-                armed with data, not just memories. SideFX is a tool for informed
+                armed with data, not just memories. GermFx is a tool for informed
                 conversations, not a replacement for clinical care.
               </p>
             </div>
@@ -176,7 +176,7 @@ export default function AboutPage() {
               <circle cx="8" cy="5.5" r="0.5" fill="currentColor" stroke="none" />
             </svg>
             <p className="text-xs leading-relaxed text-[hsl(var(--landing-fg-muted))]">
-              SideFX.ai is a personal tracking tool and does not constitute medical
+              GermFx is a personal tracking tool and does not constitute medical
               advice, diagnosis, or treatment. Always consult a licensed healthcare
               professional regarding your medications and health decisions.
             </p>

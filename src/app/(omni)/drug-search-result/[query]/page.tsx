@@ -35,7 +35,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const [{ query: seg }, { q }] = await Promise.all([args.params, args.searchParams]);
   const qResolved = decodeURIComponent(seg ?? q ?? "").trim() || "Search";
-  return { title: `Search: ${qResolved} | SideFX` };
+  return { title: `Search: ${qResolved} | GermFx` };
 }
 
 async function searchDrug(formData: FormData) {

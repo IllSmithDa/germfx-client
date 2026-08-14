@@ -2,8 +2,8 @@
 import PricingDetails from "./PricingDetails";
 
 export const metadata = {
-  title: "Pricing – SideFX.ai",
-  description: "Simple pricing for SideFX symptom tracking, reports, and exports.",
+  title: "Pricing – GermFx",
+  description: "Simple pricing for GermFx symptom tracking, reports, and exports.",
 };
 
 export default function PricingPage() {

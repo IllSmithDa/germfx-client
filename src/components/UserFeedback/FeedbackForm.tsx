@@ -158,7 +158,7 @@ function SubmissionSuccess({
       </h3>
 
       <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[hsl(var(--muted-foreground))]">
-        Thanks for helping improve SideFX. Your feedback was saved and can be
+        Thanks for helping improve GermFx. Your feedback was saved and can be
         reviewed by the admin team.
       </p>
 

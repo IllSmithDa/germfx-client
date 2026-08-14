@@ -8,8 +8,8 @@ type Props = {
 };
 
 export const metadata = {
-  title: "Verify Email Change – SideFX.ai",
-  description: "Confirm your SideFX account email change.",
+  title: "Verify Email Change – GermFx",
+  description: "Confirm your GermFx account email change.",
 };
 
 export default async function VerifyEmailChangePage({ searchParams }: Props) {

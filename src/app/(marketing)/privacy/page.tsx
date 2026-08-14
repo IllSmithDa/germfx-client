@@ -1,8 +1,8 @@
 // app/(marketing)/privacy/page.tsx
 
 export const metadata = {
-  title: "Privacy Policy – SideFX.ai",
-  description: "How SideFX.ai collects, uses, and protects your personal health data.",
+  title: "Privacy Policy – GermFx",
+  description: "How GermFx collects, uses, and protects your personal health data.",
 };
 
 const LAST_UPDATED = "March 2026";
@@ -65,7 +65,7 @@ const sections = [
     title: "Data Ownership",
     content: (
       <p className="text-[hsl(var(--landing-fg-muted))]">
-        You own your data. SideFX.ai does not sell, rent, or license your personal
+        You own your data. GermFx does not sell, rent, or license your personal
         health data to any third party. Your symptom logs and medication records are
         yours, and they exist exclusively to serve you within this application.
       </p>
@@ -90,7 +90,7 @@ const sections = [
     content: (
       <div className="space-y-3">
         <p className="text-[hsl(var(--landing-fg-muted))]">
-          SideFX.ai uses session cookies to maintain your authenticated session.
+          GermFx uses session cookies to maintain your authenticated session.
           These are strictly functional — they are not used for advertising or
           cross-site tracking.
         </p>
@@ -118,7 +118,7 @@ const sections = [
     title: "Third-Party Services",
     content: (
       <p className="text-[hsl(var(--landing-fg-muted))]">
-        SideFX.ai may use trusted third-party services for infrastructure (such as
+        GermFx may use trusted third-party services for infrastructure (such as
         hosting and database providers). These providers are contractually obligated
         to handle your data securely and only as directed by us. We do not share
         your personal health data with any third party for their independent use.
@@ -147,10 +147,10 @@ const sections = [
         <p className="text-[hsl(var(--landing-fg-muted))]">
           To exercise any of these rights, please contact us at{" "}
           <a
-            href="mailto:privacy@sidefx.ai"
+            href="mailto:privacy@GermFx"
             className="text-[hsl(var(--landing-accent))] underline underline-offset-2 hover:opacity-80"
           >
-            privacy@sidefx.ai
+            privacy@GermFx
           </a>
           .
         </p>
@@ -162,7 +162,7 @@ const sections = [
     title: "Children's Privacy",
     content: (
       <p className="text-[hsl(var(--landing-fg-muted))]">
-        SideFX.ai is not intended for use by individuals under 18 years of age. We
+        GermFx is not intended for use by individuals under 18 years of age. We
         do not knowingly collect personal data from minors. If you believe a minor
         has registered, please contact us and we will promptly remove the account.
       </p>
@@ -174,7 +174,7 @@ const sections = [
     content: (
       <p className="text-[hsl(var(--landing-fg-muted))]">
         We may update this Privacy Policy from time to time. When we do, we will
-        update the &ldquo;Last updated&ldquo; date at the top of this page. Continued use of SideFX.ai after changes constitutes your acceptance of the updated policy.
+        update the &ldquo;Last updated&ldquo; date at the top of this page. Continued use of GermFx after changes constitutes your acceptance of the updated policy.
         For significant changes, we will notify registered users by email.
       </p>
     ),

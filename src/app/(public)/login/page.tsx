@@ -177,7 +177,7 @@ export default function Login() {
           className="hidden sm:block landing-display mb-10 text-2xl font-bold text-slate-950 transition-opacity hover:opacity-80 dark:text-[hsl(var(--landing-fg))]"
         >
           <Image
-            src="/logo/sidefx-logo.png"
+            src="/logo/germfx-logo.png"
             alt="SideFX"
             width={128}
             height={64}

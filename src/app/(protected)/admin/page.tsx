@@ -101,7 +101,7 @@ export default function AdminHomePage() {
           </p>
 
           <h1 className="mt-1 text-3xl font-bold">
-            SideFX Admin
+            GermFx Admin
           </h1>
 
           <p className="mt-2 max-w-2xl text-sm leading-6 text-[hsl(var(--muted-foreground))]">

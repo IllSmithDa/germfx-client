@@ -42,7 +42,7 @@ export function HomeDashboard({
       {/* Header */}
       <header className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">SideFX Home (Demo)</h1>
+          <h1 className="text-2xl font-bold">GermFx Home (Demo)</h1>
           <p className="text-[hsl(var(--muted-foreground))]">
             Preview your medications, symptoms, and insights.
           </p>

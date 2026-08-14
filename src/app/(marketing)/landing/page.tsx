@@ -6,7 +6,7 @@ import { getSessionUser } from "@/lib/helpers/auth";
 import { redirect } from "next/navigation";
 
 export const metadata = {
-  title: "SideFX.ai – Understand Your Meds",
+  title: "GermFx – Understand Your Meds",
   description: "Log symptoms, detect trends, and generate doctor-ready reports.",
 };
 
@@ -51,7 +51,7 @@ export default async function Landing() {
 
           {/* Sub-headline */}
           <p className="landing-fade-3 mx-auto mt-8 max-w-xl text-center text-lg leading-relaxed text-[hsl(var(--landing-fg-muted))]">
-            SideFX.ai connects your symptoms to your medications — so you can log symptoms daily, monitor severity, identify possible triggers, and keep a timeline of how you are managing them.
+            GermFx connects your symptoms to your medications — so you can log symptoms daily, monitor severity, identify possible triggers, and keep a timeline of how you are managing them.
           </p>
 
           {/* CTAs */}
@@ -164,7 +164,7 @@ export default async function Landing() {
             </h2>
               
             <p className="mt-6 text-lg leading-8 text-[hsl(var(--muted-foreground))]">
-              SideFX now combines symptom tracking, medication intelligence,
+              GermFx now combines symptom tracking, medication intelligence,
               FDA-backed safety information, reports, recalls, and health news
               into one organized experience.
             </p>

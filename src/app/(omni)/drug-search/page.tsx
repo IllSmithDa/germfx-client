@@ -7,7 +7,7 @@ import DrugSearchBar from "@/components/DrugSearchBar/DrugSearchBar";
 import CodeLookupBar from "@/components/CodeLookupBar/CodeLookupBar";
 
 export const metadata: Metadata = {
-  title: "Drug Search | SideFX",
+  title: "Drug Search | GermFx",
   description:
     "Search for any medication by brand name, generic, UPC, or package NDC to explore side effects and safety information.",
 };

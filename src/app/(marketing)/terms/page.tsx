@@ -1,7 +1,7 @@
 // app/(marketing)/terms/page.tsx
 export const metadata = {
-  title: "Terms of Service – SideFX.ai",
-  description: "The terms and conditions governing your use of SideFX.ai.",
+  title: "Terms of Service – GermFx",
+  description: "The terms and conditions governing your use of GermFx.",
 };
 
 const LAST_UPDATED = "March 2026";
@@ -12,10 +12,10 @@ const sections = [
     title: "Acceptance of Terms",
     content: (
       <p className="text-[hsl(var(--landing-fg-muted))]">
-        By creating an account or using SideFX.ai, you agree to these Terms of
+        By creating an account or using GermFx, you agree to these Terms of
         Service. If you do not agree, please do not use the service. These terms
         apply to all visitors, registered users, and others who access or use
-        SideFX.ai.
+        GermFx.
       </p>
     ),
   },
@@ -24,7 +24,7 @@ const sections = [
     title: "Description of Service",
     content: (
       <p className="text-[hsl(var(--landing-fg-muted))]">
-        SideFX.ai is a personal health tracking application that allows users to log
+        GermFx is a personal health tracking application that allows users to log
         symptoms, track medication usage, search drug information, and generate
         trend reports. The service is provided as-is for personal informational
         use only.
@@ -37,8 +37,8 @@ const sections = [
     content: (
       <div className="space-y-3">
         <p className="text-[hsl(var(--landing-fg-muted))]">
-          SideFX.ai is <strong className="text-[hsl(var(--landing-fg))]">not a medical service</strong>.
-          Nothing on SideFX.ai constitutes medical advice, diagnosis, or treatment
+          GermFx is <strong className="text-[hsl(var(--landing-fg))]">not a medical service</strong>.
+          Nothing on GermFx constitutes medical advice, diagnosis, or treatment
           recommendations. The information provided — including drug data, symptom
           trends, and reports — is for personal tracking and informational purposes
           only.
@@ -47,7 +47,7 @@ const sections = [
           Always consult a qualified, licensed healthcare professional before making
           any decisions about your medications, treatment, or health. Do not
           disregard or delay seeking professional medical advice based on anything
-          you read or track within SideFX.ai.
+          you read or track within GermFx.
         </p>
       </div>
     ),
@@ -58,7 +58,7 @@ const sections = [
     content: (
       <div className="space-y-3">
         <p className="text-[hsl(var(--landing-fg-muted))]">
-          To use most features of SideFX.ai, you must register for an account. You
+          To use most features of GermFx, you must register for an account. You
           agree to:
         </p>
         <ul className="space-y-1.5 pl-4">
@@ -85,7 +85,7 @@ const sections = [
         <p className="text-[hsl(var(--landing-fg-muted))]">You agree not to:</p>
         <ul className="space-y-1.5 pl-4">
           {[
-            "Use SideFX.ai for any unlawful or fraudulent purpose.",
+            "Use GermFx for any unlawful or fraudulent purpose.",
             "Attempt to gain unauthorized access to any part of the service or its infrastructure.",
             "Scrape, harvest, or systematically copy content or data from the service.",
             "Interfere with or disrupt the integrity or performance of the service.",
@@ -105,11 +105,11 @@ const sections = [
     title: "Data and Privacy",
     content: (
       <p className="text-[hsl(var(--landing-fg-muted))]">
-        Your use of SideFX.ai is also governed by our{" "}
+        Your use of GermFx is also governed by our{" "}
         <a href="/privacy" className="text-[hsl(var(--landing-accent))] underline underline-offset-2 hover:opacity-80">
           Privacy Policy
         </a>
-        , which is incorporated into these Terms by reference. By using SideFX.ai,
+        , which is incorporated into these Terms by reference. By using GermFx,
         you agree to the collection and use of your information as described in that
         policy. You own your data and may request its deletion at any time.
       </p>
@@ -120,8 +120,8 @@ const sections = [
     title: "Intellectual Property",
     content: (
       <p className="text-[hsl(var(--landing-fg-muted))]">
-        The SideFX.ai name, logo, design, and product code are the intellectual
-        property of SideFX.ai and its developers. You may not copy, reproduce, or
+        The GermFx name, logo, design, and product code are the intellectual
+        property of GermFx and its developers. You may not copy, reproduce, or
         distribute any part of the service without explicit written permission. Your
         personal data (logs, notes, records) belongs to you and is not claimed by us.
       </p>
@@ -133,10 +133,10 @@ const sections = [
     content: (
       <div className="space-y-3">
         <p className="text-[hsl(var(--landing-fg-muted))]">
-          SideFX.ai is provided &ldquo;as is&ldquo; and &ldquo;as available&ldquo; without warranties of any kind, express or implied. We do not warrant that the service will be uninterrupted, error-free, or completely secure.
+          GermFx is provided &ldquo;as is&ldquo; and &ldquo;as available&ldquo; without warranties of any kind, express or implied. We do not warrant that the service will be uninterrupted, error-free, or completely secure.
         </p>
         <p className="text-[hsl(var(--landing-fg-muted))]">
-          To the maximum extent permitted by law, SideFX.ai and its developers shall
+          To the maximum extent permitted by law, GermFx and its developers shall
           not be liable for any indirect, incidental, special, consequential, or
           punitive damages — including but not limited to health outcomes, data loss,
           or service interruption — arising from your use of or inability to use the
@@ -176,7 +176,7 @@ const sections = [
     content: (
       <p className="text-[hsl(var(--landing-fg-muted))]">
         We may revise these Terms from time to time. When we do, we will update the
-        date at the top of this page. Continued use of SideFX.ai after updates
+        date at the top of this page. Continued use of GermFx after updates
         constitutes your acceptance of the revised Terms. For material changes,
         registered users will be notified by email.
       </p>
@@ -189,10 +189,10 @@ const sections = [
       <p className="text-[hsl(var(--landing-fg-muted))]">
         Questions about these Terms? Contact us at{" "}
         <a
-          href="mailto:legal@sidefx.ai"
+          href="mailto:legal@GermFx"
           className="text-[hsl(var(--landing-accent))] underline underline-offset-2 hover:opacity-80"
         >
-          legal@sidefx.ai
+          legal@GermFx
         </a>
         .
       </p>
@@ -215,7 +215,7 @@ export default function TermsPage() {
             Last updated: {LAST_UPDATED}
           </p>
           <p className="mt-4 max-w-xl text-base leading-relaxed text-[hsl(var(--landing-fg-muted))]">
-            Please read these terms carefully before using SideFX.ai. They govern
+            Please read these terms carefully before using GermFx. They govern
             your access and use of the service.
           </p>
         </div>
@@ -238,7 +238,7 @@ export default function TermsPage() {
               <circle cx="8" cy="12" r="0.5" fill="currentColor" stroke="none" />
             </svg>
             <p className="text-sm leading-relaxed text-amber-200/80">
-              SideFX.ai is not a medical service. Nothing in this application constitutes
+              GermFx is not a medical service. Nothing in this application constitutes
               medical advice or diagnosis. Always consult a licensed healthcare professional
               for medical decisions.
             </p>

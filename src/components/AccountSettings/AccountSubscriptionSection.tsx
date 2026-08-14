@@ -7,9 +7,9 @@ import { CurrentUser } from "@/lib/helpers/getCurrentUser";
 function formatPlanLabel(plan?: string | null) {
   switch (plan) {
     case "plus":
-      return "SideFX Plus";
+      return "GermFx Plus";
     case "pro":
-      return "SideFX Pro";
+      return "GermFx Pro";
     case "free":
     default:
       return "Free";

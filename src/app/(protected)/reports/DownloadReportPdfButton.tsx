@@ -133,7 +133,7 @@ export default function DownloadReportPdfButton({
       const objectUrl = window.URL.createObjectURL(blob);
       const filename = getDownloadFilename(
         response.headers.get("content-disposition"),
-        "sidefx-report.pdf",
+        "GermFx-report.pdf",
       );
 
       const anchor = document.createElement("a");

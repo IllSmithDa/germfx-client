@@ -225,7 +225,7 @@ export default function SettingsClient({
         <div>
           <h1 className="text-2xl font-semibold">Settings</h1>
           <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">
-            Manage how SideFX works for you across devices.
+            Manage how GermFx works for you across devices.
           </p>
         </div>
 

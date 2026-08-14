@@ -65,8 +65,8 @@ function isPaidAccount(user: UserType | null) {
 
 type LogoTheme = "light" | "dark";
 
-const LOGO_LIGHT_SRC = "/logo/sidefx-logo-light.png";
-const LOGO_DARK_SRC = "/logo/sidefx-logo.png";
+const LOGO_LIGHT_SRC = "/logo/germfx-logo-light.png";
+const LOGO_DARK_SRC = "/logo/germfx-logo.png";
 
 function readExplicitThemeValue(): LogoTheme | null {
   if (typeof document === "undefined") {
