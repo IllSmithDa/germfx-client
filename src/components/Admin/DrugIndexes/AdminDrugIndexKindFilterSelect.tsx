@@ -75,7 +75,7 @@ export default function AdminDrugIndexKindFilterSelect({
       <select
         value={value}
         onChange={handleChange}
-        className="h-10 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-3 text-sm font-medium text-[hsl(var(--foreground))] outline-none transition focus:ring-2 focus:ring-[hsl(var(--ring))]"
+        className="h-10 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-2 sm:px-3 text-sm font-medium text-[hsl(var(--foreground))] outline-none transition focus:ring-2 focus:ring-[hsl(var(--ring))]"
       >
         {FILTER_OPTIONS.map((option) => (
           <option

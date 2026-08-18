@@ -52,7 +52,7 @@ export default function AdminDrugIndexCard({
     <article className="overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-sm">
       <div className="h-1 bg-gradient-to-r from-sky-500 via-violet-500 to-emerald-500 opacity-80" />
 
-      <div className="space-y-4 p-5">
+      <div className="space-y-2 sm:space-y-4 p-2 sm:p-5">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">

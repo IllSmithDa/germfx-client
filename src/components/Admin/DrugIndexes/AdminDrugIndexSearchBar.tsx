@@ -13,7 +13,7 @@ export default function AdminDrugIndexSearchBar({
     <form
       action="/admin/drug-index-codes/search"
       method="GET"
-      className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-4 shadow-sm"
+      className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-2 sm:p-4 shadow-sm"
     >
       <input
         type="hidden"
@@ -40,7 +40,7 @@ export default function AdminDrugIndexSearchBar({
             type="search"
             defaultValue={defaultValue}
             placeholder="Search drug index by name or manufacturer..."
-            className="h-11 w-full rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-4 text-sm text-[hsl(var(--foreground))] outline-none transition placeholder:text-[hsl(var(--muted-foreground))] focus:ring-2 focus:ring-[hsl(var(--ring))]"
+            className="h-11 w-full rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-2 sm:px-4 text-sm text-[hsl(var(--foreground))] outline-none transition placeholder:text-[hsl(var(--muted-foreground))] focus:ring-2 focus:ring-[hsl(var(--ring))]"
           />
         </label>
 

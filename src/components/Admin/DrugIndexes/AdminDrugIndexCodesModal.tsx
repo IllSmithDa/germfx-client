@@ -286,7 +286,7 @@ export default function AdminDrugIndexCodesModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-2 sm:px-4 py-3 sm:py-6">
       <div
         className="absolute inset-0"
         onClick={onClose}
@@ -315,7 +315,7 @@ export default function AdminDrugIndexCodesModal({
             <button
               type="button"
               onClick={onClose}
-              className="rounded-xl border border-[hsl(var(--border))] px-3 py-2 text-sm font-bold transition hover:bg-[hsl(var(--muted))]"
+              className="rounded-xl border border-[hsl(var(--border))] px-2 sm:px-3 py-2 text-sm font-bold transition hover:bg-[hsl(var(--muted))]"
             >
               Close
             </button>
@@ -373,7 +373,7 @@ export default function AdminDrugIndexCodesModal({
                   }
                   rows={4}
                   placeholder="Example: 041167002254"
-                  className="w-full rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-3 py-2 text-sm outline-none transition placeholder:text-[hsl(var(--muted-foreground))] focus:ring-2 focus:ring-[hsl(var(--ring))]"
+                  className="w-full rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-2 sm:px-3 py-2 text-sm outline-none transition placeholder:text-[hsl(var(--muted-foreground))] focus:ring-2 focus:ring-[hsl(var(--ring))]"
                 />
               </label>
 
@@ -391,19 +391,19 @@ export default function AdminDrugIndexCodesModal({
                   }
                   rows={4}
                   placeholder="Example: 41167-0022-5"
-                  className="w-full rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-3 py-2 text-sm outline-none transition placeholder:text-[hsl(var(--muted-foreground))] focus:ring-2 focus:ring-[hsl(var(--ring))]"
+                  className="w-full rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-2 sm:px-3 py-2 text-sm outline-none transition placeholder:text-[hsl(var(--muted-foreground))] focus:ring-2 focus:ring-[hsl(var(--ring))]"
                 />
               </label>
             </div>
 
             {error && (
-              <div className="mt-4 rounded-xl border border-red-400/30 bg-red-500/10 px-3 py-2 text-sm text-red-700 dark:text-red-300">
+              <div className="mt-4 rounded-xl border border-red-400/30 bg-red-500/10 px-2 sm:px-3 py-2 text-sm text-red-700 dark:text-red-300">
                 {error}
               </div>
             )}
 
             {success && (
-              <div className="mt-4 rounded-xl border border-emerald-400/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-700 dark:text-emerald-300">
+              <div className="mt-4 rounded-xl border border-emerald-400/30 bg-emerald-500/10 px-2 sm:px-3 py-2 text-sm text-emerald-700 dark:text-emerald-300">
                 {success}
               </div>
             )}
@@ -413,7 +413,7 @@ export default function AdminDrugIndexCodesModal({
                 type="button"
                 disabled={isSaving}
                 onClick={handleAddCodes}
-                className="rounded-xl bg-[hsl(var(--primary))] px-4 py-2 text-sm font-black text-[hsl(var(--primary-foreground))] transition hover:opacity-90 disabled:opacity-50"
+                className="rounded-xl bg-[hsl(var(--primary))] px-2 sm:px-4 py-2 text-sm font-black text-[hsl(var(--primary-foreground))] transition hover:opacity-90 disabled:opacity-50"
               >
                 {isSaving
                   ? "Saving..."

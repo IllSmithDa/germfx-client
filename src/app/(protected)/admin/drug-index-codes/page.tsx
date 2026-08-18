@@ -167,11 +167,11 @@ export default async function AdminDrugIndexCodesPage({
               ← Admin
             </Link>
 
-            <h1 className="mt-3 text-3xl font-black">
+            <h1 className="mt-3 text-md sm:text-3xl font-black">
               Drug index UPC/NDC codes
             </h1>
 
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-[hsl(var(--muted-foreground))]">
+            <p className="mt-2 max-w-2xl text-xs sm:text-sm leading-6 text-[hsl(var(--muted-foreground))]">
               Browse existing drug index records and select a record to add
               curated UPC or NDC codes. Oldest updated records are shown first
               by default.

@@ -6,8 +6,8 @@ import AdminFeedbackPanel from "./AdminFeedbackPanel";
 
 export default function AdminFeedbackPage() {
   return (
-    <main className="min-h-[calc(100vh-57px)] bg-[hsl(var(--background))] px-4 py-8 text-[hsl(var(--foreground))]">
-      <section className="mx-auto max-w-6xl space-y-6">
+    <main className="min-h-[calc(100vh-57px)] bg-[hsl(var(--background))] px-2 sm:px-4 py-4 sm:py-8 text-[hsl(var(--foreground))]">
+      <section className="mx-auto max-w-6xl space-y-3 sm:space-y-6">
         <div>
           <Link
             href={CLIENT_PATHS.adminHomePath()}

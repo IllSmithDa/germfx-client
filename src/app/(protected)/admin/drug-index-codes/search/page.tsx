@@ -171,8 +171,8 @@ export default async function AdminDrugIndexCodeSearchPage({
     });
 
   return (
-    <main className="min-h-[calc(100vh-57px)] bg-[hsl(var(--background))] px-4 py-8 text-[hsl(var(--foreground))]">
-      <section className="mx-auto max-w-6xl space-y-6">
+    <main className="min-h-[calc(100vh-57px)] bg-[hsl(var(--background))] px-2 sm:px-4 py-4 sm:py-8 text-[hsl(var(--foreground))]">
+      <section className="mx-auto max-w-6xl space-y-3 sm:space-y-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <Link
@@ -219,7 +219,7 @@ export default async function AdminDrugIndexCodeSearchPage({
           </div>
         ) : (
           <>
-            <div className="flex flex-col gap-2 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-4 text-sm text-[hsl(var(--muted-foreground))] sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-col gap-2 rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-2 sm:p-4 text-sm text-[hsl(var(--muted-foreground))] sm:flex-row sm:items-center sm:justify-between">
               <p>
                 Showing{" "}
                 <span className="font-bold text-[hsl(var(--foreground))]">

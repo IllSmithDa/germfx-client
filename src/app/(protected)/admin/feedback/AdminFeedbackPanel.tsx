@@ -179,7 +179,7 @@ function FeedbackCard({
   const busy = updatingId === item.id || deletingId === item.id;
 
   return (
-    <article className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 shadow-sm">
+    <article className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-2 sm:p-5 shadow-sm">
       <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
         <div className="min-w-0 space-y-2">
           <div className="flex flex-wrap items-center gap-2">
@@ -246,7 +246,7 @@ function FeedbackCard({
         </div>
       </div>
 
-      <div className="mt-4 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-4 py-3">
+      <div className="mt-4 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-2 sm:px-4 py-3">
         <p className="whitespace-pre-wrap text-sm leading-6 text-[hsl(var(--foreground))]">
           {item.message}
         </p>
@@ -366,7 +366,7 @@ export default function AdminFeedbackPanel() {
     <div className="space-y-5">
       <form
         onSubmit={applyFilters}
-        className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 shadow-sm"
+        className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-2 sm:p-5 shadow-sm"
       >
         <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_180px_150px_150px_180px]">
           <label className="space-y-1.5">
@@ -497,13 +497,13 @@ export default function AdminFeedbackPanel() {
       </form>
 
       {feedback ? (
-        <div className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-700 dark:text-emerald-300">
+        <div className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 px-2 sm:px-4 py-3 text-sm text-emerald-700 dark:text-emerald-300">
           {feedback}
         </div>
       ) : null}
 
-      {error ? (
-        <div className="rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">
+      {error ? (  
+        <div className="rounded-xl border border-red-500/40 bg-red-500/10 px-2 sm:px-4 py-3 text-sm text-red-700 dark:text-red-300">
           {error}
         </div>
       ) : null}

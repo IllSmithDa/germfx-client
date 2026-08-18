@@ -217,7 +217,7 @@ function ConfirmActionModal({
                 ? "Example: repeated abusive behavior, spam, policy violation"
                 : "Optional admin note"
             }
-            className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+            className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-2 sm:px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
           />
         </label>
 
@@ -226,7 +226,7 @@ function ConfirmActionModal({
             type="button"
             onClick={onClose}
             disabled={pending}
-            className="rounded-xl border border-[hsl(var(--border))] px-4 py-2 text-sm font-semibold transition hover:bg-[hsl(var(--muted))] disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-xl border border-[hsl(var(--border))] px-2 sm:px-4 py-2 text-sm font-semibold transition hover:bg-[hsl(var(--muted))] disabled:cursor-not-allowed disabled:opacity-60"
           >
             Cancel
           </button>
@@ -521,7 +521,7 @@ export default function AdminUsersPanel() {
     <div className="space-y-5">
       <Feedback state={feedback} />
 
-      <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 shadow-sm">
+      <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-2 sm:p-5 shadow-sm">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="grid flex-1 gap-2">
             <label htmlFor="admin-user-search" className="text-sm font-semibold">
@@ -533,7 +533,7 @@ export default function AdminUsersPanel() {
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Search by username, exact email, or user ID"
-              className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+              className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-2 sm:px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
             />
           </div>
 
@@ -548,7 +548,7 @@ export default function AdminUsersPanel() {
               onChange={(event) =>
                 setStatusFilter(event.target.value as AdminUserStatusFilter)
               }
-              className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+              className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-2 sm:px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
             >
               <option value="all">All non-admin users</option>
               <option value="active">Active users</option>
@@ -560,7 +560,7 @@ export default function AdminUsersPanel() {
             type="button"
             onClick={() => loadUsers(page)}
             disabled={loading}
-            className="rounded-xl border border-[hsl(var(--border))] px-4 py-2 text-sm font-semibold transition hover:bg-[hsl(var(--muted))] disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-xl border border-[hsl(var(--border))] px-2 sm:px-4 py-2 text-sm font-semibold transition hover:bg-[hsl(var(--muted))] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {loading ? "Refreshing…" : "Refresh"}
           </button>
@@ -568,8 +568,8 @@ export default function AdminUsersPanel() {
       </div>
 
       <div className="overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-sm">
-        <div className="border-b border-[hsl(var(--border))] px-5 py-4">
-          <h2 className="text-lg font-bold">Users</h2>
+        <div className="border-b border-[hsl(var(--border))] px-2 sm:px-5 py-4">
+          <h2 className="text-md lg:text-lg font-bold">Users</h2>
 
           <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">
             Showing {users.length} of {total} matching users.
@@ -610,7 +610,7 @@ export default function AdminUsersPanel() {
               ) : (
                 users.map((user) => (
                   <tr key={user.id}>
-                    <td className="px-5 py-4">
+                    <td className="px-2 sm:px-5 py-4">
                       <div className="font-semibold">{user.username}</div>
                       <div className="text-xs text-[hsl(var(--muted-foreground))]">
                         User #{user.id}
@@ -622,19 +622,19 @@ export default function AdminUsersPanel() {
                       ) : null}
                     </td>
 
-                    <td className="px-5 py-4">
+                    <td className="px-2 sm:px-5 py-4">
                       <RoleBadge role={user.role} />
                     </td>
 
-                    <td className="px-5 py-4">
+                    <td className="px-2 sm:px-5 py-4">
                       <StatusBadge user={user} />
                     </td>
 
-                    <td className="px-5 py-4 text-[hsl(var(--muted-foreground))]">
+                    <td className="px-2 sm:px-5 py-4 text-[hsl(var(--muted-foreground))]">
                       {formatDate(user.created_at)}
                     </td>
 
-                    <td className="px-5 py-4">
+                    <td className="px-2 sm:px-5 py-4">
                       <div className="flex flex-wrap justify-end gap-2">
                         {canPromote(user) ? (
                           <button
@@ -674,7 +674,7 @@ export default function AdminUsersPanel() {
           </table>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[hsl(var(--border))] px-5 py-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[hsl(var(--border))] px-2 sm:px-5 py-4">
           <p className="text-sm text-[hsl(var(--muted-foreground))]">
             Page {page} of {totalPages}
           </p>
@@ -684,7 +684,7 @@ export default function AdminUsersPanel() {
               type="button"
               onClick={() => loadUsers(page - 1)}
               disabled={loading || page <= 1}
-              className="rounded-xl border border-[hsl(var(--border))] px-4 py-2 text-sm font-semibold transition hover:bg-[hsl(var(--muted))] disabled:cursor-not-allowed disabled:opacity-60"
+              className="rounded-xl border border-[hsl(var(--border))] px-2 sm:px-4 py-2 text-sm font-semibold transition hover:bg-[hsl(var(--muted))] disabled:cursor-not-allowed disabled:opacity-60"
             >
               Previous
             </button>
@@ -693,7 +693,7 @@ export default function AdminUsersPanel() {
               type="button"
               onClick={() => loadUsers(page + 1)}
               disabled={loading || !hasNext}
-              className="rounded-xl border border-[hsl(var(--border))] px-4 py-2 text-sm font-semibold transition hover:bg-[hsl(var(--muted))] disabled:cursor-not-allowed disabled:opacity-60"
+              className="rounded-xl border border-[hsl(var(--border))] px-2 sm:px-4 py-2 text-sm font-semibold transition hover:bg-[hsl(var(--muted))] disabled:cursor-not-allowed disabled:opacity-60"
             >
               Next
             </button>
@@ -701,8 +701,8 @@ export default function AdminUsersPanel() {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 shadow-sm">
-        <h2 className="text-lg font-bold">Manual lookup</h2>
+      <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-2 sm:p-5 shadow-sm">
+        <h2 className="text-md lg:text-lg font-bold">Manual lookup</h2>
 
         <p className="mt-2 text-sm leading-6 text-[hsl(var(--muted-foreground))]">
           Use this when you know the exact user ID, username, or email. This is
@@ -717,7 +717,7 @@ export default function AdminUsersPanel() {
             <select
               value={lookupType}
               onChange={(event) => setLookupType(event.target.value as LookupType)}
-              className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+              className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-2 sm:px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
             >
               <option value="username">Username</option>
               <option value="email">Email</option>
@@ -732,19 +732,19 @@ export default function AdminUsersPanel() {
               value={lookupValue}
               onChange={(event) => setLookupValue(event.target.value)}
               placeholder={manualLookupPlaceholder}
-              className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+              className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-2 sm:px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
             />
           </label>
 
           <label className="grid gap-2">
-            <span className="text-sm font-semibold">Suspension reason</span>
+            <span className="text-md lg:text-lg font-semibold">Suspension reason</span>
 
             <textarea
               value={manualReason}
               onChange={(event) => setManualReason(event.target.value)}
               placeholder="Example: abusive behavior, spam, policy violation"
               rows={4}
-              className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+              className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-2 sm:px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
             />
           </label>
 
@@ -753,7 +753,7 @@ export default function AdminUsersPanel() {
               type="button"
               onClick={handleManualUnsuspend}
               disabled={manualPendingAction !== null || actionPending}
-              className="rounded-xl border border-[hsl(var(--border))] px-4 py-2 text-sm font-semibold transition hover:bg-[hsl(var(--muted))] disabled:cursor-not-allowed disabled:opacity-60"
+              className="rounded-xl border border-[hsl(var(--border))] px-2 sm:px-4 py-2 text-sm font-semibold transition hover:bg-[hsl(var(--muted))] disabled:cursor-not-allowed disabled:opacity-60"
             >
               {manualPendingAction === "unsuspend" ? "Restoring…" : "Restore User"}
             </button>
@@ -762,7 +762,7 @@ export default function AdminUsersPanel() {
               type="button"
               onClick={handleManualSuspend}
               disabled={manualPendingAction !== null || actionPending}
-              className="rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
+              className="rounded-xl bg-red-600 px-2 sm:px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {manualPendingAction === "suspend" ? "Suspending…" : "Suspend User"}
             </button>
