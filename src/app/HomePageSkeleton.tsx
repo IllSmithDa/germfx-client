@@ -18,18 +18,62 @@ function SearchCardSkeleton() {
 function TabSkeleton() {
   return (
     <div className="mb-4 w-full px-0 sm:px-1">
-      <div className="mx-auto grid w-full max-w-3xl overflow-hidden rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-sm [grid-template-columns:repeat(5,minmax(0,1fr))]">
-        {Array.from({ length: 5 }).map((_, i) => (
+      <div
+        className={[
+          "fixed inset-x-0 bottom-0 z-50",
+          "border-t border-[hsl(var(--border))]",
+          "bg-[hsl(var(--tabs-surface))]",
+          "pb-[env(safe-area-inset-bottom)] backdrop-blur",
+          "lg:static lg:z-auto lg:border-t-0 lg:bg-transparent",
+          "lg:pb-0 lg:backdrop-blur-none",
+        ].join(" ")}
+      >
+        <div className="mx-auto w-full lg:max-w-3xl">
           <div
-            key={i}
-            className="flex min-h-12 items-center justify-center border-r border-[hsl(var(--border))] px-2 py-2 last:border-r-0 sm:min-h-[3.1rem] sm:px-3"
+            className={[
+              "grid w-full overflow-hidden",
+              "bg-[hsl(var(--tabs-surface))]",
+              "border-0 shadow-none",
+              "lg:rounded-xl lg:border lg:border-[hsl(var(--border))]",
+              "lg:shadow-sm",
+              "[grid-template-columns:repeat(5,minmax(0,1fr))]",
+            ].join(" ")}
           >
-            <div className="flex items-center justify-center gap-1.5 sm:gap-2">
-              <SkeletonBlock className="h-5 w-5 rounded-md" />
-              <SkeletonBlock className="hidden h-4 w-16 rounded-md lg:block" />
-            </div>
+            {Array.from({ length: 5 }).map((_, i) => {
+              const isActive = i === 0;
+
+              return (
+                <div
+                  key={i}
+                  className={[
+                    "relative flex min-h-14 min-w-0 items-center justify-center",
+                    "border-r border-[hsl(var(--border))] px-1.5 py-1.5",
+                    "last:border-r-0",
+                    "lg:min-h-12 lg:px-3 lg:py-3",
+                    isActive
+                      ? "bg-[hsl(var(--primary)/0.1)] lg:bg-[hsl(var(--background))]"
+                      : "bg-transparent",
+                  ].join(" ")}
+                >
+                  <div className="flex min-w-0 max-w-full flex-col items-center justify-center gap-0.5 lg:flex-row lg:gap-2">
+                    <SkeletonBlock className="h-4 w-4 shrink-0 rounded-md lg:h-[18px] lg:w-[18px]" />
+                    <SkeletonBlock className="h-2.5 w-8 rounded-sm lg:h-4 lg:w-16 lg:rounded-md" />
+                  </div>
+
+                  <span
+                    aria-hidden="true"
+                    className={[
+                      "absolute inset-x-0 top-0 h-0.5",
+                      "bg-[hsl(var(--primary))]",
+                      "lg:top-auto lg:bottom-0",
+                      isActive ? "opacity-100" : "opacity-0",
+                    ].join(" ")}
+                  />
+                </div>
+              );
+            })}
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );
@@ -104,8 +148,10 @@ function HomeTabsSkeleton() {
 export default function HomePageSkeleton() {
   return (
     <SkeletonPageShell>
-      <SearchCardSkeleton />
-      <HomeTabsSkeleton />
+      <div className="pb-[calc(3.5rem+env(safe-area-inset-bottom))] lg:pb-0">
+        <SearchCardSkeleton />
+        <HomeTabsSkeleton />
+      </div>
     </SkeletonPageShell>
   );
 }
