@@ -228,7 +228,7 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
   const shouldShowUpgradeButton = !isPaidAccount(user);
 
   useEffect(() => {
-    function handleClick(e: MouseEvent) {
+    function handleClick(e: PointerEvent) {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
         setMenuOpen(false);
       }
@@ -239,21 +239,20 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
     }
 
     if (menuOpen || searchOpen) {
-      document.addEventListener("mousedown", handleClick);
+      document.addEventListener("pointerdown", handleClick);
     }
 
-    return () => document.removeEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("pointerdown", handleClick);
   }, [menuOpen, searchOpen]);
 
   useEffect(() => {
-    const close = () => {
+    const closeNavigationOverlays = () => {
       setDrawerOpen(false);
       setMenuOpen(false);
-      setSearchOpen(false);
     };
 
-    window.addEventListener("resize", close);
-    return () => window.removeEventListener("resize", close);
+    window.addEventListener("resize", closeNavigationOverlays);
+    return () => window.removeEventListener("resize", closeNavigationOverlays);
   }, []);
 
   useEffect(() => {
@@ -522,14 +521,23 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
             </div>
           </div>
 
-          <div className="flex items-center gap-2 ">
-            <div className="relative" ref={searchRef}>
+          <div
+            className={
+              searchOpen
+                ? "flex min-w-0 flex-1 items-center justify-end gap-1.5 lg:flex-none lg:gap-2"
+                : "flex items-center gap-2"
+            }
+          >
+            <div
+              className={searchOpen ? "relative min-w-0 flex-1 lg:flex-none" : "relative"}
+              ref={searchRef}
+            >
               {searchOpen ? (
                 <form
                   onSubmit={handleSearchSubmit}
-                  className="flex items-center"
+                  className="flex min-w-0 flex-1 items-center lg:flex-none"
                 >
-                  <div className="relative ">
+                  <div className="relative min-w-0 flex-1 lg:flex-none">
                     <input
                       ref={searchInputRef}
                       type="text"
@@ -538,7 +546,7 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
                       placeholder="Search drugs…"
                       autoComplete="off"
                       maxLength={DRUG_SEARCH_MAX_LENGTH}
-                      className="h-8 w-44 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] pl-9 pr-3 text-sm outline-none transition-all focus:ring-2 focus:ring-[hsl(var(--ring))] sm:w-56"
+                      className="h-8 w-full rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] pl-9 pr-9 text-sm outline-none transition-all focus:ring-2 focus:ring-[hsl(var(--ring))] lg:w-56"
                     />
                     <button
                       type="submit"
@@ -546,6 +554,18 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
                       className="absolute inset-y-0 left-3 flex touch-manipulation select-none cursor-pointer items-center text-[hsl(var(--muted-foreground))] transition-[color,transform] duration-100 active:scale-[0.9] active:text-[hsl(var(--primary))] motion-reduce:transform-none"
                     >
                       <Search size={14} />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSearchOpen(false);
+                        setSearchQuery("");
+                      }}
+                      aria-label="Close drug search"
+                      className="absolute inset-y-0 right-2 flex touch-manipulation select-none cursor-pointer items-center justify-center px-1 text-[hsl(var(--muted-foreground))] transition-[color,transform] duration-100 hover:text-[hsl(var(--foreground))] active:scale-[0.9] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
+                    >
+                      <X size={15} />
                     </button>
                   </div>
                 </form>

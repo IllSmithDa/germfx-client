@@ -181,17 +181,17 @@ export default function NavbarNoAuth() {
   const router = useRouter();
 
   useEffect(() => {
-    function handleClick(e: MouseEvent) {
+    function handleClick(e: PointerEvent) {
       if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
         setSearchOpen(false);
       }
     }
 
     if (searchOpen) {
-      document.addEventListener("mousedown", handleClick);
+      document.addEventListener("pointerdown", handleClick);
     }
 
-    return () => document.removeEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("pointerdown", handleClick);
   }, [searchOpen]);
 
   useEffect(() => {
@@ -303,7 +303,13 @@ export default function NavbarNoAuth() {
         aria-label="Main"
       >
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-1.5 px-2.5 min-[380px]:gap-2 min-[380px]:px-3 sm:gap-3 sm:px-4 lg:px-6">
-          <div className="flex min-w-0 items-center gap-2">
+          <div
+            className={
+              searchOpen
+                ? "hidden min-w-0 items-center gap-2 lg:flex"
+                : "flex min-w-0 items-center gap-2"
+            }
+          >
             <button
               type="button"
               className="touch-manipulation select-none cursor-pointer rounded-lg p-1 text-[hsl(var(--muted-foreground))] sm:p-1.5 transition-[background-color,color,transform] duration-100 hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] active:scale-[0.92] active:bg-[hsl(var(--primary)/0.15)] active:text-[hsl(var(--primary))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none lg:hidden"
@@ -326,11 +332,23 @@ export default function NavbarNoAuth() {
             </Link>
           </div>
 
-          <div className="flex items-center gap-2">
-            <div className="relative" ref={searchRef}>
+          <div
+            className={
+              searchOpen
+                ? "flex min-w-0 flex-1 items-center justify-end gap-1.5 lg:flex-none lg:gap-2"
+                : "flex items-center gap-2"
+            }
+          >
+            <div
+              className={searchOpen ? "relative min-w-0 flex-1 lg:flex-none" : "relative"}
+              ref={searchRef}
+            >
               {searchOpen ? (
-                <form onSubmit={handleSearchSubmit} className="flex items-center">
-                  <div className="relative">
+                <form
+                  onSubmit={handleSearchSubmit}
+                  className="flex min-w-0 flex-1 items-center lg:flex-none"
+                >
+                  <div className="relative min-w-0 flex-1 lg:flex-none">
                     <input
                       ref={searchInputRef}
                       type="text"
@@ -339,7 +357,7 @@ export default function NavbarNoAuth() {
                       placeholder="Search drugs…"
                       autoComplete="off"
                       maxLength={DRUG_SEARCH_MAX_LENGTH}
-                      className="h-8 w-44 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] pl-9 pr-3 text-sm outline-none transition-all focus:ring-2 focus:ring-[hsl(var(--ring))] sm:w-56"
+                      className="h-8 w-full rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] pl-9 pr-9 text-sm outline-none transition-all focus:ring-2 focus:ring-[hsl(var(--ring))] lg:w-56"
                     />
 
                     <button
@@ -349,12 +367,27 @@ export default function NavbarNoAuth() {
                     >
                       <Search size={14} />
                     </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSearchOpen(false);
+                        setSearchQuery("");
+                      }}
+                      aria-label="Close drug search"
+                      className="absolute inset-y-0 right-2 flex touch-manipulation select-none cursor-pointer items-center justify-center px-1 text-[hsl(var(--muted-foreground))] transition-[color,transform] duration-100 hover:text-[hsl(var(--foreground))] active:scale-[0.9] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
+                    >
+                      <X size={15} />
+                    </button>
                   </div>
                 </form>
               ) : (
                 <button
                   type="button"
-                  onClick={() => setSearchOpen(true)}
+                  onClick={() => {
+                    setDrawerOpen(false);
+                    setSearchOpen(true);
+                  }}
                   aria-label="Search drugs"
                   className="inline-flex h-8 w-8 touch-manipulation select-none cursor-pointer items-center justify-center rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--muted-foreground))] transition-[background-color,color,transform] duration-100 hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] active:scale-[0.92] active:bg-[hsl(var(--muted))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
                 >
@@ -365,7 +398,13 @@ export default function NavbarNoAuth() {
 
             <ThemeToggle />
 
-            <div className="hidden items-center gap-2 sm:flex">
+            <div
+              className={
+                searchOpen
+                  ? "hidden items-center gap-2 lg:flex"
+                  : "hidden items-center gap-2 sm:flex"
+              }
+            >
               <Link
                 href={CLIENT_PATHS.clientLoginPath()}
                 className="inline-flex h-8 touch-manipulation select-none items-center gap-1.5 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-3 text-sm font-medium text-[hsl(var(--foreground))] transition-[background-color,transform] duration-100 hover:bg-[hsl(var(--muted))] active:scale-[0.97] active:bg-[hsl(var(--muted))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
