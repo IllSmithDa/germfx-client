@@ -302,11 +302,11 @@ export default function NavbarNoAuth() {
         role="navigation"
         aria-label="Main"
       >
-        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6">
+        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-1.5 px-2.5 min-[380px]:gap-2 min-[380px]:px-3 sm:gap-3 sm:px-4 lg:px-6">
           <div className="flex min-w-0 items-center gap-2">
             <button
               type="button"
-              className="touch-manipulation select-none cursor-pointer rounded-lg p-1.5 text-[hsl(var(--muted-foreground))] transition-[background-color,color,transform] duration-100 hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] active:scale-[0.92] active:bg-[hsl(var(--primary)/0.15)] active:text-[hsl(var(--primary))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none lg:hidden"
+              className="touch-manipulation select-none cursor-pointer rounded-lg p-1 text-[hsl(var(--muted-foreground))] sm:p-1.5 transition-[background-color,color,transform] duration-100 hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] active:scale-[0.92] active:bg-[hsl(var(--primary)/0.15)] active:text-[hsl(var(--primary))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none lg:hidden"
               aria-label={drawerOpen ? "Close menu" : "Open menu"}
               aria-expanded={drawerOpen}
               onClick={toggleMobileDrawer}
@@ -389,13 +389,13 @@ export default function NavbarNoAuth() {
       {/* ── Full-screen mobile navigation ── */}
       {drawerOpen && (
         <div
-          className="fixed inset-0 z-50 bg-[hsl(var(--background))] text-[hsl(var(--foreground))] lg:hidden"
+          className="fixed inset-0 z-60 bg-[hsl(var(--background))] text-[hsl(var(--foreground))] lg:hidden"
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation"
         >
           <div className="flex h-full flex-col">
-            <div className="flex h-14 shrink-0 items-center justify-between border-b border-[hsl(var(--border))] bg-[hsl(var(--muted))]/80 px-4 backdrop-blur">
+            <div className="flex h-12 shrink-0 items-center justify-between border-b border-[hsl(var(--border))] bg-[hsl(var(--muted))]/80 px-3 backdrop-blur sm:h-14 sm:px-4">
               <Link
                 href={CLIENT_PATHS.homePath()}
                 onClick={() => setDrawerOpen(false)}
@@ -408,14 +408,14 @@ export default function NavbarNoAuth() {
                 type="button"
                 onClick={() => setDrawerOpen(false)}
                 aria-label="Close menu"
-                className="inline-flex h-9 w-9 touch-manipulation select-none cursor-pointer items-center justify-center rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--muted-foreground))] transition-[background-color,color,transform] duration-100 hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] active:scale-[0.92] active:bg-[hsl(var(--primary)/0.15)] active:text-[hsl(var(--primary))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
+                className="inline-flex h-8 w-8 touch-manipulation select-none cursor-pointer items-center justify-center rounded-lg border sm:h-9 sm:w-9 border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--muted-foreground))] transition-[background-color,color,transform] duration-100 hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] active:scale-[0.92] active:bg-[hsl(var(--primary)/0.15)] active:text-[hsl(var(--primary))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
               >
                 <X size={18} />
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto px-4 py-4">
-              <form onSubmit={handleSearchSubmit} className="mb-4">
+            <div className="flex-1 overflow-y-auto px-2.5 py-2.5 sm:px-4 sm:py-4">
+              <form onSubmit={handleSearchSubmit} className="mb-2.5 sm:mb-4">
                 <div className="relative">
                   <input
                     type="text"
@@ -424,7 +424,7 @@ export default function NavbarNoAuth() {
                     placeholder="Search drugs…"
                     autoComplete="off"
                     maxLength={DRUG_SEARCH_MAX_LENGTH}
-                    className="h-11 w-full rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] pl-10 pr-3 text-sm outline-none transition-all focus:ring-2 focus:ring-[hsl(var(--ring))]"
+                    className="h-10 w-full rounded-lg border border-[hsl(var(--border))] sm:h-11 bg-[hsl(var(--background))] pl-10 pr-3 text-sm outline-none transition-all focus:ring-2 focus:ring-[hsl(var(--ring))]"
                   />
 
                   <button
@@ -443,7 +443,7 @@ export default function NavbarNoAuth() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setDrawerOpen(false)}
-                    className="flex touch-manipulation select-none items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium text-[hsl(var(--foreground))] transition-[background-color,transform] duration-100 hover:bg-[hsl(var(--muted))] active:scale-[0.985] active:bg-[hsl(var(--muted))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
+                    className="flex min-h-10 touch-manipulation select-none items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm font-medium sm:min-h-11 sm:gap-3 sm:px-3 sm:py-3 text-[hsl(var(--foreground))] transition-[background-color,transform] duration-100 hover:bg-[hsl(var(--muted))] active:scale-[0.985] active:bg-[hsl(var(--muted))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
                   >
                     <span className="text-[hsl(var(--muted-foreground))]">
                       {link.icon}
@@ -453,7 +453,7 @@ export default function NavbarNoAuth() {
                 ))}
               </div>
 
-              <div className="mt-5 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--muted))]/50 px-3 py-2.5 text-xs leading-relaxed text-[hsl(var(--muted-foreground))]">
+              <div className="mt-3 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--muted))]/50 px-2.5 py-2 text-xs leading-relaxed sm:mt-5 sm:px-3 sm:py-2.5 text-[hsl(var(--muted-foreground))]">
                 <span className="font-medium text-[hsl(var(--foreground))]">
                   SideFX
                 </span>{" "}
@@ -462,12 +462,12 @@ export default function NavbarNoAuth() {
               </div>
             </div>
 
-            <div className="shrink-0 border-t border-[hsl(var(--border))] bg-[hsl(var(--card))] px-4 py-3">
+            <div className="shrink-0 border-t border-[hsl(var(--border))] bg-[hsl(var(--card))] px-2.5 py-2 sm:px-4 sm:py-3">
               <div className="grid gap-2">
                 <Link
                   href={CLIENT_PATHS.clientLoginPath()}
                   onClick={() => setDrawerOpen(false)}
-                  className="flex touch-manipulation select-none items-center justify-center gap-2 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-3 text-sm font-semibold text-[hsl(var(--foreground))] transition-[background-color,transform] duration-100 hover:bg-[hsl(var(--muted))] active:scale-[0.985] active:bg-[hsl(var(--muted))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
+                  className="flex min-h-10 touch-manipulation select-none items-center justify-center gap-2 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-2.5 py-2 text-sm font-semibold sm:min-h-11 sm:px-3 sm:py-3 text-[hsl(var(--foreground))] transition-[background-color,transform] duration-100 hover:bg-[hsl(var(--muted))] active:scale-[0.985] active:bg-[hsl(var(--muted))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
                 >
                   <LogIn size={16} />
                   Log in
@@ -476,7 +476,7 @@ export default function NavbarNoAuth() {
                 <Link
                   href={CLIENT_PATHS.clientRegisterPath()}
                   onClick={() => setDrawerOpen(false)}
-                  className="flex touch-manipulation select-none items-center justify-center gap-2 rounded-lg bg-[hsl(var(--primary))] px-3 py-3 text-sm font-semibold text-[hsl(var(--primary-foreground))] transition-[opacity,transform] duration-100 hover:opacity-90 active:scale-[0.985] active:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
+                  className="flex min-h-10 touch-manipulation select-none items-center justify-center gap-2 rounded-lg bg-[hsl(var(--primary))] px-2.5 py-2 text-sm font-semibold sm:min-h-11 sm:px-3 sm:py-3 text-[hsl(var(--primary-foreground))] transition-[opacity,transform] duration-100 hover:opacity-90 active:scale-[0.985] active:opacity-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
                 >
                   <UserPlus size={16} />
                   Get started

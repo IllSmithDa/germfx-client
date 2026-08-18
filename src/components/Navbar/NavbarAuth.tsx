@@ -29,6 +29,8 @@ import FeedbackModal from "../UserFeedback/FeedbackModal";
 import { CLIENT_PATHS } from "@/config/paths";
 import { User as UserType } from "@/types/index";
 
+const DRUG_SEARCH_MAX_LENGTH = 100;
+
 type SubscriptionSnapshot = {
   is_plus?: boolean | null;
   plan?: string | null;
@@ -290,10 +292,14 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
     return () => document.removeEventListener("keydown", handler);
   }, [menuOpen, searchOpen, drawerOpen]);
 
+  function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setSearchQuery(e.target.value.slice(0, DRUG_SEARCH_MAX_LENGTH));
+  }
+
   function handleSearchSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    const q = searchQuery.trim();
+    const q = searchQuery.trim().slice(0, DRUG_SEARCH_MAX_LENGTH);
 
     if (!q) {
       return;
@@ -398,7 +404,7 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
       className="rounded-full"
     />
   ) : (
-    <span className="grid size-10 shrink-0 place-items-center rounded-full border border-sky-400/30 bg-sky-500/15 text-sm font-semibold text-sky-600 dark:text-sky-400">
+    <span className="grid size-9 shrink-0 place-items-center rounded-full border border-sky-400/30 sm:size-10 bg-sky-500/15 text-sm font-semibold text-sky-600 dark:text-sky-400">
       {initials}
     </span>
   );
@@ -452,11 +458,6 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
           },
         ]
       : []),
-    {
-      href: CLIENT_PATHS.pricingPath(),
-      label: "Pricing",
-      icon: <Sparkles size={16} />,
-    },
   ];
 
   const mobileLinks = navLinks.filter(
@@ -470,11 +471,17 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
         role="navigation"
         aria-label="Authenticated"
       >
-        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6">
-          <div className="flex min-w-0 items-center gap-2">
+        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-1.5 px-2.5 min-[380px]:gap-2 min-[380px]:px-3 sm:gap-3 sm:px-4 lg:px-6">
+          <div
+            className={
+              searchOpen
+                ? "hidden min-w-0 items-center gap-2 lg:flex"
+                : "flex min-w-0 items-center gap-2"
+            }
+          >
             <button
               type="button"
-              className="inline-grid size-9 shrink-0 touch-manipulation select-none cursor-pointer place-items-center overflow-hidden rounded-full border border-sky-400/30 bg-sky-500/15 text-sky-600 transition-[background-color,border-color,color,transform] duration-100 hover:border-sky-400/50 hover:bg-sky-500/20 active:scale-[0.94] active:border-sky-400/60 active:bg-sky-500/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(var(--muted))] motion-reduce:transform-none dark:text-sky-400 lg:hidden"
+              className="inline-grid size-9 shrink-0 touch-manipulation select-none cursor-pointer place-items-center overflow-hidden rounded-full sm:size-10 border border-sky-400/30 bg-sky-500/15 text-sky-600 transition-[background-color,border-color,color,transform] duration-100 hover:border-sky-400/50 hover:bg-sky-500/20 active:scale-[0.94] active:border-sky-400/60 active:bg-sky-500/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(var(--muted))] motion-reduce:transform-none dark:text-sky-400 lg:hidden"
               aria-label="Open account navigation"
               aria-expanded={drawerOpen}
               aria-controls="authenticated-mobile-menu"
@@ -527,8 +534,10 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
                       ref={searchInputRef}
                       type="text"
                       value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onChange={handleSearchChange}
                       placeholder="Search drugs…"
+                      autoComplete="off"
+                      maxLength={DRUG_SEARCH_MAX_LENGTH}
                       className="h-8 w-44 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] pl-9 pr-3 text-sm outline-none transition-all focus:ring-2 focus:ring-[hsl(var(--ring))] sm:w-56"
                     />
                     <button
@@ -536,22 +545,7 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
                       aria-label="Submit drug search"
                       className="absolute inset-y-0 left-3 flex touch-manipulation select-none cursor-pointer items-center text-[hsl(var(--muted-foreground))] transition-[color,transform] duration-100 active:scale-[0.9] active:text-[hsl(var(--primary))] motion-reduce:transform-none"
                     >
-                      <svg
-                        className="h-3.5 w-3.5 text-[hsl(var(--muted-foreground))]"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                      >
-                        <circle cx="6.5" cy="6.5" r="4.5" />
-                        <line
-                          x1="10.5"
-                          y1="10.5"
-                          x2="14"
-                          y2="14"
-                          strokeLinecap="round"
-                        />
-                      </svg>
+                      <Search size={14} />
                     </button>
                   </div>
                 </form>
@@ -563,24 +557,9 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
                     setSearchOpen(true);
                   }}
                   aria-label="Search drugs"
-                  className="hidden lg:inline-flex h-8 w-8 touch-manipulation select-none cursor-pointer items-center justify-center rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--muted-foreground))] transition-[background-color,color,transform] duration-100 hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] active:scale-[0.92] active:bg-[hsl(var(--muted))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
+                  className="inline-flex h-8 w-8 touch-manipulation select-none cursor-pointer items-center justify-center rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-[hsl(var(--muted-foreground))] transition-[background-color,color,transform] duration-100 hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] active:scale-[0.92] active:bg-[hsl(var(--muted))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
                 >
-                  <svg
-                    className="h-4 w-4"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  >
-                    <circle cx="6.5" cy="6.5" r="4.5" />
-                    <line
-                      x1="10.5"
-                      y1="10.5"
-                      x2="14"
-                      y2="14"
-                      strokeLinecap="round"
-                    />
-                  </svg>
+                  <Search size={16} />
                 </button>
               )}
             </div>
@@ -684,11 +663,6 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
                         icon: <User size={14} />,
                         label: "Account",
                       },
-                      {                     
-                        href: CLIENT_PATHS.pricingPath(),
-                        label: "Pricing",
-                        icon: <Sparkles size={14} />,
-                      },
                       {
                         href: CLIENT_PATHS.settingsPath(),
                         icon: <Settings size={14} />,
@@ -753,12 +727,12 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
       {drawerOpen && (
         <div
           id="authenticated-mobile-menu"
-          className="fixed inset-0 z-50 flex flex-col bg-[hsl(var(--background))] text-[hsl(var(--foreground))] lg:hidden"
+          className="fixed inset-x-0 top-0 z-[60] flex h-[100dvh] max-h-[100dvh] flex-col overflow-hidden bg-[hsl(var(--background))] text-[hsl(var(--foreground))] lg:hidden"
           role="dialog"
           aria-modal="true"
           aria-label="Account navigation"
         >
-          <div className="flex min-h-16 shrink-0 items-center justify-between gap-3 border-b border-[hsl(var(--border))] bg-[hsl(var(--muted))]/80 px-4 py-3 backdrop-blur">
+          <div className="flex min-h-14 shrink-0 items-center justify-between gap-2.5 border-b border-[hsl(var(--border))] bg-[hsl(var(--muted))]/80 px-3 pb-2 pt-[max(0.5rem,env(safe-area-inset-top))] backdrop-blur sm:min-h-16 sm:gap-3 sm:px-4 sm:pb-3 sm:pt-[max(0.75rem,env(safe-area-inset-top))]">
             <div className="flex min-w-0 items-center gap-3">
               {largeUserAvatar}
 
@@ -776,61 +750,66 @@ export default function NavbarAuth({ user }: { user: UserType | null }) {
               type="button"
               aria-label="Close account navigation"
               onClick={closeMobileMenu}
-              className="touch-manipulation select-none cursor-pointer rounded-lg p-2 text-[hsl(var(--muted-foreground))] transition-[background-color,color,transform] duration-100 hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] active:scale-[0.92] active:bg-[hsl(var(--primary)/0.15)] active:text-[hsl(var(--primary))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
+              className="touch-manipulation select-none cursor-pointer rounded-lg p-1.5 text-[hsl(var(--muted-foreground))] sm:p-2 transition-[background-color,color,transform] duration-100 hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] active:scale-[0.92] active:bg-[hsl(var(--primary)/0.15)] active:text-[hsl(var(--primary))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
             >
               <X size={20} />
             </button>
           </div>
 
           <div className="flex min-h-0 flex-1 flex-col">
-            <div className="flex-1 overflow-y-auto px-4 py-4">
+            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-2.5 py-2 sm:px-3 sm:py-3 lg:px-4 lg:py-4">
               <div className="space-y-1">
                 {mobileLinks.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
                     onClick={closeMobileMenu}
-                    className="flex touch-manipulation select-none items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-[hsl(var(--foreground))] transition-[background-color,transform] duration-100 hover:bg-[hsl(var(--muted))] active:scale-[0.985] active:bg-[hsl(var(--muted))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
+                    className="flex min-h-10 touch-manipulation select-none items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm font-medium sm:min-h-11 sm:gap-3 sm:rounded-xl sm:px-3 sm:py-2.5 text-[hsl(var(--foreground))] transition-[background-color,transform] duration-100 hover:bg-[hsl(var(--muted))] active:scale-[0.985] active:bg-[hsl(var(--muted))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
                   >
-                    <span className="text-[hsl(var(--muted-foreground))]">
+                    <span className="grid size-7 shrink-0 place-items-center rounded-md bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))] sm:size-8 sm:rounded-lg">
                       {link.icon}
                     </span>
-                    {link.label}
+                    <span className="min-w-0 flex-1 truncate">{link.label}</span>
                   </Link>
                 ))}
               </div>
+
+              <div className="my-2 h-px bg-[hsl(var(--border))] sm:my-3" />
+
+              <div className="space-y-1">
+                {shouldShowUpgradeButton ? (
+                  <Link
+                    href={CLIENT_PATHS.pricingPath()}
+                    onClick={closeMobileMenu}
+                    className="flex min-h-10 w-full touch-manipulation select-none items-center gap-2.5 rounded-lg border border-sky-400/40 bg-sky-500/10 px-2.5 py-2 text-sm font-semibold sm:min-h-11 sm:gap-3 sm:rounded-xl sm:px-3 sm:py-2.5 text-sky-600 transition-[background-color,transform] duration-100 hover:bg-sky-500/20 active:scale-[0.985] active:bg-sky-500/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none dark:text-sky-400"
+                  >
+                    <span className="grid size-7 shrink-0 place-items-center rounded-md bg-sky-500/10 sm:size-8 sm:rounded-lg">
+                      <Sparkles size={17} />
+                    </span>
+                    Upgrade
+                  </Link>
+                ) : null}
+
+                <button
+                  type="button"
+                  onClick={openFeedback}
+                  className="flex min-h-10 w-full touch-manipulation select-none cursor-pointer items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm font-medium sm:min-h-11 sm:gap-3 sm:rounded-xl sm:px-3 sm:py-2.5 text-[hsl(var(--foreground))] transition-[background-color,transform] duration-100 hover:bg-[hsl(var(--muted))] active:scale-[0.985] active:bg-[hsl(var(--muted))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
+                >
+                  <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))]">
+                    <MessageSquare size={17} />
+                  </span>
+                  Feedback
+                </button>
+              </div>
             </div>
 
-            <div className="shrink-0 border-t border-[hsl(var(--border))] bg-[hsl(var(--card))]/95 px-4 py-3">
-              {shouldShowUpgradeButton ? (
-                <Link
-                  href={CLIENT_PATHS.pricingPath()}
-                  onClick={closeMobileMenu}
-                  className="mb-1 flex w-full touch-manipulation select-none items-center gap-3 rounded-xl border border-sky-400/40 bg-sky-500/10 px-3 py-3 text-sm font-semibold text-sky-600 transition-[background-color,transform] duration-100 hover:bg-sky-500/20 active:scale-[0.985] active:bg-sky-500/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none dark:text-sky-400"
-                >
-                  <Sparkles size={17} className="shrink-0" />
-                  Upgrade
-                </Link>
-              ) : null}
-
-              <button
-                type="button"
-                onClick={openFeedback}
-                className="flex w-full touch-manipulation select-none cursor-pointer items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-[hsl(var(--foreground))] transition-[background-color,transform] duration-100 hover:bg-[hsl(var(--muted))] active:scale-[0.985] active:bg-[hsl(var(--muted))] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
-              >
-                <MessageSquare
-                  size={17}
-                  className="text-[hsl(var(--muted-foreground))]"
-                />
-                Feedback
-              </button>
-
+            <div className="relative z-10 shrink-0 border-t border-[hsl(var(--border))] bg-[hsl(var(--card))]/98 px-2.5 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur sm:px-3 sm:pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:pt-3 lg:px-4">
               <button
                 type="button"
                 onClick={logout}
-                className="mt-1 flex w-full touch-manipulation select-none cursor-pointer items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-[hsl(var(--destructive))] transition-[background-color,transform] duration-100 hover:bg-[hsl(var(--muted))] active:scale-[0.985] active:bg-[hsl(var(--destructive)/0.1)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
+                className="flex min-h-10 w-full touch-manipulation select-none cursor-pointer items-center justify-center gap-2 rounded-lg border border-[hsl(var(--destructive)/0.25)] bg-[hsl(var(--destructive)/0.06)] px-2.5 py-2 text-sm font-semibold sm:min-h-11 sm:gap-2.5 sm:rounded-xl sm:px-3 sm:py-2.5 text-[hsl(var(--destructive))] transition-[background-color,border-color,transform] duration-100 hover:bg-[hsl(var(--destructive)/0.1)] active:scale-[0.985] active:border-[hsl(var(--destructive)/0.4)] active:bg-[hsl(var(--destructive)/0.14)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none"
               >
-                <LogOut size={17} />
+                <LogOut size={17} className="shrink-0" />
                 Log out
               </button>
             </div>
