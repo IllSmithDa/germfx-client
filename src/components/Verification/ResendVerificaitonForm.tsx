@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { resendVerificationClient } from "@/lib/client/verificationApi";
+import TurnstileWidget from "@/components/Turnstile/TurnstileWidget";
 
 type ResendVerificationFormValues = {
   email: string;
@@ -54,6 +55,12 @@ function Feedback({ state }: { state: FeedbackState }) {
 export default function ResendVerificationForm() {
   const [pending, setPending] = useState(false);
   const [feedback, setFeedback] = useState<FeedbackState>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0);
+
+  const turnstileEnabled = Boolean(
+    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
+  );
 
   const {
     register,
@@ -66,13 +73,39 @@ export default function ResendVerificationForm() {
   });
 
   async function onSubmit(values: ResendVerificationFormValues) {
-    setPending(true);
     setFeedback(null);
 
+    if (turnstileEnabled && !turnstileToken) {
+      setFeedback({
+        ok: false,
+        message: "Please complete the security check before resending the verification email.",
+      });
+      return;
+    }
+
+    setPending(true);
+
+    const payload = {
+      email: values.email,
+      turnstile_token: turnstileToken,
+    };
+
     try {
-      const result = await resendVerificationClient(values);
+      const result = await resendVerificationClient(payload);
       setFeedback({ ok: result.ok, message: result.message });
+    } catch {
+      setFeedback({
+        ok: false,
+        message: "Unable to resend the verification email. Please try again.",
+      });
     } finally {
+      // Turnstile tokens are single-use. Reset after every request so a
+      // subsequent resend attempt must receive a fresh token.
+      if (turnstileEnabled) {
+        setTurnstileToken(null);
+        setTurnstileResetKey((current) => current + 1);
+      }
+
       setPending(false);
     }
   }
@@ -92,6 +125,17 @@ export default function ResendVerificationForm() {
         />
         <FieldError message={errors.email?.message} />
       </div>
+
+      {turnstileEnabled && (
+        <div className="pt-1">
+          <TurnstileWidget
+            action="resend_verification"
+            onTokenChange={setTurnstileToken}
+            resetKey={turnstileResetKey}
+            className="flex justify-center"
+          />
+        </div>
+      )}
 
       <Feedback state={feedback} />
 
