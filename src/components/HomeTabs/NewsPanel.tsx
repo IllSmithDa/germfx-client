@@ -23,8 +23,8 @@ export default function NewsPanel({
   userId,
 }: Props) {
   return (
-    <section className="overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-sm">
-      <div className="flex items-center justify-between gap-3 border-b border-[hsl(var(--border))] p-2 sm:p-4">
+    <section className="overflow-visible border-0 bg-transparent shadow-none sm:overflow-hidden sm:rounded-2xl sm:border sm:border-[hsl(var(--border))] sm:bg-[hsl(var(--card))] sm:shadow-sm">
+      <div className="mb-3 flex items-center justify-between gap-3 border-b-0 p-0 sm:mb-0 sm:border-b sm:border-[hsl(var(--border))] sm:p-4">
         <div className="min-w-0 flex-1">
           <h2 className="truncate text-base font-semibold leading-5 text-[hsl(var(--foreground))] sm:text-lg sm:leading-6">
             News
@@ -42,7 +42,7 @@ export default function NewsPanel({
         </Link>
       </div>
 
-      <div className="px-3 py-3 sm:px-5 sm:py-4">
+      <div className="px-0 py-0 sm:px-5 sm:py-4">
         <div className="mb-4 hidden sm:block">
           <ContentSearchBar
             type="news"
@@ -59,7 +59,7 @@ export default function NewsPanel({
       </div>
 
       {articles.length > 0 ? (
-        <div className="border-t border-[hsl(var(--border))] px-3 py-5 sm:px-5">
+        <div className="mt-3 border-t-0 px-0 py-0 sm:mt-0 sm:border-t sm:border-[hsl(var(--border))] sm:px-5 sm:py-5">
           <div className="flex justify-center">
             <Link
               href={CLIENT_PATHS.newsPage(2)}

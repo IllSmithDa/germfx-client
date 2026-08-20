@@ -264,8 +264,8 @@ export default function RecallPanel({
   savedItemsUsageStatus,
 }: RecallPanelProps) {
   return (
-    <section className="overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] shadow-sm">
-      <div className="flex items-center justify-between gap-3 border-b border-[hsl(var(--border))] p-2 sm:p-4">
+    <section className="overflow-visible border-0 bg-transparent shadow-none sm:overflow-hidden sm:rounded-2xl sm:border sm:border-[hsl(var(--border))] sm:bg-[hsl(var(--card))] sm:shadow-sm">
+      <div className="mb-3 flex items-center justify-between gap-3 border-b-0 p-0 sm:mb-0 sm:border-b sm:border-[hsl(var(--border))] sm:p-4">
         <div className="min-w-0">
           <h2 className="truncate text-base font-semibold leading-5 text-[hsl(var(--foreground))] sm:text-lg sm:leading-6">
             {title}
@@ -283,7 +283,7 @@ export default function RecallPanel({
         </Link>
       </div>
 
-      <div className="px-3 py-3 sm:px-5 sm:py-4">
+      <div className="px-0 py-0 sm:px-5 sm:py-4">
         <div className="mb-4 hidden sm:block">
           <ContentSearchBar
             type="recalls"
@@ -331,7 +331,7 @@ export default function RecallPanel({
         )}
       </div>
 
-      <div className="px-3 pb-4 pt-1 sm:px-5 sm:pb-5">
+      <div className="mt-3 px-0 pb-0 pt-0 sm:mt-0 sm:px-5 sm:pb-5 sm:pt-1">
         <Link
           href={CLIENT_PATHS.recallPage(2)}
           className="inline-flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-lg border border-violet-400/40 bg-violet-500/10 px-4 py-2 text-sm font-semibold text-violet-600 transition-colors hover:bg-violet-500/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] dark:text-violet-400 sm:w-auto"

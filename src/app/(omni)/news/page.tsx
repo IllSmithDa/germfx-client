@@ -45,7 +45,7 @@ export default async function NewsPage({
 
   return (
     <div className="min-h-[calc(100vh-57px)] bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
-      <main className="mx-auto max-w-5xl space-y-3 sm:space-y-6 px-2 py-2 sm:py-6">
+      <main className="mx-auto max-w-5xl space-y-3 px-0 py-2 sm:space-y-6 sm:px-2 sm:py-6">
         <section>
           <div className="mb-3 flex flex-wrap items-end justify-between gap-2 sm:gap-5">
             <div>

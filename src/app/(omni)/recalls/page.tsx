@@ -55,7 +55,7 @@ export default async function RecallsPage({ searchParams }: RecallPageProps) {
 
   return (
     <div className="min-h-[calc(100vh-57px)] bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
-      <div className="mx-auto max-w-5xl space-y-3 sm:space-y-6 px-2 sm:px-4 py-2 sm:py-6">
+      <div className="mx-auto max-w-5xl space-y-3 px-0 py-2 sm:space-y-6 sm:px-4 sm:py-6">
         <div>
           <h1 className="text-lg font-bold sm:text-3xl">Recall Updates</h1>
           <p className="mt-2 text-sm text-[hsl(var(--muted-foreground))]">
