@@ -1,11 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import type { RecallItem } from "@/types/recalls";
 import type { NewsArticle } from "@/lib/server/articlesServerApi";
-import SharedTabs, {
-  type SharedTabItem,
-} from "@/components/SharedTabs/SharedTabs";
 import ContentReactionBar from "@/components/ContentReactionBar/ContentReactionBar";
 import type { ReactionSummaryMap, SavedCheckMap } from "@/lib/server/bulkContentApi";
 import SaveNewsButton from "@/components/SaveNewsButton/SaveNewsButton";
@@ -94,7 +92,7 @@ function RecallResultCard({
   const date = formatDate(item.report_date || item.recall_date);
 
   return (
-    <article className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-4 shadow-sm">
+    <article className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-2 sm:p-4 shadow-sm">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex flex-wrap items-center gap-2">
           <span className="rounded-full border border-emerald-400/30 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
@@ -165,6 +163,44 @@ function RecallResultCard({
   );
 }
 
+function getNewsInitial(title: string) {
+  const trimmed = title.trim();
+  return trimmed ? trimmed.charAt(0).toUpperCase() : "N";
+}
+
+function NewsArticleImage({
+  title,
+  imageUrl,
+}: {
+  title: string;
+  imageUrl?: string | null;
+}) {
+  const mediaClassName =
+    "relative flex aspect-video w-full shrink-0 overflow-hidden rounded-xl border border-[hsl(var(--border))] bg-blue-500/10 shadow-sm sm:aspect-auto sm:min-h-[8rem] sm:w-[10.5rem] sm:self-stretch";
+
+  if (imageUrl) {
+    return (
+      <div className={mediaClassName}>
+        <Image
+          src={imageUrl}
+          alt=""
+          fill
+          sizes="(max-width: 639px) 100vw, 168px"
+          className="object-cover"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className={`${mediaClassName} items-center justify-center`}>
+      <span className="text-sm font-semibold text-blue-600 dark:text-blue-400">
+        {getNewsInitial(title)}
+      </span>
+    </div>
+  );
+}
+
 function NewsResultCard({
   item,
   reactionSummary,
@@ -177,54 +213,65 @@ function NewsResultCard({
   const date = formatDate(item.published_at);
 
   return (
-    <article className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-4 shadow-sm">
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="rounded-full border border-sky-400/30 bg-sky-500/10 px-2.5 py-1 text-[11px] font-semibold text-sky-600 dark:text-sky-400">
-            News
-          </span>
+    <article className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-2 shadow-sm sm:p-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch sm:gap-4">
+        <NewsArticleImage
+          title={item.title}
+          imageUrl={item.image_url}
+        />
 
-          {item.source ? (
-            <span className="rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--muted))] px-2.5 py-1 text-[11px] text-[hsl(var(--muted-foreground))]">
-              {item.source}
-            </span>
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="rounded-full border border-sky-400/30 bg-sky-500/10 px-2.5 py-1 text-[11px] font-semibold text-sky-600 dark:text-sky-400">
+                News
+              </span>
+
+              {item.source ? (
+                <span className="rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--muted))] px-2.5 py-1 text-[11px] text-[hsl(var(--muted-foreground))]">
+                  {item.source}
+                </span>
+              ) : null}
+            </div>
+
+            {date ? (
+              <span className="text-xs text-[hsl(var(--muted-foreground))]">
+                {date}
+              </span>
+            ) : null}
+          </div>
+
+          <h2 className="mt-3 line-clamp-2 text-sm font-semibold leading-6">
+            {item.title}
+          </h2>
+
+          {item.summary ? (
+            <p className="mt-2 line-clamp-3 text-xs leading-6 text-[hsl(var(--muted-foreground))]">
+              {item.summary}
+            </p>
           ) : null}
+
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <Link
+              href={item.url}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex rounded-lg border border-sky-400/35 bg-sky-500/10 px-3 py-1.5 text-xs font-semibold text-sky-600 hover:bg-sky-500/20 dark:text-sky-400"
+            >
+              Read article
+            </Link>
+            <SaveNewsButton
+              articleId={item.id}
+              initialSaved={savedStatus?.saved}
+              initialSavedItemId={savedStatus?.saved_item_id}
+            />
+            <ContentReactionBar
+              contentType="news"
+              sourceItemId={item.id}
+              initialSummary={reactionSummary}
+            />
+          </div>
         </div>
-
-        {date ? (
-          <span className="text-xs text-[hsl(var(--muted-foreground))]">
-            {date}
-          </span>
-        ) : null}
-      </div>
-
-      <h2 className="mt-3 text-base font-semibold leading-6">{item.title}</h2>
-
-      {item.summary ? (
-        <p className="mt-2 line-clamp-3 text-sm leading-6 text-[hsl(var(--muted-foreground))]">
-          {item.summary}
-        </p>
-      ) : null}
-
-      <div className="mt-3 flex flex-wrap items-center gap-2">
-        <Link
-          href={item.url}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex rounded-lg border border-sky-400/35 bg-sky-500/10 px-3 py-1.5 text-xs font-semibold text-sky-600 hover:bg-sky-500/20 dark:text-sky-400"
-        >
-          Read article
-        </Link>
-        <SaveNewsButton
-          articleId={item.id}
-          initialSaved={savedStatus?.saved}
-          initialSavedItemId={savedStatus?.saved_item_id}
-        />
-        <ContentReactionBar
-          contentType="news"
-          sourceItemId={item.id}
-          initialSummary={reactionSummary}
-        />
       </div>
     </article>
   );
@@ -300,35 +347,12 @@ export default function ContentSearchTabs({
   const hasQuery = query.length > 0;
   const hasResults = recalls.length > 0 || news.length > 0;
 
-  const tabs: SharedTabItem<SearchType>[] = [
-    {
-      id: "all",
-      label: "All",
-      href: buildSearchHref({ query, type: "all" }),
-    },
-    {
-      id: "recalls",
-      label: "Recalls",
-      href: buildSearchHref({ query, type: "recalls" }),
-    },
-    {
-      id: "news",
-      label: "News",
-      href: buildSearchHref({ query, type: "news" }),
-    },
-  ];
-
   return (
     <div className="space-y-5">
-      <SharedTabs
-        tabs={tabs}
-        activeTab={type}
-        ariaLabel="Search result tabs"
-      />
-      <section className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-4 shadow-sm sm:p-5">
+      <section className="border-0 bg-transparent p-0 shadow-none sm:rounded-2xl sm:border sm:border-[hsl(var(--border))] sm:bg-[hsl(var(--card))] sm:p-5 sm:shadow-sm">
         <div className="mb-5 flex items-center justify-between gap-3">
           <div>
-            <h2 className="text-lg font-semibold break-all">
+            <h2 className="text-md font-semibold break-all">
               {hasQuery ? `Results for "${query}"` : "Search recalls and news"}
             </h2>
             <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">

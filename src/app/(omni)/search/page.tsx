@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import SearchResults from "./SearchResults";
 import { SearchResultsSkeleton } from "./SearchSkeleton";
 import { SearchForm } from "./SearchForm";
+import SearchTabs from "./SearchTabs";
 import { limitQueryText } from "@/lib/helpers/queryText";
 
 type SearchPageProps = {
@@ -27,14 +28,20 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
   return (
     <div className="min-h-[calc(100vh-57px)] bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
-      <main className="mx-auto max-w-5xl space-y-6 px-4 py-6 sm:py-10">
+      <main className="mx-auto max-w-2xl sm:max-w-5xl space-y-6 px-2 py-6 sm:px-4 sm:py-10">
         <div>
-          <h1 className="text-2xl font-bold sm:text-3xl">Search Updates</h1>
+          <h1 className="text-md font-bold sm:text-3xl">Search GermFx</h1>
           <p className="mt-2 text-sm text-[hsl(var(--muted-foreground))]">
             Search health news and FDA recall updates in one place.
           </p>
         </div>
         <SearchForm query={query} type={type} />
+
+        <SearchTabs
+          query={query}
+          activeType={type}
+        />
+
         <Suspense
           key={`${query}-${type}-${page}`}
           fallback={<SearchResultsSkeleton rows={6} />}
