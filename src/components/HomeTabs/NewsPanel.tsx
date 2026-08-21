@@ -26,8 +26,8 @@ export default function NewsPanel({
     <section className="overflow-visible border-0 bg-transparent shadow-none sm:overflow-hidden sm:rounded-2xl sm:border sm:border-[hsl(var(--border))] sm:bg-[hsl(var(--card))] sm:shadow-sm">
       <div className="mb-3 flex items-center justify-between gap-3 border-b-0 p-0 sm:mb-0 sm:border-b sm:border-[hsl(var(--border))] sm:p-4">
         <div className="min-w-0 flex-1">
-          <h2 className="truncate text-base font-semibold leading-5 text-[hsl(var(--foreground))] sm:text-lg sm:leading-6">
-            News
+          <h2 className="truncate text-md font-semibold leading-5 text-[hsl(var(--foreground))] sm:text-lg sm:leading-6">
+            Health News
           </h2>
           <p className="mt-1 hidden text-sm leading-6 text-[hsl(var(--muted-foreground))] sm:block">
             Recent medication, recall, and health-related stories.
@@ -43,12 +43,10 @@ export default function NewsPanel({
       </div>
 
       <div className="px-0 py-0 sm:px-5 sm:py-4">
-        <div className="mb-4 hidden sm:block">
-          <ContentSearchBar
-            type="news"
-            placeholder="Search health news..."
-          />
-        </div>
+        <ContentSearchBar
+          type="news"
+          placeholder="Search health news..."
+        />
 
         <NewsListView
           articles={articles}

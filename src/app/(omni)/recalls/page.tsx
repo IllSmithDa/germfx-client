@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import { RecallsTabPanelSkeleton } from "./RecallsPageSkeleton";
 import RecallResults from "./RecallResult";
 import { getCurrentUser } from "@/lib/helpers/getCurrentUser";
+import ContentSearchBar from "@/components/ContentSearchBar/ContentSearchBar";
 
 type RecallPageProps = {
   searchParams?: Promise<{
@@ -56,11 +57,22 @@ export default async function RecallsPage({ searchParams }: RecallPageProps) {
   return (
     <div className="min-h-[calc(100vh-57px)] bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
       <div className="mx-auto max-w-5xl space-y-3 px-0 py-2 sm:space-y-6 sm:px-4 sm:py-6">
-        <div>
+        <div className="px-2">
           <h1 className="text-lg font-bold sm:text-3xl">Recall Updates</h1>
           <p className="mt-2 text-sm text-[hsl(var(--muted-foreground))]">
             Browse FDA food and medication recalls in a cleaner, searchable format.
           </p>
+        </div>
+
+        <div className="px-2 sm:px-0">
+          <ContentSearchBar
+            type="recalls"
+            placeholder="Search food and medication recalls..."
+            initialQuery={query}
+            targetPath="/recalls"
+            preserveCurrentParams
+            resetParams={["page", "s_recall_page"]}
+          />
         </div>
 
         <RecallTabs

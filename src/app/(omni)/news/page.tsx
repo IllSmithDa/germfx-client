@@ -1,9 +1,8 @@
-import Link from "next/link";
 import { Suspense } from "react";
-import { CLIENT_PATHS } from "@/config/paths";
 import NewsTabs from "./NewsTabs";
 import NewsResults from "./NewsResult";
 import ListPanelSkeleton from "./ListPanelSkeleton";
+import ContentSearchBar from "@/components/ContentSearchBar/ContentSearchBar";
 
 import type { NewsSort } from "@/types/news";
 import type { SavedItemsSort } from "@/types";
@@ -47,13 +46,24 @@ export default async function NewsPage({
     <div className="min-h-[calc(100vh-57px)] bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
       <main className="mx-auto max-w-5xl space-y-3 px-0 py-2 sm:space-y-6 sm:px-2 sm:py-6">
         <section>
-          <div className="mb-3 flex flex-wrap items-end justify-between gap-2 sm:gap-5">
+          <div className="mb-2 flex flex-wrap items-end justify-between gap-2 sm:gap-5 px-2">
             <div>
-              <h1 className="text-md font-bold sm:text-2xl">Health News</h1>
-              <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">
+              <h1 className="text-sm font-bold sm:text-2xl">Health News</h1>
+              <p className="mt-1 text-xs text-[hsl(var(--muted-foreground))]">
                 Browse recent medication, recall, and health-related stories.
               </p>
             </div>
+          </div>
+
+          <div className="px-2 sm:px-0">
+            <ContentSearchBar
+              type="news"
+              placeholder="Search health news..."
+              initialQuery={query}
+              targetPath="/news"
+              preserveCurrentParams
+              resetParams={["page", "s_news_page"]}
+            />
           </div>
 
           <NewsTabs view={view} query={query} sort={sort} />

@@ -103,7 +103,7 @@ export default function HomeTabs({
   }[] = [
     {
       id: "news",
-      label: "News",
+      label: "Health News",
       icon: <Newspaper size={17} />,
       count: articles.length,
       countColor:

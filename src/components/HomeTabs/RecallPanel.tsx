@@ -284,12 +284,10 @@ export default function RecallPanel({
       </div>
 
       <div className="px-0 py-0 sm:px-5 sm:py-4">
-        <div className="mb-4 hidden sm:block">
-          <ContentSearchBar
-            type="recalls"
-            placeholder="Search food and medication recalls..."
-          />
-        </div>
+        <ContentSearchBar
+          type="recalls"
+          placeholder="Search food and medication recalls..."
+        />
 
         <UsageLimitNotice
           featureKey="saved_items"

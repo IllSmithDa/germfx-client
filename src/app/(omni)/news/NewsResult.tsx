@@ -211,9 +211,9 @@ export default async function NewsResults({
   const nextPage = finalPage < totalPages ? finalPage + 1 : null;
 
   return (
-    <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-2 sm:p-5">
+    <div className="border-0 bg-transparent p-2 sm:rounded-2xl sm:border sm:border-[hsl(var(--border))] sm:bg-[hsl(var(--card))] sm:p-5">
       <div className="mb-2 sm:mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm text-[hsl(var(--muted-foreground))]">
+        <p className="text-xs text-[hsl(var(--muted-foreground))]">
           Page {finalPage} of {totalPages}
         </p>
 

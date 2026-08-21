@@ -240,12 +240,12 @@ function MobileArticleCard({
       <div className="pt-3">
         <ArticleTitleLink
           article={article}
-          className="line-clamp-3 text-lg leading-snug"
+          className="line-clamp-3 text-sm leading-snug"
         />
 
         <ArticleSummaryLink
           article={article}
-          className="mt-2 line-clamp-3 text-sm leading-6"
+          className="mt-2 line-clamp-3 text-xs leading-6"
         />
 
         <div className="mt-2 flex items-center justify-between gap-3 text-xs text-[hsl(var(--muted-foreground))]">
