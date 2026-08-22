@@ -22,6 +22,21 @@ export const CLIENT_PATHS = {
   drugSearchPage: () => "/drug-search",
   newsPage: (page = 1) => `/news?page=${page}`,
   recallPage: (page = 1) => `/recalls?page=${page}`,
+
+  // Public/client content detail pages.
+  newsDetailPath: (articleId: string | number) =>
+    `/news/${encodeURIComponent(String(articleId))}`,
+
+  recallDetailPath: (recallId: string | number) =>
+    `/recalls/${encodeURIComponent(String(recallId))}`,
+
+  contentDetailPath: (
+    contentType: "news" | "recall",
+    contentId: string | number,
+  ) =>
+    contentType === "news"
+      ? `/news/${encodeURIComponent(String(contentId))}`
+      : `/recalls/${encodeURIComponent(String(contentId))}`,
   drugCodeSearchPath: (code: string) =>`/drug-code-search/${encodeURIComponent(code)}`,
   userMedicationsPath: () => "/user-medications",
   symptomLogsPath: () => "/symptom-logs",

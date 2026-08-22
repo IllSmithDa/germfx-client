@@ -40,6 +40,26 @@ export const API_PROXY_PATHS = {
   // Auth/session helpers used by browser-side fetch wrappers.
   refresh: () => `${BACKEND_PROXY_ROOT}/auth/refresh`,
 
+  // Stored content detail. Use this from browser-side fetch helpers when
+  // requests should flow through the existing Next.js backend proxy.
+  contentDetail: (
+    contentType: "news" | "recall",
+    contentId: string | number,
+  ) =>
+    `${BACKEND_PROXY_ROOT}/content-detail/item/${encodeURIComponent(
+      contentType,
+    )}/${encodeURIComponent(String(contentId))}`,
+
+  newsDetail: (articleId: string | number) =>
+    `${BACKEND_PROXY_ROOT}/content-detail/item/news/${encodeURIComponent(
+      String(articleId),
+    )}`,
+
+  recallDetail: (recallId: string | number) =>
+    `${BACKEND_PROXY_ROOT}/content-detail/item/recall/${encodeURIComponent(
+      String(recallId),
+    )}`,
+
   // Feedback.
   feedback: () => `${BACKEND_PROXY_ROOT}/feedback`,
 

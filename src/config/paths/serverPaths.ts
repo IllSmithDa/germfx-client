@@ -207,6 +207,26 @@ export const SERVER_PATHS = {
   },
 
   syncRecalls: () => `${ROOT_SERVER_URL}/recalls/sync`,
+
+  // Stored content detail by database ID.
+  contentDetail: (
+    contentType: "news" | "recall",
+    contentId: string | number,
+  ) =>
+    `${ROOT_SERVER_URL}/content-detail/item/${encodeURIComponent(
+      contentType,
+    )}/${encodeURIComponent(String(contentId))}`,
+
+  newsDetail: (articleId: string | number) =>
+    `${ROOT_SERVER_URL}/content-detail/item/news/${encodeURIComponent(
+      String(articleId),
+    )}`,
+
+  recallDetail: (recallId: string | number) =>
+    `${ROOT_SERVER_URL}/content-detail/item/recall/${encodeURIComponent(
+      String(recallId),
+    )}`,
+
   savedItems: (params?: {
     content_type?: "news" | "recall";
     query?: string;
