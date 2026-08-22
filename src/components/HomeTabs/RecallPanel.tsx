@@ -5,6 +5,7 @@ import type { RecallItem } from "@/types/recalls";
 import SaveRecallButton from "../SaveRecallButton/SaveRecallButton";
 import ContentSearchBar from "../ContentSearchBar/ContentSearchBar";
 import ContentReactionBar from "../ContentReactionBar/ContentReactionBar";
+import ContentShareButton from "../ContentShareButton/ContentShareButton";
 import { ReactionSummaryMap, SavedCheckMap } from "@/lib/server/bulkContentApi";
 import { ReactionSummary } from "@/lib/client/reactionApi";
 import UsageLimitNotice, {
@@ -235,17 +236,24 @@ function RecallCard({
       </div>
 
       <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-[hsl(var(--border))] pt-3 sm:gap-3">
+        <SaveRecallButton
+          recallId={item.id}
+          initialSaved={savedStatus?.saved}
+          initialSavedItemId={savedStatus?.saved_item_id}
+          userId={userId}
+        />
+
         <ContentReactionBar
           contentType="recall"
           sourceItemId={item.id}
           initialSummary={reactionSummary}
           userId={userId}
         />
-        <SaveRecallButton
-          recallId={item.id}
-          initialSaved={savedStatus?.saved}
-          initialSavedItemId={savedStatus?.saved_item_id}
-          userId={userId}
+
+        <ContentShareButton
+          title={item.title}
+          text={item.reason ?? undefined}
+          shareUrl={CLIENT_PATHS.recallDetailPath(item.id)}
         />
       </div>
     </article>

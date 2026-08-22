@@ -9,6 +9,7 @@ import SaveRecallButton from "@/components/SaveRecallButton/SaveRecallButton";
 import type { NewsArticle } from "@/lib/server/articlesServerApi";
 import type { ReactionSummary } from "@/lib/client/reactionApi";
 import type { RecallItem } from "@/types/recalls";  
+import { CLIENT_PATHS } from "@/config/paths";
 
 type SharedProps = {
   initialReactionSummary?: ReactionSummary;
@@ -227,7 +228,7 @@ export default function ContentDetailPage(props: ContentDetailPageProps) {
                 rel="noreferrer"
                 className="group/title mt-4 block rounded-md focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] focus:ring-offset-2 focus:ring-offset-[hsl(var(--card))]"
               >
-                <h1 className="text-xl font-bold leading-8 transition-colors group-hover/title:text-blue-600 dark:group-hover/title:text-blue-400 sm:text-3xl sm:leading-10">
+                <h1 className="text-md sm:text-xl font-bold leading-8 transition-colors group-hover/title:text-blue-600 dark:group-hover/title:text-blue-400 sm:text-3xl sm:leading-10">
                   {props.item.title}
                 </h1>
               </Link>
@@ -267,7 +268,7 @@ export default function ContentDetailPage(props: ContentDetailPageProps) {
                     href={props.item.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex min-h-9 items-center justify-center rounded-lg border border-sky-400/35 bg-sky-500/10 px-3 py-2 text-xs font-semibold text-sky-600 transition-colors hover:bg-sky-500/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] dark:text-sky-400 sm:text-sm"
+                    className="hidden md:inline-flex min-h-9 items-center justify-center rounded-lg border border-sky-400/35 bg-sky-500/10 px-3 py-2 text-xs font-semibold text-sky-600 transition-colors hover:bg-sky-500/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] dark:text-sky-400 sm:text-sm"
                   >
                     Read original article
                   </Link>
@@ -280,16 +281,17 @@ export default function ContentDetailPage(props: ContentDetailPageProps) {
                   userId={props.userId}
                 />
 
-                <ContentShareButton
-                  title={props.item.title}
-                  text={newsDescription ?? undefined}
-                />
-
                 <ContentReactionBar
                   contentType="news"
                   sourceItemId={props.item.id}
                   initialSummary={props.initialReactionSummary}
                   userId={props.userId}
+                />
+                
+                <ContentShareButton
+                  title={props.item.title}
+                  text={newsDescription ?? undefined}
+                  shareUrl={CLIENT_PATHS.newsDetailPath(props.item.id)}
                 />
               </div>
             </>
@@ -319,7 +321,7 @@ export default function ContentDetailPage(props: ContentDetailPageProps) {
                 ) : null}
               </div>
 
-              <h1 className="mt-4 text-xl font-bold leading-8 sm:text-3xl sm:leading-10">
+              <h1 className="mt-4 text-md sm:text-xl font-bold leading-8 sm:text-3xl sm:leading-10">
                 {props.item.title}
               </h1>
 
@@ -358,16 +360,17 @@ export default function ContentDetailPage(props: ContentDetailPageProps) {
                   userId={props.userId}
                 />
 
-                <ContentShareButton
-                  title={props.item.title}
-                  text={props.item.reason ?? undefined}
-                />
-
                 <ContentReactionBar
                   contentType="recall"
                   sourceItemId={props.item.id}
                   initialSummary={props.initialReactionSummary}
                   userId={props.userId}
+                />
+                
+                <ContentShareButton
+                  title={props.item.title}
+                  text={props.item.reason ?? undefined}
+                  shareUrl={CLIENT_PATHS.recallDetailPath(props.item.id)}
                 />
               </div>
 

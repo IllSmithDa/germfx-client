@@ -13,12 +13,14 @@ import {
 type ContentShareButtonProps = {
   title: string;
   text?: string;
+  shareUrl?: string;
   className?: string;
 };
 
 export default function ContentShareButton({
   title,
   text,
+  shareUrl,
   className = "",
 }: ContentShareButtonProps) {
   const [open, setOpen] = useState(false);
@@ -27,7 +29,15 @@ export default function ContentShareButton({
   const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   function getShareUrl() {
-    return window.location.href;
+    if (!shareUrl) {
+      return window.location.href;
+    }
+
+    try {
+      return new URL(shareUrl, window.location.origin).toString();
+    } catch {
+      return window.location.href;
+    }
   }
 
   function getShareBody() {
@@ -191,12 +201,12 @@ export default function ContentShareButton({
           <Share2 className="h-4 w-4" aria-hidden="true" />
         )}
 
-        <span>{copied ? "Link copied" : "Share"}</span>
+        <span className="hidden sm:block">{copied ? "Link copied" : "Share"}</span>
 
         {!copied ? (
           <ChevronDown
             className={[
-              "h-3.5 w-3.5 transition-transform",
+              "h-3.5 w-3.5 transition-transform hidden sm:block",
               open ? "rotate-180" : "",
             ].join(" ")}
             aria-hidden="true"
@@ -275,8 +285,8 @@ function ShareMenuItem({
       role="menuitem"
       onClick={onClick}
       className={[
-        "flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 cursor-pointer",
-        "text-left text-sm text-[hsl(var(--foreground))]",
+        "flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5",
+        "text-left text-sm text-[hsl(var(--foreground))] cursor-pointer",
         "transition-colors hover:bg-[hsl(var(--muted))]",
         "focus:outline-none focus-visible:bg-[hsl(var(--muted))]",
       ].join(" ")}
@@ -285,7 +295,7 @@ function ShareMenuItem({
         {icon}
       </span>
 
-      <span>{label}</span>
+      <span className="hidden md:block">{label}</span>
     </button>
   );
 }

@@ -5,6 +5,8 @@ import type { AriaRole } from "react";
 import type { NewsArticle } from "@/lib/server/articlesServerApi";
 import SaveNewsButton from "@/components/SaveNewsButton/SaveNewsButton";
 import ContentReactionBar from "@/components/ContentReactionBar/ContentReactionBar";
+import ContentShareButton from "@/components/ContentShareButton/ContentShareButton";
+import { CLIENT_PATHS } from "@/config/paths";
 import type {
   ReactionSummaryMap,
   SavedCheckMap,
@@ -194,12 +196,6 @@ function ArticleActions({
           Read article
         </Link>
       ) : null}
-      <ContentReactionBar
-        contentType="news"
-        sourceItemId={article.id}
-        initialSummary={reactionSummary}
-        userId={userId}
-      />
       <div
         className={
           compactSave
@@ -214,6 +210,24 @@ function ArticleActions({
           userId={userId}
         />
       </div>
+
+      <ContentShareButton
+        title={article.title}
+        text={article.summary ?? undefined}
+        shareUrl={CLIENT_PATHS.newsDetailPath(article.id)}
+        className={
+          compactSave
+            ? "h-8 min-h-8 px-3 text-xs [&_svg]:h-3.5 [&_svg]:w-3.5"
+            : ""
+        }
+      />
+
+      <ContentReactionBar
+        contentType="news"
+        sourceItemId={article.id}
+        initialSummary={reactionSummary}
+        userId={userId}
+      />
     </div>
   );
 }
