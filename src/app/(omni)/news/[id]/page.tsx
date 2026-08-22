@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { cache } from "react";
 import { notFound } from "next/navigation";
 
 import ContentDetailPage from "@/components/ContentDetailPage/ContentDetailPage";
@@ -14,6 +16,98 @@ type NewsDetailPageProps = {
     id: string;
   }>;
 };
+// build up meta data for the recall detail page for SEO and social sharing
+type NewsDetailWithDescription = NonNullable<
+  Awaited<ReturnType<typeof fetchNewsDetail>>
+> & {
+  description?: string | null;
+};
+
+const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://germfx.com"
+).replace(/\/$/, "");
+
+const getNewsDetail = cache((id: string) => fetchNewsDetail(id));
+
+function buildMetadataDescription(
+  value: string | null | undefined,
+  fallback: string,
+) {
+  const normalized = value?.replace(/\s+/g, " ").trim();
+
+  if (!normalized) {
+    return fallback;
+  }
+
+  if (normalized.length <= 220) {
+    return normalized;
+  }
+
+  return `${normalized.slice(0, 217).trimEnd()}...`;
+}
+
+export async function generateMetadata({
+  params,
+}: NewsDetailPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const article = (await getNewsDetail(id)) as NewsDetailWithDescription | null;
+
+  if (!article) {
+    return {
+      title: "News article not found | GermFx",
+      description:
+        "The requested health news article is no longer available on GermFx.",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+
+  const canonicalUrl = `${SITE_URL}/news/${encodeURIComponent(
+    String(article.id),
+  )}`;
+
+  const description = buildMetadataDescription(
+    article.summary ?? article.description,
+    "Read this health news story on GermFx.",
+  );
+
+  const openGraphImages = article.image_url
+    ? [
+        {
+          url: article.image_url,
+          alt: article.title,
+        },
+      ]
+    : undefined;
+
+  return {
+    title: article.title,
+    description,
+
+    alternates: {
+      canonical: canonicalUrl,
+    },
+
+    openGraph: {
+      type: "article",
+      siteName: "GermFx",
+      title: article.title,
+      description,
+      url: canonicalUrl,
+      publishedTime: article.published_at ?? undefined,
+      images: openGraphImages,
+    },
+
+    twitter: {
+      card: article.image_url ? "summary_large_image" : "summary",
+      title: article.title,
+      description,
+      images: article.image_url ? [article.image_url] : undefined,
+    },
+  };
+}
 
 export default async function NewsDetailPage({
   params,
@@ -21,7 +115,7 @@ export default async function NewsDetailPage({
   const { id } = await params;
 
   const [article, user] = await Promise.all([
-    fetchNewsDetail(id),
+    getNewsDetail(id),
     getCurrentUser(),
   ]);
 
@@ -47,9 +141,7 @@ export default async function NewsDetailPage({
       contentType="news"
       item={article}
       initialReactionSummary={reactionMap[article.id]}
-      initialSaved={
-        isLoggedIn ? Boolean(savedStatus?.saved) : undefined
-      }
+      initialSaved={isLoggedIn ? Boolean(savedStatus?.saved) : undefined}
       initialSavedItemId={savedStatus?.saved_item_id ?? null}
       userId={user?.id}
     />

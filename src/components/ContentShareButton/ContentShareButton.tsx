@@ -175,7 +175,7 @@ export default function ContentShareButton({
         className={[
           "inline-flex min-h-9 items-center justify-center gap-1.5 rounded-lg",
           "border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-3 py-2",
-          "text-xs font-semibold text-[hsl(var(--foreground))]",
+          "text-xs font-semibold text-[hsl(var(--foreground))] cursor-pointer",
           "transition-colors hover:bg-[hsl(var(--muted))]",
           "focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]",
           "sm:text-sm",
@@ -275,7 +275,7 @@ function ShareMenuItem({
       role="menuitem"
       onClick={onClick}
       className={[
-        "flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5",
+        "flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 cursor-pointer",
         "text-left text-sm text-[hsl(var(--foreground))]",
         "transition-colors hover:bg-[hsl(var(--muted))]",
         "focus:outline-none focus-visible:bg-[hsl(var(--muted))]",

@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { cache } from "react";
 import { notFound } from "next/navigation";
 
 import ContentDetailPage from "@/components/ContentDetailPage/ContentDetailPage";
@@ -15,13 +17,88 @@ type RecallDetailPageProps = {
   }>;
 };
 
+// build up meta data for the recall detail page for SEO and social sharing
+const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://germfx.com"
+).replace(/\/$/, "");
+
+const getRecallDetail = cache((id: string) => fetchRecallDetail(id));
+
+function buildMetadataDescription(
+  value: string | null | undefined,
+  fallback: string,
+) {
+  const normalized = value?.replace(/\s+/g, " ").trim();
+
+  if (!normalized) {
+    return fallback;
+  }
+
+  if (normalized.length <= 220) {
+    return normalized;
+  }
+
+  return `${normalized.slice(0, 217).trimEnd()}...`;
+}
+
+export async function generateMetadata({
+  params,
+}: RecallDetailPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const recall = await getRecallDetail(id);
+
+  if (!recall) {
+    return {
+      title: "Recall not found | GermFx",
+      description:
+        "The requested recall is no longer available in the GermFx database.",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+
+  const canonicalUrl = `${SITE_URL}/recalls/${encodeURIComponent(
+    String(recall.id),
+  )}`;
+
+  const description = buildMetadataDescription(
+    recall.reason,
+    `View recall details for ${recall.title} on GermFx.`,
+  );
+
+  return {
+    title: recall.title,
+    description,
+
+    alternates: {
+      canonical: canonicalUrl,
+    },
+
+    openGraph: {
+      type: "article",
+      siteName: "GermFx",
+      title: recall.title,
+      description,
+      url: canonicalUrl,
+    },
+
+    twitter: {
+      card: "summary",
+      title: recall.title,
+      description,
+    },
+  };
+}
+
 export default async function RecallDetailPage({
   params,
 }: RecallDetailPageProps) {
   const { id } = await params;
 
   const [recall, user] = await Promise.all([
-    fetchRecallDetail(id),
+    getRecallDetail(id),
     getCurrentUser(),
   ]);
 
@@ -47,9 +124,7 @@ export default async function RecallDetailPage({
       contentType="recall"
       item={recall}
       initialReactionSummary={reactionMap[recall.id]}
-      initialSaved={
-        isLoggedIn ? Boolean(savedStatus?.saved) : undefined
-      }
+      initialSaved={isLoggedIn ? Boolean(savedStatus?.saved) : undefined}
       initialSavedItemId={savedStatus?.saved_item_id ?? null}
       userId={user?.id}
     />
