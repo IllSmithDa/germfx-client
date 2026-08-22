@@ -211,6 +211,13 @@ function ArticleActions({
         />
       </div>
 
+      <ContentReactionBar
+        contentType="news"
+        sourceItemId={article.id}
+        initialSummary={reactionSummary}
+        userId={userId}
+      />
+
       <ContentShareButton
         title={article.title}
         text={article.summary ?? undefined}
@@ -220,13 +227,6 @@ function ArticleActions({
             ? "h-8 min-h-8 px-3 text-xs [&_svg]:h-3.5 [&_svg]:w-3.5"
             : ""
         }
-      />
-
-      <ContentReactionBar
-        contentType="news"
-        sourceItemId={article.id}
-        initialSummary={reactionSummary}
-        userId={userId}
       />
     </div>
   );

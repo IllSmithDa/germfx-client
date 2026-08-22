@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import ContentReactionBar from "@/components/ContentReactionBar/ContentReactionBar";
+import ContentShareButton from "@/components/ContentShareButton/ContentShareButton";
 import SaveRecallButton from "@/components/SaveRecallButton/SaveRecallButton";
+import { CLIENT_PATHS } from "@/config/paths";
 import RecallFiltersPanel from "./RecallFiltersPanel";
 import type { RecallItem, RecallSort } from "@/types/recalls";
 import type {
@@ -236,10 +238,17 @@ function RecallCard({
           initialSaved={savedStatus?.saved}
           initialSavedItemId={savedStatus?.saved_item_id}
         />
+
         <ContentReactionBar
           contentType="recall"
           sourceItemId={item.id}
           initialSummary={reactionSummary}
+        />
+
+        <ContentShareButton
+          title={item.title}
+          text={item.reason ?? undefined}
+          shareUrl={CLIENT_PATHS.recallDetailPath(item.id)}
         />
       </div>
     </article>
