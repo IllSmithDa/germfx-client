@@ -127,9 +127,14 @@ export default function ContentShareButton({
 
     if (!hasDesktopPointer && navigator.share) {
       try {
+        /*
+         * Share only the canonical GermFx detail URL on mobile.
+         *
+         * Messaging apps can then generate their own rich link preview
+         * from the page's Open Graph / social metadata instead of
+         * receiving the article description as a large block of message text.
+         */
         await navigator.share({
-          title,
-          text,
           url: getShareUrl(),
         });
 
