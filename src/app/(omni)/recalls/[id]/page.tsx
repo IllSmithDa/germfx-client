@@ -17,7 +17,6 @@ type RecallDetailPageProps = {
   }>;
 };
 
-// build up meta data for the recall detail page for SEO and social sharing
 const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://germfx.com"
 ).replace(/\/$/, "");
@@ -79,15 +78,21 @@ export async function generateMetadata({
     openGraph: {
       type: "article",
       siteName: "GermFx",
+      locale: "en_US",
       title: recall.title,
       description,
       url: canonicalUrl,
+      section: "Recalls",
     },
 
     twitter: {
       card: "summary",
       title: recall.title,
       description,
+    },
+
+    other: {
+      "article:source": "OpenFDA",
     },
   };
 }

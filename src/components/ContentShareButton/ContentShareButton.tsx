@@ -29,6 +29,11 @@ export default function ContentShareButton({
   const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   function getShareUrl() {
+    /*
+     * Resolve the target to an absolute GermFx detail URL.
+     * Social and messaging platforms can crawl that page's Open Graph
+     * metadata to generate the rich preview.
+     */
     if (!shareUrl) {
       return window.location.href;
     }

@@ -16,7 +16,7 @@ type NewsDetailPageProps = {
     id: string;
   }>;
 };
-// build up meta data for the recall detail page for SEO and social sharing
+
 type NewsDetailWithDescription = NonNullable<
   Awaited<ReturnType<typeof fetchNewsDetail>>
 > & {
@@ -77,6 +77,8 @@ export async function generateMetadata({
     ? [
         {
           url: article.image_url,
+          width: 1200,
+          height: 630,
           alt: article.title,
         },
       ]
@@ -93,10 +95,12 @@ export async function generateMetadata({
     openGraph: {
       type: "article",
       siteName: "GermFx",
+      locale: "en_US",
       title: article.title,
       description,
       url: canonicalUrl,
       publishedTime: article.published_at ?? undefined,
+      section: "Health News",
       images: openGraphImages,
     },
 
@@ -104,7 +108,18 @@ export async function generateMetadata({
       card: article.image_url ? "summary_large_image" : "summary",
       title: article.title,
       description,
-      images: article.image_url ? [article.image_url] : undefined,
+      images: article.image_url
+        ? [
+            {
+              url: article.image_url,
+              alt: article.title,
+            },
+          ]
+        : undefined,
+    },
+
+    other: {
+      "article:source": article.source ?? "GermFx",
     },
   };
 }
