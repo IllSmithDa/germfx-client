@@ -228,7 +228,7 @@ export default function ContentDetailPage(props: ContentDetailPageProps) {
                 rel="noreferrer"
                 className="group/title mt-4 block rounded-md focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] focus:ring-offset-2 focus:ring-offset-[hsl(var(--card))]"
               >
-                <h1 className="text-md sm:text-xl font-bold leading-8 transition-colors group-hover/title:text-blue-600 dark:group-hover/title:text-blue-400 sm:text-3xl sm:leading-10">
+                <h1 className="text-md sm:text-xl font-bold leading-6 transition-colors group-hover/title:text-blue-600 dark:group-hover/title:text-blue-400 sm:leading-8">
                   {props.item.title}
                 </h1>
               </Link>
@@ -248,14 +248,13 @@ export default function ContentDetailPage(props: ContentDetailPageProps) {
 
               {newsDescription ? (
                 <section className="mt-5">
-                  <h2 className="text-sm font-semibold">Description</h2>
                   <Link
                     href={props.item.url}
                     target="_blank"
                     rel="noreferrer"
                     className="group/description mt-2 block rounded-md focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] focus:ring-offset-2 focus:ring-offset-[hsl(var(--card))]"
                   >
-                    <p className="whitespace-pre-line text-sm leading-7 text-[hsl(var(--muted-foreground))] transition-colors group-hover/description:text-[hsl(var(--foreground))] sm:text-base">
+                    <p className="whitespace-pre-line text-sm text-[hsl(var(--muted-foreground))] transition-colors group-hover/description:text-[hsl(var(--foreground))] sm:text-base">
                       {newsDescription}
                     </p>
                   </Link>
