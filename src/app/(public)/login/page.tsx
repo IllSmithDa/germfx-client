@@ -25,10 +25,82 @@ const inputNormal =
 const inputError =
   "border-red-500/70 focus:border-red-500 focus:ring-2 focus:ring-red-500/20 dark:border-[hsl(0_70%_55%/0.7)] dark:focus:ring-[hsl(0_70%_55%/0.2)]";
 
+type GoogleOAuthErrorInfo = {
+  message: string;
+  showRegister?: boolean;
+  showReactivate?: boolean;
+};
+
+const GOOGLE_OAUTH_ERRORS: Record<string, GoogleOAuthErrorInfo> = {
+  ACCOUNT_DEACTIVATED: {
+    message:
+      "This GermFx account is deactivated. Reactivate it before signing in.",
+    showReactivate: true,
+  },
+  GOOGLE_ACCOUNT_NOT_FOUND: {
+    message:
+      "No existing GermFx account matches this Google account. Create an account first, then try signing in with Google again.",
+    showRegister: true,
+  },
+  GOOGLE_EMAIL_NOT_VERIFIED: {
+    message:
+      "Your Google email address must be verified before you can use it to sign in.",
+  },
+  GOOGLE_ACCOUNT_ALREADY_LINKED: {
+    message:
+      "This GermFx account is already linked to a different Google account.",
+  },
+  GOOGLE_OAUTH_DENIED: {
+    message:
+      "Google sign-in was cancelled or denied.",
+  },
+  GOOGLE_OAUTH_STATE_INVALID: {
+    message:
+      "Your Google sign-in session expired or could not be verified. Please try again.",
+  },
+  GOOGLE_AUTHORIZATION_CODE_MISSING: {
+    message:
+      "Google did not return a valid sign-in response. Please try again.",
+  },
+  GOOGLE_TOKEN_EXCHANGE_FAILED: {
+    message:
+      "Google sign-in could not be completed. Please try again.",
+  },
+  GOOGLE_ID_TOKEN_INVALID: {
+    message:
+      "Google could not verify your identity. Please try signing in again.",
+  },
+  GOOGLE_OAUTH_NOT_CONFIGURED: {
+    message:
+      "Google sign-in is temporarily unavailable.",
+  },
+  GOOGLE_OAUTH_UNAVAILABLE: {
+    message:
+      "Google sign-in is temporarily unavailable. Please try again.",
+  },
+  GOOGLE_OAUTH_ERROR: {
+    message:
+      "Unable to sign in with Google. Please try again.",
+  },
+};
+
+function getGoogleOAuthError(
+  code: string | null,
+): GoogleOAuthErrorInfo | null {
+  if (!code) return null;
+
+  return (
+    GOOGLE_OAUTH_ERRORS[code] ??
+    GOOGLE_OAUTH_ERRORS.GOOGLE_OAUTH_ERROR
+  );
+}
+
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [showResendVerification, setShowResendVerification] = useState(false);
   const [showReactivateAccount, setShowReactivateAccount] = useState(false);
+  const [googleOAuthError, setGoogleOAuthError] =
+    useState<GoogleOAuthErrorInfo | null>(null);
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [turnstileResetKey, setTurnstileResetKey] = useState(0);
 
@@ -63,11 +135,32 @@ export default function Login() {
       setValue("identifier", savedEmail);
       setRememberEmail(true);
     }
+
+    const url = new URL(window.location.href);
+    const oauthErrorCode =
+      url.searchParams.get("oauth_error");
+
+    if (oauthErrorCode) {
+      setGoogleOAuthError(
+        getGoogleOAuthError(oauthErrorCode),
+      );
+
+      // The message stays in component state, while the URL is cleaned so
+      // refreshing the page does not repeatedly show a stale OAuth error.
+      url.searchParams.delete("oauth_error");
+
+      window.history.replaceState(
+        {},
+        "",
+        `${url.pathname}${url.search}${url.hash}`,
+      );
+    }
   }, [setValue]);
 
   const onSubmit = async (values: LoginValues) => {
     setShowResendVerification(false);
     setShowReactivateAccount(false);
+    setGoogleOAuthError(null);
 
     if (turnstileEnabled && !turnstileToken) {
       setError("root", {
@@ -197,6 +290,61 @@ export default function Login() {
                 Sign in to continue tracking your health
               </p>
             </div>
+
+            {googleOAuthError && (
+              <div className="mb-4 rounded-xl border border-red-200 bg-red-50 px-3.5 py-3 dark:border-[hsl(0_70%_50%/0.3)] dark:bg-[hsl(0_70%_50%/0.08)]">
+                <div className="flex items-start gap-2.5">
+                  <svg
+                    className="mt-0.5 h-4 w-4 shrink-0 text-red-600 dark:text-[hsl(0_70%_67%)]"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    aria-hidden="true"
+                  >
+                    <path d="M8 2L1.5 13.5h13L8 2z" />
+                    <line
+                      x1="8"
+                      y1="7"
+                      x2="8"
+                      y2="10"
+                      strokeLinecap="round"
+                    />
+                    <circle
+                      cx="8"
+                      cy="12"
+                      r="0.5"
+                      fill="currentColor"
+                      stroke="none"
+                    />
+                  </svg>
+
+                  <div className="min-w-0">
+                    <p className="text-sm text-red-700 dark:text-[hsl(0_70%_67%)]">
+                      {googleOAuthError.message}
+                    </p>
+
+                    {googleOAuthError.showRegister && (
+                      <Link
+                        href={CLIENT_PATHS.clientRegisterPath()}
+                        className="mt-2 inline-flex text-sm font-semibold text-sky-700 underline underline-offset-2 transition-opacity hover:opacity-80 dark:text-[hsl(var(--landing-accent))]"
+                      >
+                        Create a GermFx account
+                      </Link>
+                    )}
+
+                    {googleOAuthError.showReactivate && (
+                      <Link
+                        href="/reactivate-account"
+                        className="mt-2 inline-flex text-sm font-semibold text-sky-700 underline underline-offset-2 transition-opacity hover:opacity-80 dark:text-[hsl(var(--landing-accent))]"
+                      >
+                        Reactivate account
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
 
             <form
               className="space-y-3 sm:space-y-5"
@@ -378,7 +526,7 @@ export default function Login() {
                     type="checkbox"
                     checked={rememberEmail}
                     onChange={(event) => setRememberEmail(event.target.checked)}
-                    className="h-3 2-3sm:h-4 sm:w-4 rounded border-slate-300 bg-white accent-[hsl(var(--landing-accent))] dark:border-slate-600 dark:bg-[hsl(220_25%_12%)]"
+                    className="h-3 sm:h-4 sm:w-4 rounded border-slate-300 bg-white accent-[hsl(var(--landing-accent))] dark:border-slate-600 dark:bg-[hsl(220_25%_12%)]"
                   />
                   Remember my email
                 </label>
@@ -392,7 +540,17 @@ export default function Login() {
               </div>
             </form>
 
-            <p className="mt-6 text-center text-sm text-slate-500 dark:text-[hsl(var(--landing-fg-subtle))]">
+            <p className="mt-4 text-center text-sm text-slate-500 dark:text-[hsl(var(--landing-fg-subtle))]">
+              Deactivated your account?{" "}
+              <Link
+                href="/reactivate-account"
+                className="font-medium text-sky-700 underline underline-offset-2 transition-opacity hover:opacity-80 focus:outline-none dark:text-[hsl(var(--landing-accent))]"
+              >
+                Reactivate it
+              </Link>
+            </p>
+
+            <p className="mt-3 text-center text-sm text-slate-500 dark:text-[hsl(var(--landing-fg-subtle))]">
               Don&apos;t have an account?{" "}
               <Link
                 href={CLIENT_PATHS.clientRegisterPath()}

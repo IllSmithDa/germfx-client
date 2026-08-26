@@ -23,6 +23,14 @@ export const SERVER_PATHS = {
   logout: `${ROOT_SERVER_URL}/auth/logout`,
   refresh: `${ROOT_SERVER_URL}/auth/refresh`,
   me: `${ROOT_SERVER_URL}/auth/me`,
+
+  // Google OAuth. These point directly at FastAPI and are consumed by the
+  // explicit Next.js OAuth bridge routes below.
+  googleAuthStatus: `${ROOT_SERVER_URL}/auth/google/status`,
+  googleLogin: `${ROOT_SERVER_URL}/auth/google/login`,
+  googleCallback: `${ROOT_SERVER_URL}/auth/google/callback`,
+  googleRegisterPending: `${ROOT_SERVER_URL}/auth/google/register/pending`,
+  googleRegisterComplete: `${ROOT_SERVER_URL}/auth/google/register/complete`,
   // user details
   userDetails:`${ROOT_SERVER_URL}/users/user-detail`,
 

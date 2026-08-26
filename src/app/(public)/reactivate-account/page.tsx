@@ -19,7 +19,7 @@ export default function ReactivateAccountPage() {
           href="/"
           className="landing-display mb-10 text-2xl font-bold text-[hsl(var(--landing-fg))] hover:opacity-80 transition-opacity"
         >
-          Side<span className="text-[hsl(var(--landing-accent))]">FX</span>.ai
+          Germ<span className="text-[hsl(var(--landing-accent))]">FX</span>
         </Link>
 
         <div className="w-full max-w-md overflow-hidden rounded-2xl border border-[hsl(220_20%_16%)] bg-[hsl(220_28%_9%)] shadow-2xl shadow-black/40">

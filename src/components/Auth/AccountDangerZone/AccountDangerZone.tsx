@@ -1,7 +1,15 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
+import { API_PROXY_PATHS } from "@/config/paths";
 import DeactivateAccountCard from "./DeactivateAccountCard";
 import DeleteAccountCard from "./DeleteAccountCard";
+
+type AccountAuthCapabilities = {
+  has_password: boolean;
+  oauth_providers: string[];
+};
 
 function SectionCard({
   title,
@@ -15,7 +23,7 @@ function SectionCard({
   return (
     <section className="overflow-hidden rounded-2xl border border-rose-500/30 bg-[hsl(var(--card))] shadow-sm">
       <div className="h-0.5 w-full bg-gradient-to-r from-rose-500 via-orange-500 to-rose-500 opacity-70" />
-      <div className="border-b border-[hsl(var(--border))] px-2 sm:px-4 py-3 sm:py-4">
+      <div className="border-b border-[hsl(var(--border))] px-2 py-3 sm:px-4 sm:py-4">
         <h2 className="text-sm font-semibold text-rose-600 dark:text-rose-400">
           {title}
         </h2>
@@ -25,7 +33,9 @@ function SectionCard({
           </p>
         ) : null}
       </div>
-      <div className="space-y-5 px-2 sm:px-4 py-3 sm:py-4">{children}</div>
+      <div className="space-y-5 px-2 py-3 sm:px-4 sm:py-4">
+        {children}
+      </div>
     </section>
   );
 }
@@ -52,6 +62,78 @@ function WarningBox({
 }
 
 export default function AccountDangerZone() {
+  const [capabilities, setCapabilities] =
+    useState<AccountAuthCapabilities | null>(null);
+  const [capabilitiesError, setCapabilitiesError] =
+    useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadCapabilities = async () => {
+      try {
+        const res = await fetch(
+          API_PROXY_PATHS.me(),
+          {
+            method: "GET",
+            credentials: "include",
+            cache: "no-store",
+          },
+        );
+
+        if (!res.ok) {
+          throw new Error(
+            "Unable to load account authentication methods.",
+          );
+        }
+
+        const data = await res.json();
+
+        if (cancelled) return;
+
+        setCapabilities({
+          has_password:
+            data?.has_password === true,
+          oauth_providers: Array.isArray(
+            data?.oauth_providers,
+          )
+            ? data.oauth_providers
+                .filter(
+                  (provider: unknown) =>
+                    typeof provider === "string",
+                )
+                .map((provider: string) =>
+                  provider.toLowerCase(),
+                )
+            : [],
+        });
+      } catch {
+        if (!cancelled) {
+          setCapabilitiesError(
+            "Unable to determine your account verification method. Refresh the page and try again.",
+          );
+        }
+      }
+    };
+
+    void loadCapabilities();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const hasPassword =
+    capabilities?.has_password ?? false;
+
+  const hasGoogle =
+    capabilities?.oauth_providers.includes(
+      "google",
+    ) ?? false;
+
+  const capabilitiesReady =
+    capabilities !== null;
+
   return (
     <SectionCard
       title="Danger Zone"
@@ -66,10 +148,37 @@ export default function AccountDangerZone() {
         ]}
       />
 
-      <div className="grid gap-4">
-        <DeactivateAccountCard />
-        <DeleteAccountCard />
-      </div>
+      {capabilitiesError ? (
+        <div className="rounded-xl border border-amber-400/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-800 dark:text-amber-300">
+          {capabilitiesError}
+        </div>
+      ) : null}
+
+      {!capabilitiesReady &&
+      !capabilitiesError ? (
+        <div
+          className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-4 py-5 text-center text-sm text-[hsl(var(--muted-foreground))]"
+          role="status"
+          aria-live="polite"
+        >
+          Loading account security
+          options...
+        </div>
+      ) : capabilitiesReady ? (
+        <div className="grid gap-4">
+          <DeactivateAccountCard
+            hasPassword={hasPassword}
+            hasGoogle={hasGoogle}
+            authCapabilitiesReady
+          />
+
+          <DeleteAccountCard
+            hasPassword={hasPassword}
+            hasGoogle={hasGoogle}
+            authCapabilitiesReady
+          />
+        </div>
+      ) : null}
     </SectionCard>
   );
 }

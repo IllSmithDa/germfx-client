@@ -20,7 +20,7 @@ type MessageResponse = {
 };
 
 const DEACTIVATE_ACCOUNT_PROXY_PATH =
-  "/api/backend/auth/suspend-account";
+  "/api/backend/auth/deactivate-account";
 
 const DELETE_ACCOUNT_PROXY_PATH =
   "/api/backend/auth/delete-account";

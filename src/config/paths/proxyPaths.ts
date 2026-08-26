@@ -39,6 +39,37 @@ function buildAdminFeedbackQuery(params?: AdminFeedbackParams) {
 export const API_PROXY_PATHS = {
   // Auth/session helpers used by browser-side fetch wrappers.
   refresh: () => `${BACKEND_PROXY_ROOT}/auth/refresh`,
+  me: () => `${BACKEND_PROXY_ROOT}/auth/me`,
+  setPassword: () => `${BACKEND_PROXY_ROOT}/auth/set-password`,
+
+  // Google OAuth must use explicit Next.js routes rather than the generic
+  // backend catch-all because redirects and Set-Cookie headers need special
+  // handling on both the login and callback legs of the flow.
+  googleLogin: () => "/api/auth/google/login",
+
+  googleReauth: (returnTo?: string) => {
+    const search = new URLSearchParams({
+      intent: "reauth",
+    });
+
+    if (returnTo?.trim()) {
+      search.set("return_to", returnTo.trim());
+    }
+
+    return `/api/auth/google/login?${search.toString()}`;
+  },
+
+  googleReactivate: () => {
+    const search = new URLSearchParams({
+      intent: "reactivate",
+    });
+
+    return `/api/auth/google/login?${search.toString()}`;
+  },
+
+  googleCallback: () => "/api/auth/google/callback",
+  googleRegisterPending: () => "/api/auth/google/register/pending",
+  googleRegisterComplete: () => "/api/auth/google/register/complete",
 
   // Stored content detail. Use this from browser-side fetch helpers when
   // requests should flow through the existing Next.js backend proxy.

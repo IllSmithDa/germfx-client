@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -42,6 +42,27 @@ const inputNormal =
   "border-slate-300 hover:border-slate-400 focus:border-sky-500/70 focus:ring-2 focus:ring-sky-500/20 dark:border-[hsl(220_20%_20%)] dark:hover:border-[hsl(220_16%_30%)] dark:focus:border-[hsl(210_80%_62%/0.6)] dark:focus:ring-[hsl(210_80%_62%/0.2)]";
 const inputError =
   "border-red-500/70 focus:border-red-500 focus:ring-2 focus:ring-red-500/20 dark:border-[hsl(0_70%_55%/0.7)] dark:focus:ring-[hsl(0_70%_55%/0.2)]";
+
+const GOOGLE_REGISTER_OAUTH_ERRORS: Record<string, string> = {
+  GOOGLE_OAUTH_DENIED:
+    "Google registration was cancelled or denied.",
+  GOOGLE_OAUTH_STATE_INVALID:
+    "Your Google registration session expired or could not be verified. Please try again.",
+  GOOGLE_EMAIL_NOT_VERIFIED:
+    "Your Google email address must be verified before you can create a GermFx account.",
+  GOOGLE_ID_TOKEN_INVALID:
+    "Google could not verify your identity. Please try again.",
+  GOOGLE_TOKEN_EXCHANGE_FAILED:
+    "Google registration could not be completed. Please try again.",
+  GOOGLE_OAUTH_NOT_CONFIGURED:
+    "Google registration is temporarily unavailable.",
+  GOOGLE_OAUTH_UNAVAILABLE:
+    "Google registration is temporarily unavailable. Please try again.",
+  GOOGLE_OAUTH_INTENT_INVALID:
+    "The Google registration request was invalid. Please try again.",
+  GOOGLE_OAUTH_ERROR:
+    "Unable to continue registration with Google. Please try again.",
+};
 
 function FieldLabel({ children }: { children: ReactNode }) {
   return (
@@ -102,6 +123,8 @@ export default function Register() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [googleOAuthError, setGoogleOAuthError] =
+    useState<string | null>(null);
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [turnstileResetKey, setTurnstileResetKey] = useState(0);
 
@@ -126,7 +149,28 @@ export default function Register() {
     mode: "onTouched",
   });
 
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    const code = url.searchParams.get("oauth_error");
+
+    if (!code) return;
+
+    setGoogleOAuthError(
+      GOOGLE_REGISTER_OAUTH_ERRORS[code] ??
+        GOOGLE_REGISTER_OAUTH_ERRORS.GOOGLE_OAUTH_ERROR,
+    );
+
+    url.searchParams.delete("oauth_error");
+
+    window.history.replaceState(
+      {},
+      "",
+      `${url.pathname}${url.search}${url.hash}`,
+    );
+  }, []);
+
   const onSubmit = async (values: RegisterValues) => {
+    setGoogleOAuthError(null);
     if (turnstileEnabled && !turnstileToken) {
       setError("root", {
         message:
@@ -225,6 +269,12 @@ export default function Register() {
                 Free to use — start tracking in minutes
               </p>
             </div>
+
+            {googleOAuthError && (
+              <div className="mb-4 rounded-xl border border-red-200 bg-red-50 px-3.5 py-3 text-sm text-red-700 dark:border-[hsl(0_70%_50%/0.3)] dark:bg-[hsl(0_70%_50%/0.08)] dark:text-[hsl(0_70%_67%)]">
+                {googleOAuthError}
+              </div>
+            )}
 
             <form
               className="space-y-3 sm:space-y-5"
