@@ -1,4 +1,31 @@
 import { ClientResult, SettingsGoogleAction } from "@/types/accountSettings";
+type UnknownRecord = Record<string, unknown>;
+
+function isRecord(
+  value: unknown,
+): value is UnknownRecord {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    !Array.isArray(value)
+  );
+}
+
+function getString(
+  value: unknown,
+): string | undefined {
+  return typeof value === "string"
+    ? value
+    : undefined;
+}
+
+function getNumber(
+  value: unknown,
+): number | undefined {
+  return typeof value === "number"
+    ? value
+    : undefined;
+}
 
 export function getGoogleReauthErrorMessage(
   code: string,
@@ -29,14 +56,18 @@ export function getGoogleReauthErrorMessage(
 export function buildSettingsReauthReturnTo(
   action: SettingsGoogleAction,
 ) {
-  const url = new URL(window.location.href);
+  const url = new URL(
+    window.location.href,
+  );
 
   url.searchParams.set(
     "settings_action",
     action,
   );
   url.searchParams.delete("reauth");
-  url.searchParams.delete("reauth_error");
+  url.searchParams.delete(
+    "reauth_error",
+  );
 
   return `${url.pathname}${url.search}${url.hash}`;
 }
@@ -44,38 +75,42 @@ export function buildSettingsReauthReturnTo(
 export function getCooldownSecondsFromResult(
   result: unknown,
 ) {
-  if (
-    !result ||
-    typeof result !== "object"
-  ) {
+  if (!isRecord(result)) {
     return null;
   }
 
-  const value = result as {
-    remaining_seconds?: unknown;
-    retryAfterSeconds?: unknown;
-    retry_after_seconds?: unknown;
-  };
+  const remainingSeconds =
+    getNumber(
+      result.remaining_seconds,
+    );
 
   if (
-    typeof value.remaining_seconds ===
-    "number"
+    remainingSeconds !== undefined
   ) {
-    return value.remaining_seconds;
+    return remainingSeconds;
   }
 
-  if (
-    typeof value.retryAfterSeconds ===
-    "number"
-  ) {
-    return value.retryAfterSeconds;
-  }
+  const retryAfterSeconds =
+    getNumber(
+      result.retryAfterSeconds,
+    );
 
   if (
-    typeof value.retry_after_seconds ===
-    "number"
+    retryAfterSeconds !== undefined
   ) {
-    return value.retry_after_seconds;
+    return retryAfterSeconds;
+  }
+
+  const retryAfterSecondsSnake =
+    getNumber(
+      result.retry_after_seconds,
+    );
+
+  if (
+    retryAfterSecondsSnake !==
+    undefined
+  ) {
+    return retryAfterSecondsSnake;
   }
 
   return null;
@@ -91,7 +126,8 @@ export function formatCooldownTime(
   const minutes = Math.floor(
     safeSeconds / 60,
   );
-  const seconds = safeSeconds % 60;
+  const seconds =
+    safeSeconds % 60;
 
   if (minutes <= 0) {
     return `${seconds}s`;
@@ -104,48 +140,72 @@ export function formatCooldownTime(
 
 export function normalizeClientResult(
   response: Response,
-  data: any,
+  data: unknown,
   fallbackMessage: string,
 ): ClientResult {
+  const dataRecord =
+    isRecord(data)
+      ? data
+      : null;
+
   if (response.ok) {
     return {
       ok: true,
       message:
-        data?.message ?? fallbackMessage,
+        getString(
+          dataRecord?.message,
+        ) ??
+        fallbackMessage,
       code:
-        typeof data?.code === "string"
-          ? data.code
-          : null,
+        getString(
+          dataRecord?.code,
+        ) ??
+        null,
     };
   }
 
-  const detail = data?.detail;
+  const detail =
+    dataRecord?.detail;
+
+  if (typeof detail === "string") {
+    return {
+      ok: false,
+      message: detail,
+      code: null,
+    };
+  }
+
+  const detailRecord =
+    isRecord(detail)
+      ? detail
+      : null;
 
   return {
     ok: false,
     message:
-      typeof detail === "string"
-        ? detail
-        : detail?.message ??
-          fallbackMessage,
+      getString(
+        detailRecord?.message,
+      ) ??
+      fallbackMessage,
     code:
-      typeof detail?.code === "string"
-        ? detail.code
-        : null,
+      getString(
+        detailRecord?.code,
+      ) ??
+      null,
     remaining_seconds:
-      typeof detail?.remaining_seconds ===
-      "number"
-        ? detail.remaining_seconds
-        : undefined,
+      getNumber(
+        detailRecord
+          ?.remaining_seconds,
+      ),
     retryAfterSeconds:
-      typeof detail?.retryAfterSeconds ===
-      "number"
-        ? detail.retryAfterSeconds
-        : undefined,
+      getNumber(
+        detailRecord
+          ?.retryAfterSeconds,
+      ),
     retry_after_seconds:
-      typeof detail?.retry_after_seconds ===
-      "number"
-        ? detail.retry_after_seconds
-        : undefined,
+      getNumber(
+        detailRecord
+          ?.retry_after_seconds,
+      ),
   };
 }

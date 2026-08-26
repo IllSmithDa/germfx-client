@@ -20,11 +20,13 @@ export async function setPasswordClient(
       },
     );
 
-    let data: any = null;
+    let data: unknown = null;
 
     try {
       data = await response.json();
-    } catch {}
+    } catch {
+      data = null;
+    }
 
     return normalizeClientResult(
       response,
