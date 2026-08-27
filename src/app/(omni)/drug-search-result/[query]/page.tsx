@@ -83,10 +83,33 @@ export default async function DrugSearchResultPage(
   if (!query) {
     return (
       <div className="min-h-[calc(100vh-57px)] bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
-        <main className="mx-auto max-w-3xl px-4 py-12 space-y-6">
-          <h1 className="text-2xl font-bold">Search</h1>
-          <DrugSearchBar action={searchDrug} />
-          <p className="text-sm text-[hsl(var(--muted-foreground))]">Try searching for a medicine name.</p>
+        <main className="mx-auto max-w-3xl space-y-6 px-2 py-6 sm:px-4 sm:py-12">
+          <section className="overflow-visible border-0 bg-transparent shadow-none sm:overflow-hidden sm:rounded-2xl sm:border sm:border-[hsl(var(--border))] sm:bg-[hsl(var(--card))] sm:shadow-sm">
+            <div className="mb-3 border-b-0 p-0 sm:mb-0 sm:border-b sm:border-[hsl(var(--border))] sm:p-4">
+              <h1 className="text-md font-semibold leading-5 text-[hsl(var(--foreground))] sm:text-lg sm:leading-6">
+                Search Medications
+              </h1>
+              <p className="mt-1 hidden text-sm leading-6 text-[hsl(var(--muted-foreground))] sm:block">
+                Search by medication name, UPC, or package NDC.
+              </p>
+            </div>
+
+            <div className="space-y-3 px-0 py-0 sm:px-5 sm:py-4">
+              <DrugSearchBar
+                action={searchDrug}
+                placeholder="Search drugs (e.g. Tylenol, ibuprofen, lisinopril)…"
+                buttonText="Search"
+              />
+
+              <div className="border-t border-[hsl(var(--border))] pt-3 sm:pt-4">
+                <CodeLookupBar />
+              </div>
+            </div>
+          </section>
+
+          <p className="px-1 text-sm text-[hsl(var(--muted-foreground))]">
+            Try searching for a medicine name or entering a UPC/package NDC.
+          </p>
         </main>
       </div>
     );
@@ -98,11 +121,31 @@ export default async function DrugSearchResultPage(
     <div className="min-h-[calc(100vh-57px)] bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
       <main className="mx-auto max-w-5xl px-2 sm:px-4 py-4 sm:py-8 space-y-2 sm:space-y-6">
 
-        {/* Search bar */}
-        <DrugSearchBar action={searchDrug} />
+        {/* Search tools */}
+        <section className="overflow-visible border-0 bg-transparent shadow-none sm:overflow-hidden sm:rounded-2xl sm:border sm:border-[hsl(var(--border))] sm:bg-[hsl(var(--card))] sm:shadow-sm">
+          <div className="mb-3 border-b-0 p-0 sm:mb-0 sm:border-b sm:border-[hsl(var(--border))] sm:p-4">
+            <div className="min-w-0">
+              <h2 className="text-md font-semibold leading-5 text-[hsl(var(--foreground))] sm:text-lg sm:leading-6">
+                Search Medications
+              </h2>
+              <p className="mt-1 hidden text-sm leading-6 text-[hsl(var(--muted-foreground))] sm:block">
+                Search by medication name, UPC, or package NDC.
+              </p>
+            </div>
+          </div>
 
-        {/* Code Search Bar */}
-        <CodeLookupBar />
+          <div className="space-y-3 px-0 py-0 sm:px-5 sm:py-4">
+            <DrugSearchBar
+              action={searchDrug}
+              placeholder="Search drugs (e.g. Tylenol, ibuprofen, lisinopril)…"
+              buttonText="Search"
+            />
+
+            <div className="border-t border-[hsl(var(--border))] pt-3 sm:pt-4">
+              <CodeLookupBar />
+            </div>
+          </div>
+        </section>
 
         {/* Results header */}
         <div className="flex items-center justify-between gap-3 pt-2 sm:pt-4">

@@ -41,7 +41,7 @@ export const API_PROXY_PATHS = {
   refresh: () => `${BACKEND_PROXY_ROOT}/auth/refresh`,
   me: () => `${BACKEND_PROXY_ROOT}/auth/me`,
   setPassword: () => `${BACKEND_PROXY_ROOT}/auth/set-password`,
-
+  recentAuthStatus: () => `${BACKEND_PROXY_ROOT}/auth/recent-auth-status`,
   // Google OAuth must use explicit Next.js routes rather than the generic
   // backend catch-all because redirects and Set-Cookie headers need special
   // handling on both the login and callback legs of the flow.

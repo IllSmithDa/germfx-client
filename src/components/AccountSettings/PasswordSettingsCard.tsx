@@ -1,7 +1,6 @@
 "use client";
 
 import ChangePasswordForm from "./ChangePasswordForm";
-import SetPasswordForm from "./SetPasswordForm";
 import type {
   AccountSettingsAuth,
 } from "./hooks/useAccountSettingsAuth";
@@ -19,7 +18,8 @@ export default function PasswordSettingsCard({
 }) {
   const isSetPassword =
     auth.capabilitiesReady &&
-    !auth.hasPassword;
+    !auth.hasPassword &&
+    auth.hasGoogle;
 
   return (
     <SectionCard
@@ -30,7 +30,7 @@ export default function PasswordSettingsCard({
       }
       description={
         isSetPassword
-          ? "Add a GermFx password to your Google-authenticated account. You will be signed out after setting it."
+          ? "Add a GermFx password to your Google-authenticated account. You will verify with Google before continuing to a dedicated password setup page."
           : "Choose a password between 8 and 128 characters. You will be signed out after changing it."
       }
       icon={<LockIcon />}
@@ -47,12 +47,8 @@ export default function PasswordSettingsCard({
               auth.capabilitiesError,
           }}
         />
-      ) : !auth.hasPassword &&
+      ) : auth.hasPassword ||
         auth.hasGoogle ? (
-        <SetPasswordForm
-          auth={auth}
-        />
-      ) : auth.hasPassword ? (
         <ChangePasswordForm
           auth={auth}
         />

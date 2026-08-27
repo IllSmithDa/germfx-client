@@ -1,4 +1,4 @@
-"use client";
+
 
 import {
   useState,
@@ -10,6 +10,9 @@ import {
 import {
   changePasswordClient,
 } from "@/lib/client/accountsClientApi";
+import {
+  startGoogleReauthentication,
+} from "@/lib/helpers/reauthGoogleClient";
 
 import type {
   AccountSettingsAuth,
@@ -20,7 +23,6 @@ import {
 import {
   CooldownNotice,
   Feedback,
-  GoogleVerificationPrompt,
   GoogleVerifiedNotice,
   PasswordField,
   SubmitButton,
@@ -28,6 +30,32 @@ import {
 } from "./shared/AccountSettingsUI";
 import { ChangePasswordFormValues, FeedbackState } from "@/types/accountSettings";
 import { getCooldownSecondsFromResult } from "@/lib/helpers/accountSettings";
+
+function CompactGoogleVerificationPrompt({
+  onVerify,
+  description,
+}: {
+  onVerify: () => void;
+  description: string;
+}) {
+  return (
+    <div className="space-y-3">
+      <div className="rounded-xl border border-sky-400/30 bg-sky-500/8 px-4 py-3 text-sm text-sky-700 dark:text-sky-300">
+        {description}
+      </div>
+
+      <div className="flex justify-end">
+        <button
+          type="button"
+          onClick={onVerify}
+          className="inline-flex cursor-pointer items-center justify-center rounded-xl border border-sky-400/40 bg-sky-500/10 px-4 py-2.5 text-sm font-semibold text-sky-700 transition hover:bg-sky-500/15 dark:text-sky-300"
+        >
+          Verify with Google
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default function ChangePasswordForm({
   auth,
@@ -87,6 +115,17 @@ export default function ChangePasswordForm({
     );
     setFeedback(null);
     form.reset();
+  }
+
+  function beginGoogleSetPassword() {
+    setFeedback(null);
+    auth.setPasswordOAuthFeedback(
+      null,
+    );
+
+    startGoogleReauthentication(
+      "/account/set-password",
+    );
   }
 
   async function onSubmit(
@@ -170,6 +209,37 @@ export default function ChangePasswordForm({
     }
   }
 
+  /*
+   * A Google-only account does not have an existing GermFx password to
+   * change. Password creation is intentionally moved to the focused
+   * /account/set-password flow after fresh Google verification.
+   *
+   * Existing password accounts and dual-auth accounts continue through the
+   * normal Change Password form below.
+   */
+  if (
+    auth.capabilitiesReady &&
+    !auth.hasPassword &&
+    auth.hasGoogle
+  ) {
+    return (
+      <div className="space-y-4">
+        <CompactGoogleVerificationPrompt
+          onVerify={
+            beginGoogleSetPassword
+          }
+          description="Verify the Google account linked to this GermFx account. After verification, you will continue on a dedicated page to create your GermFx password."
+        />
+
+        <Feedback
+          state={
+            auth.passwordOAuthFeedback
+          }
+        />
+      </div>
+    );
+  }
+
   return (
     <form
       onSubmit={form.handleSubmit(
@@ -241,7 +311,7 @@ export default function ChangePasswordForm({
       {auth.passwordVerificationMethod ===
         "google" &&
       !auth.passwordGoogleVerified ? (
-        <GoogleVerificationPrompt
+        <CompactGoogleVerificationPrompt
           onVerify={
             auth.beginPasswordGoogleReauth
           }

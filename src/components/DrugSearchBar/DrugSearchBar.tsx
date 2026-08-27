@@ -1,5 +1,7 @@
 // components/DrugSearchBar/DrugSearchBar.tsx
 
+import { Search } from "lucide-react";
+
 const DEFAULT_DRUG_SEARCH_MAX_LENGTH = 100;
 
 type Props = {
@@ -23,89 +25,47 @@ export default function DrugSearchBar({
   inputId = "drug-search",
   buttonText = "Search",
   maxLength = DEFAULT_DRUG_SEARCH_MAX_LENGTH,
-  mobileLayout = "stacked",
 }: Props) {
-  const controlLayoutClass =
-    mobileLayout === "inline"
-      ? "grid grid-cols-[minmax(0,1fr)_auto] items-stretch gap-2 sm:flex sm:flex-row sm:items-stretch"
-      : mobileLayout === "adaptive"
-        ? "flex flex-col gap-2 min-[440px]:grid min-[440px]:grid-cols-[minmax(0,1fr)_auto] min-[440px]:items-stretch sm:flex sm:flex-row sm:items-stretch"
-        : "flex flex-col gap-2 sm:flex-row sm:items-stretch";
-
-  const buttonClassName = [
-    "h-11 shrink-0 cursor-pointer rounded-xl bg-[hsl(var(--primary))] px-5 text-sm font-semibold text-[hsl(var(--primary-foreground))] shadow-sm transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]",
-    mobileLayout === "inline"
-      ? "min-w-[5.25rem]"
-      : mobileLayout === "adaptive"
-        ? "w-full min-[440px]:w-auto min-[440px]:min-w-[5.25rem] sm:w-auto"
-        : "w-full sm:w-auto",
-  ].join(" ");
-
   return (
     <section className={className}>
       <form action={action}>
-        <label htmlFor={inputId} className="sr-only">
+        <label
+          htmlFor={inputId}
+          className="sr-only"
+        >
           Search for a drug
         </label>
 
-        <div className={controlLayoutClass}>
-          <div className="relative min-w-0 flex-1">
-            <span className="pointer-events-none absolute inset-y-0 left-3.5 flex items-center">
-              <svg
-                className="h-4 w-4 text-[hsl(var(--muted-foreground))]"
-                viewBox="0 0 16 16"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                aria-hidden="true"
-              >
-                <circle cx="6.5" cy="6.5" r="4.5" />
-                <line
-                  x1="10.5"
-                  y1="10.5"
-                  x2="14"
-                  y2="14"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>
+        <div className="relative sm:flex sm:items-center sm:gap-2">
+          <input
+            id={inputId}
+            name={inputName}
+            type="search"
+            placeholder={placeholder}
+            autoComplete="off"
+            enterKeyHint="search"
+            maxLength={maxLength}
+            className="min-h-10 w-full flex-1 rounded-xl border border-[hsl(var(--input,var(--border)))] bg-[hsl(var(--background))] px-3 py-2 pr-11 text-sm text-[hsl(var(--foreground))] outline-none placeholder:text-[hsl(var(--muted-foreground))] focus:ring-2 focus:ring-[hsl(var(--ring))] sm:pr-3"
+          />
 
-            <input
-              id={inputId}
-              name={inputName}
-              type="text"
-              placeholder={placeholder}
-              autoComplete="off"
-              maxLength={maxLength}
-              className="h-11 w-full rounded-xl border border-[hsl(var(--input))] bg-[hsl(var(--background))] pl-10 pr-3 text-sm outline-none transition-shadow placeholder:text-[hsl(var(--muted-foreground)/0.6)] focus:border-[hsl(var(--ring))] focus:ring-2 focus:ring-[hsl(var(--ring))/0.3)] sm:pr-4"
+          <button
+            type="submit"
+            aria-label="Search"
+            className="absolute right-1 top-1/2 inline-grid size-8 -translate-y-1/2 cursor-pointer place-items-center rounded-lg bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] transition-[opacity,transform] duration-100 hover:opacity-90 active:scale-[0.94] focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] motion-reduce:transform-none sm:static sm:inline-flex sm:size-auto sm:min-h-10 sm:translate-y-0 sm:items-center sm:justify-center sm:px-4 sm:py-2 sm:text-sm sm:font-semibold"
+          >
+            <Search
+              size={16}
+              className="sm:hidden"
+              aria-hidden="true"
             />
-          </div>
-
-          <button type="submit" className={buttonClassName} aria-label="Search">
-            {buttonText}
+            <span className="hidden sm:inline">
+              {buttonText}
+            </span>
           </button>
         </div>
 
         {tipText ? (
-          <p className="mt-2 flex items-start gap-1.5 text-xs leading-5 text-[hsl(var(--muted-foreground))]">
-            <svg
-              className="mt-0.5 h-3 w-3 shrink-0 opacity-60"
-              viewBox="0 0 16 16"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              aria-hidden="true"
-            >
-              <circle cx="8" cy="8" r="6" />
-              <line x1="8" y1="7" x2="8" y2="11" strokeLinecap="round" />
-              <circle
-                cx="8"
-                cy="5.5"
-                r="0.5"
-                fill="currentColor"
-                stroke="none"
-              />
-            </svg>
+          <p className="mt-2 text-xs leading-5 text-[hsl(var(--muted-foreground))]">
             {tipText}
           </p>
         ) : null}
