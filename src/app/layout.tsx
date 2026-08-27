@@ -64,7 +64,7 @@ export const metadata: Metadata = {
       "Track medications and symptoms, explore drug information, review recalls and health news, and generate personal reports with GermFx.",
     images: [
       {
-        url: "public/logo/germfx-social.png",
+        url: "/logo/germfx-social.png",
         width: 1200,
         height: 630,
         alt: "GermFx",
@@ -79,7 +79,7 @@ export const metadata: Metadata = {
     description:
       "Track medications and symptoms, explore drug information, review recalls and health news, and generate personal reports with GermFx.",
     images: [
-      "/germfx-social.png",
+      "/logo/germfx-social.png",
     ],
   },
 
