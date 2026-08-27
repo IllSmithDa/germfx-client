@@ -20,10 +20,82 @@ const dmSerif = DM_Serif_Display({
   display: "swap",
 });
 
+const adsenseAccount =
+  process.env.GOOGLE_ADSENSE_ACCOUNT?.trim();
+
 export const metadata: Metadata = {
-  title: "GermFx – Understand Your Meds",
+  metadataBase: new URL(
+    "https://germfx.com",
+  ),
+
+  applicationName: "GermFx",
+
+  title: {
+    default:
+      "GermFx – Medication, Symptom & Health Tracking",
+    template: "%s | GermFx",
+  },
+
   description:
-    "Track your medication side effects, log symptoms, and generate doctor-ready reports with GermFx.",
+    "Track medications and symptoms, explore drug information, review recalls and health news, and generate personal reports with GermFx. For informational use only.",
+
+  keywords: [
+    "medication tracker",
+    "symptom tracker",
+    "drug information",
+    "medication search",
+    "drug recalls",
+    "health news",
+    "medication reports",
+    "personal health tracking",
+  ],
+
+  creator: "GermFx",
+  publisher: "GermFx",
+  category: "health",
+
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "GermFx",
+    title:
+      "GermFx – Medication, Symptom & Health Tracking",
+    description:
+      "Track medications and symptoms, explore drug information, review recalls and health news, and generate personal reports with GermFx.",
+    images: [
+      {
+        url: "public/logo/germfx-social.png",
+        width: 1200,
+        height: 630,
+        alt: "GermFx",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title:
+      "GermFx – Medication, Symptom & Health Tracking",
+    description:
+      "Track medications and symptoms, explore drug information, review recalls and health news, and generate personal reports with GermFx.",
+    images: [
+      "/germfx-social.png",
+    ],
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  ...(adsenseAccount
+    ? {
+        other: {
+          "google-adsense-account":
+            adsenseAccount,
+        },
+      }
+    : {}),
 };
 
 export default async function RootLayout({
