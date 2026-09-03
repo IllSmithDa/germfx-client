@@ -82,10 +82,14 @@ export default function SharedTabs<T extends string>({
   const labelClass = cls(
     "min-w-0 max-w-full truncate whitespace-nowrap",
     mobileBottomBar
-      ? "text-[10px] leading-4 lg:text-[12px] lg:leading-5"
+      ? "text-[10px] leading-3 lg:text-[12px] lg:leading-5"
       : "leading-5",
-    hideLabelsUntil === "md" && "hidden md:inline",
-    hideLabelsUntil === "lg" && "hidden lg:inline",
+    !mobileBottomBar &&
+      hideLabelsUntil === "md" &&
+      "hidden md:inline",
+    !mobileBottomBar &&
+      hideLabelsUntil === "lg" &&
+      "hidden lg:inline",
   );
 
   const countVisibilityClass =
@@ -173,7 +177,7 @@ export default function SharedTabs<T extends string>({
           className={cls(
             "flex min-w-0 max-w-full items-center justify-center",
             mobileBottomBar
-              ? "flex-col gap-0.5 lg:flex-row lg:gap-2"
+              ? "flex-col gap-1 lg:flex-row lg:gap-2"
               : "gap-1.5 leading-normal sm:gap-2",
           )}
         >
