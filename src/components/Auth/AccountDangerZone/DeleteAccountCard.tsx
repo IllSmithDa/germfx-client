@@ -1,16 +1,16 @@
-"use client";
+
 
 import {
   useEffect,
   useState,
 } from "react";
-import { useForm } from "react-hook-form";
+import {
+  useForm,
+} from "react-hook-form";
 
 import {
   deleteAccountClient,
 } from "@/lib/client/accountsDangerApi";
-import { startGoogleReauthentication } from "@/lib/helpers/reauthGoogleClient";
-
 
 type Props = {
   hasPassword: boolean;
@@ -64,6 +64,7 @@ function WarningBox({
       <p className="text-sm font-semibold text-rose-700 dark:text-rose-400">
         {title}
       </p>
+
       <ul className="mt-2 space-y-1 text-sm text-rose-700/90 dark:text-rose-300/90">
         {lines.map((line) => (
           <li key={line}>• {line}</li>
@@ -93,6 +94,7 @@ function Modal({
       document.body.style.overflow;
     const originalPaddingRight =
       document.body.style.paddingRight;
+
     const scrollbarWidth =
       window.innerWidth -
       document.documentElement.clientWidth;
@@ -123,6 +125,7 @@ function Modal({
         originalOverflow;
       document.body.style.paddingRight =
         originalPaddingRight;
+
       document.removeEventListener(
         "keydown",
         onKey,
@@ -139,6 +142,7 @@ function Modal({
           <h3 className="text-base font-semibold text-[hsl(var(--foreground))]">
             {title}
           </h3>
+
           {description ? (
             <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">
               {description}
@@ -154,66 +158,30 @@ function Modal({
   );
 }
 
-function googleReauthErrorMessage(
-  code: string,
-) {
-  const messages: Record<
-    string,
-    string
-  > = {
-    GOOGLE_REAUTH_ACCOUNT_MISMATCH:
-      "The Google account you selected does not match the Google account linked to this GermFx account.",
-    GOOGLE_REAUTH_NOT_LINKED:
-      "This GermFx account is not linked to Google.",
-    GOOGLE_REAUTH_AUTH_REQUIRED:
-      "Your GermFx session expired. Please sign in again.",
-    GOOGLE_OAUTH_DENIED:
-      "Google verification was cancelled.",
-    GOOGLE_OAUTH_STATE_INVALID:
-      "Your Google verification session expired. Please try again.",
-    GOOGLE_ID_TOKEN_INVALID:
-      "Google could not verify your identity. Please try again.",
-    GOOGLE_OAUTH_UNAVAILABLE:
-      "Google verification is temporarily unavailable. Please try again.",
-  };
-
-  return (
-    messages[code] ??
-    "Unable to verify your Google account. Please try again."
-  );
-}
-
-function buildDeleteReauthReturnTo() {
-  const url = new URL(
-    window.location.href,
-  );
-
-  url.searchParams.set(
-    "danger_action",
-    "delete",
-  );
-  url.searchParams.delete("reauth");
-  url.searchParams.delete(
-    "reauth_error",
-  );
-
-  return `${url.pathname}${url.search}${url.hash}`;
-}
-
 export default function DeleteAccountCard({
   hasPassword,
   hasGoogle,
   authCapabilitiesReady,
 }: Props) {
-  const [open, setOpen] =
-    useState(false);
-  const [pending, setPending] =
-    useState(false);
-  const [feedback, setFeedback] =
-    useState<FeedbackState>(null);
   const [
-    googleRecentlyVerified,
-    setGoogleRecentlyVerified,
+    open,
+    setOpen,
+  ] = useState(false);
+
+  const [
+    pending,
+    setPending,
+  ] = useState(false);
+
+  const [
+    feedback,
+    setFeedback,
+  ] =
+    useState<FeedbackState>(null);
+
+  const [
+    choosingMethod,
+    setChoosingMethod,
   ] = useState(false);
 
   const {
@@ -221,133 +189,75 @@ export default function DeleteAccountCard({
     handleSubmit,
     reset,
     watch,
-    formState: { errors },
-  } = useForm<DeleteAccountValues>({
-    defaultValues: {
-      current_password: "",
-      confirmation_text: "",
+    formState: {
+      errors,
     },
-  });
-
-  useEffect(() => {
-    const url = new URL(
-      window.location.href,
-    );
-
-    if (
-      url.searchParams.get(
-        "danger_action",
-      ) !== "delete"
-    ) {
-      return;
-    }
-
-    const reauthSuccess =
-      url.searchParams.get("reauth") ===
-      "success";
-    const reauthError =
-      url.searchParams.get(
-        "reauth_error",
-      );
-
-    if (reauthSuccess) {
-      setGoogleRecentlyVerified(true);
-      setFeedback({
-        ok: true,
-        message:
-          "Google identity verified. You can now confirm permanent account deletion.",
-      });
-      setOpen(true);
-    } else if (reauthError) {
-      setGoogleRecentlyVerified(false);
-      setFeedback({
-        ok: false,
-        message:
-          googleReauthErrorMessage(
-            reauthError,
-          ),
-      });
-      setOpen(true);
-    }
-
-    if (
-      reauthSuccess ||
-      reauthError
-    ) {
-      url.searchParams.delete(
-        "danger_action",
-      );
-      url.searchParams.delete("reauth");
-      url.searchParams.delete(
-        "reauth_error",
-      );
-
-      window.history.replaceState(
-        {},
-        "",
-        `${url.pathname}${url.search}${url.hash}`,
-      );
-    }
-  }, []);
-
-  const googleOnly =
-    authCapabilitiesReady &&
-    !hasPassword &&
-    hasGoogle;
+  } =
+    useForm<DeleteAccountValues>({
+      defaultValues: {
+        current_password: "",
+        confirmation_text: "",
+      },
+    });
 
   const unsupportedAccount =
     authCapabilitiesReady &&
     !hasPassword &&
     !hasGoogle;
 
-  async function onSubmit(
-    values: DeleteAccountValues,
-  ) {
+  function goToGoogleDeletion() {
+    window.location.href =
+      "/account/delete";
+  }
+
+  function openDeleteFlow() {
+    setFeedback(null);
+    reset();
+
     if (
-      googleOnly &&
-      !googleRecentlyVerified
+      hasGoogle &&
+      !hasPassword
     ) {
-      setFeedback({
-        ok: false,
-        message:
-          "Verify your Google account before deleting your GermFx account.",
-      });
+      goToGoogleDeletion();
       return;
     }
 
+    setChoosingMethod(
+      hasPassword && hasGoogle,
+    );
+
+    setOpen(true);
+  }
+
+  function usePassword() {
+    setChoosingMethod(false);
+    setFeedback(null);
+    reset();
+  }
+
+  async function onSubmit(
+    values: DeleteAccountValues,
+  ) {
     setPending(true);
     setFeedback(null);
 
     try {
-      const payload = {
-        confirmation_text:
-          values.confirmation_text,
-        ...(hasPassword
-          ? {
-              current_password:
-                values.current_password,
-            }
-          : {}),
-      } as Parameters<
-        typeof deleteAccountClient
-      >[0];
-
       const result =
-        await deleteAccountClient(
-          payload,
-        );
+        await deleteAccountClient({
+          current_password:
+            values.current_password,
+          confirmation_text:
+            values.confirmation_text,
+        });
 
       setFeedback({
         ok: result.ok,
         message: result.message,
       });
 
-      if (!result.ok && googleOnly) {
-        // The 10-minute recent-auth cookie may have expired.
-        setGoogleRecentlyVerified(false);
-      }
-
       if (result.ok) {
+        reset();
+
         setTimeout(() => {
           window.location.href =
             "/login";
@@ -358,18 +268,11 @@ export default function DeleteAccountCard({
     }
   }
 
-  function verifyWithGoogle() {
-    setFeedback(null);
-
-    startGoogleReauthentication(
-      buildDeleteReauthReturnTo(),
-    );
-  }
-
   function close() {
     setOpen(false);
-    reset();
+    setChoosingMethod(false);
     setFeedback(null);
+    reset();
   }
 
   return (
@@ -380,6 +283,7 @@ export default function DeleteAccountCard({
             <h3 className="text-sm font-semibold text-rose-700 dark:text-rose-400">
               Delete Account
             </h3>
+
             <p className="mt-1 text-sm text-rose-700/90 dark:text-rose-300/90">
               Permanently remove your
               account. This may also remove
@@ -393,8 +297,8 @@ export default function DeleteAccountCard({
             disabled={
               !authCapabilitiesReady
             }
-            onClick={() =>
-              setOpen(true)
+            onClick={
+              openDeleteFlow
             }
             className="inline-flex cursor-pointer items-center justify-center rounded-xl border border-rose-400/40 bg-rose-500/10 px-4 py-2 text-sm font-semibold text-rose-700 transition hover:bg-rose-500/15 disabled:cursor-not-allowed disabled:opacity-50 dark:text-rose-400"
           >
@@ -409,22 +313,110 @@ export default function DeleteAccountCard({
         description="This action is intended to be irreversible."
         onClose={close}
       >
-        <form
-          onSubmit={handleSubmit(
-            onSubmit,
-          )}
-          className="space-y-4"
-        >
-          <WarningBox
-            title="Permanent data loss warning"
-            lines={[
-              "Your account access will be removed.",
-              "Associated health data may be permanently deleted.",
-              "This action should only be used if you are absolutely sure.",
-            ]}
-          />
+        {unsupportedAccount ? (
+          <div className="space-y-4">
+            <Feedback
+              state={{
+                ok: false,
+                message:
+                  "No supported reauthentication method is available for this account.",
+              }}
+            />
 
-          {hasPassword ? (
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={close}
+                className="cursor-pointer rounded-xl border border-[hsl(var(--border))] px-4 py-2 text-sm font-medium text-[hsl(var(--foreground))]"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        ) : choosingMethod ? (
+          <div className="space-y-4">
+            <WarningBox
+              title="Permanent data loss warning"
+              lines={[
+                "Your account access will be removed.",
+                "Associated health data may be permanently deleted.",
+                "This action should only be used if you are absolutely sure.",
+              ]}
+            />
+
+            <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--muted))/20] px-4 py-3">
+              <p className="text-sm font-medium text-[hsl(var(--foreground))]">
+                Verify your identity to
+                continue.
+              </p>
+
+              <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">
+                Choose the authentication
+                method you want to use.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              <button
+                type="button"
+                onClick={usePassword}
+                className="cursor-pointer rounded-xl border border-rose-400/40 bg-rose-500/8 px-3 py-2.5 text-sm font-semibold text-rose-700 transition hover:bg-rose-500/15 dark:text-rose-300"
+              >
+                Use Password
+              </button>
+
+              <button
+                type="button"
+                onClick={
+                  goToGoogleDeletion
+                }
+                className="cursor-pointer rounded-xl border border-sky-400/40 bg-sky-500/8 px-3 py-2.5 text-sm font-semibold text-sky-700 transition hover:bg-sky-500/15 dark:text-sky-300"
+              >
+                Use Google
+              </button>
+            </div>
+
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={close}
+                className="cursor-pointer rounded-xl border border-[hsl(var(--border))] px-4 py-2 text-sm font-medium text-[hsl(var(--foreground))]"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        ) : hasPassword ? (
+          <form
+            onSubmit={handleSubmit(
+              onSubmit,
+            )}
+            className="space-y-4"
+          >
+            <WarningBox
+              title="Permanent data loss warning"
+              lines={[
+                "Your account access will be removed.",
+                "Associated health data may be permanently deleted.",
+                "This action should only be used if you are absolutely sure.",
+              ]}
+            />
+
+            {hasGoogle ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setChoosingMethod(true);
+                  setFeedback(null);
+                  reset();
+                }}
+                className="text-sm font-medium text-sky-700 underline underline-offset-2 transition-opacity hover:opacity-80 dark:text-sky-300"
+              >
+                Use a different verification
+                method
+              </button>
+            ) : null}
+
             <label className="block">
               <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-[hsl(var(--muted-foreground))]">
                 Current Password
@@ -433,7 +425,9 @@ export default function DeleteAccountCard({
               <input
                 type="password"
                 autoComplete="current-password"
-                className={inputClass}
+                className={
+                  inputClass
+                }
                 placeholder="Enter your current password"
                 {...register(
                   "current_password",
@@ -444,7 +438,8 @@ export default function DeleteAccountCard({
                 )}
               />
 
-              {errors.current_password
+              {errors
+                .current_password
                 ?.message ? (
                 <p className="mt-1 text-xs text-[hsl(var(--destructive))]">
                   {
@@ -455,111 +450,75 @@ export default function DeleteAccountCard({
                 </p>
               ) : null}
             </label>
-          ) : googleOnly ? (
-            <div className="space-y-3">
-              {googleRecentlyVerified ? (
-                <div className="rounded-xl border border-emerald-400/40 bg-emerald-500/8 px-4 py-3 text-sm text-emerald-700 dark:text-emerald-400">
-                  ✓ Google identity verified.
-                  This verification is
-                  temporary.
-                </div>
-              ) : (
-                <>
-                  <div className="rounded-xl border border-sky-400/30 bg-sky-500/8 px-4 py-3 text-sm text-sky-700 dark:text-sky-300">
-                    This account does not
-                    have a GermFx password.
-                    Verify the linked Google
-                    account before deleting
-                    it.
-                  </div>
 
-                  <button
-                    type="button"
-                    onClick={
-                      verifyWithGoogle
-                    }
-                    className="inline-flex w-full cursor-pointer items-center justify-center rounded-xl border border-sky-400/40 bg-sky-500/10 px-4 py-2.5 text-sm font-semibold text-sky-700 transition hover:bg-sky-500/15 dark:text-sky-300"
-                  >
-                    Verify with Google
-                  </button>
-                </>
-              )}
-            </div>
-          ) : unsupportedAccount ? (
-            <Feedback
-              state={{
-                ok: false,
-                message:
-                  "No supported reauthentication method is available for this account.",
-              }}
-            />
-          ) : null}
+            <label className="block">
+              <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-[hsl(var(--muted-foreground))]">
+                Type DELETE to confirm
+              </span>
 
-          <label className="block">
-            <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-[hsl(var(--muted-foreground))]">
-              Type DELETE to confirm
-            </span>
-
-            <input
-              type="text"
-              className={`${inputClass} placeholder:text-[hsl(var(--muted-foreground))/25] opacity-90`}
-              placeholder="DELETE"
-              {...register(
-                "confirmation_text",
-                {
-                  required:
-                    "Please type DELETE to confirm",
-                  validate: (value) =>
-                    value === "DELETE" ||
-                    "You must type DELETE exactly",
-                },
-              )}
-            />
-
-            {errors.confirmation_text
-              ?.message ? (
-              <p className="mt-1 text-xs text-[hsl(var(--destructive))]">
-                {
-                  errors
-                    .confirmation_text
-                    .message
-                }
-              </p>
-            ) : null}
-          </label>
-
-          <Feedback
-            state={feedback}
-          />
-
-          <div className="flex items-center justify-end gap-3">
-            <button
-              type="button"
-              onClick={close}
-              className="cursor-pointer rounded-xl border border-[hsl(var(--border))] px-4 py-2 text-sm font-medium text-[hsl(var(--foreground))]"
-            >
-              Cancel
-            </button>
-
-            <button
-              type="submit"
-              disabled={
-                pending ||
-                unsupportedAccount ||
-                watch(
+              <input
+                type="text"
+                autoComplete="off"
+                className={`${inputClass} placeholder:text-[hsl(var(--muted-foreground))/25] opacity-90`}
+                placeholder="DELETE"
+                {...register(
                   "confirmation_text",
-                ) !== "DELETE" ||
-                (googleOnly &&
-                  !googleRecentlyVerified)
-              }
-              className="cursor-pointer rounded-xl bg-rose-600 px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {pending
-                ? "Deleting..."
-                : "Delete Account Permanently"}
-            </button>
-          </div>
-        </form>
+                  {
+                    required:
+                      "Please type DELETE to confirm",
+                    validate: (
+                      value,
+                    ) =>
+                      value ===
+                        "DELETE" ||
+                      "You must type DELETE exactly",
+                  },
+                )}
+              />
+
+              {errors
+                .confirmation_text
+                ?.message ? (
+                <p className="mt-1 text-xs text-[hsl(var(--destructive))]">
+                  {
+                    errors
+                      .confirmation_text
+                      .message
+                  }
+                </p>
+              ) : null}
+            </label>
+
+            <Feedback
+              state={feedback}
+            />
+
+            <div className="flex items-center justify-end gap-3">
+              <button
+                type="button"
+                onClick={close}
+                className="cursor-pointer rounded-xl border border-[hsl(var(--border))] px-4 py-2 text-sm font-medium text-[hsl(var(--foreground))]"
+              >
+                Cancel
+              </button>
+
+              <button
+                type="submit"
+                disabled={
+                  pending ||
+                  watch(
+                    "confirmation_text",
+                  ) !== "DELETE"
+                }
+                className="cursor-pointer rounded-xl bg-rose-600 px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {pending
+                  ? "Deleting..."
+                  : "Delete Account Permanently"}
+              </button>
+            </div>
+          </form>
+        ) : null}
       </Modal>
     </>
   );
