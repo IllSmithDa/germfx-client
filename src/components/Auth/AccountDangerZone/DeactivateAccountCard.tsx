@@ -4,14 +4,13 @@ import {
   useEffect,
   useState,
 } from "react";
-import { useForm } from "react-hook-form";
+import {
+  useForm,
+} from "react-hook-form";
 
 import {
   deactivateAccountClient,
 } from "@/lib/client/accountsDangerApi";
-import {
-  startGoogleReauthentication,
-} from "@/lib/helpers/reauthGoogleClient";
 
 type Props = {
   hasPassword: boolean;
@@ -22,11 +21,6 @@ type Props = {
 type ConfirmPasswordValues = {
   current_password: string;
 };
-
-type VerificationMethod =
-  | "password"
-  | "google"
-  | null;
 
 type FeedbackState = {
   ok: boolean;
@@ -139,229 +133,92 @@ function Modal({
   );
 }
 
-function googleReauthErrorMessage(
-  code: string,
-) {
-  const messages: Record<string, string> = {
-    GOOGLE_REAUTH_ACCOUNT_MISMATCH:
-      "The Google account you selected does not match the Google account linked to this GermFx account.",
-    GOOGLE_REAUTH_NOT_LINKED:
-      "This GermFx account is not linked to Google.",
-    GOOGLE_REAUTH_AUTH_REQUIRED:
-      "Your GermFx session expired. Please sign in again.",
-    GOOGLE_OAUTH_DENIED:
-      "Google verification was cancelled.",
-    GOOGLE_OAUTH_STATE_INVALID:
-      "Your Google verification session expired. Please try again.",
-    GOOGLE_ID_TOKEN_INVALID:
-      "Google could not verify your identity. Please try again.",
-    GOOGLE_OAUTH_UNAVAILABLE:
-      "Google verification is temporarily unavailable. Please try again.",
-  };
-
-  return (
-    messages[code] ??
-    "Unable to verify your Google account. Please try again."
-  );
-}
-
-function buildDeactivateReauthReturnTo() {
-  const url = new URL(
-    window.location.href,
-  );
-
-  url.searchParams.set(
-    "danger_action",
-    "deactivate",
-  );
-  url.searchParams.delete("reauth");
-  url.searchParams.delete(
-    "reauth_error",
-  );
-
-  return `${url.pathname}${url.search}${url.hash}`;
-}
-
 export default function DeactivateAccountCard({
   hasPassword,
   hasGoogle,
   authCapabilitiesReady,
 }: Props) {
-  const [open, setOpen] =
-    useState(false);
-  const [pending, setPending] =
-    useState(false);
-  const [feedback, setFeedback] =
-    useState<FeedbackState>(null);
   const [
-    googleRecentlyVerified,
-    setGoogleRecentlyVerified,
+    open,
+    setOpen,
   ] = useState(false);
+
   const [
-    verificationMethod,
-    setVerificationMethod,
-  ] = useState<VerificationMethod>(
-    null,
-  );
+    pending,
+    setPending,
+  ] = useState(false);
+
+  const [
+    feedback,
+    setFeedback,
+  ] =
+    useState<FeedbackState>(null);
+
+  const [
+    choosingMethod,
+    setChoosingMethod,
+  ] = useState(false);
 
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
-  } = useForm<ConfirmPasswordValues>({
-    defaultValues: {
-      current_password: "",
+    formState: {
+      errors,
     },
-  });
-
-  const supportsPassword =
-    authCapabilitiesReady &&
-    hasPassword;
-
-  const supportsGoogle =
-    authCapabilitiesReady &&
-    hasGoogle;
+  } =
+    useForm<ConfirmPasswordValues>(
+      {
+        defaultValues: {
+          current_password: "",
+        },
+      },
+    );
 
   const unsupportedAccount =
     authCapabilitiesReady &&
     !hasPassword &&
     !hasGoogle;
 
-  useEffect(() => {
-    const url = new URL(
-      window.location.href,
-    );
+  function goToGoogleDeactivation() {
+    window.location.href =
+      "/account/deactivate";
+  }
+
+  function openDeactivateFlow() {
+    setFeedback(null);
+    reset();
 
     if (
-      url.searchParams.get(
-        "danger_action",
-      ) !== "deactivate"
+      hasGoogle &&
+      !hasPassword
     ) {
+      goToGoogleDeactivation();
       return;
     }
 
-    const reauthSuccess =
-      url.searchParams.get("reauth") ===
-      "success";
-    const reauthError =
-      url.searchParams.get(
-        "reauth_error",
-      );
-
-    if (reauthSuccess) {
-      setVerificationMethod("google");
-      setGoogleRecentlyVerified(true);
-
-      // Do not also set a success Feedback message here.
-      // The dedicated green verified state below is the single
-      // Google-verification success message shown to the user.
-      setFeedback(null);
-      setOpen(true);
-    } else if (reauthError) {
-      setVerificationMethod("google");
-      setGoogleRecentlyVerified(false);
-      setFeedback({
-        ok: false,
-        message:
-          googleReauthErrorMessage(
-            reauthError,
-          ),
-      });
-      setOpen(true);
-    }
-
-    if (
-      reauthSuccess ||
-      reauthError
-    ) {
-      url.searchParams.delete(
-        "danger_action",
-      );
-      url.searchParams.delete("reauth");
-      url.searchParams.delete(
-        "reauth_error",
-      );
-
-      window.history.replaceState(
-        {},
-        "",
-        `${url.pathname}${url.search}${url.hash}`,
-      );
-    }
-  }, []);
-
-  function openModal() {
-    setFeedback(null);
-    setGoogleRecentlyVerified(false);
-    reset();
-
-    if (hasPassword && hasGoogle) {
-      // Do not assume which authentication method the user wants.
-      // This prevents a password-specific message from flashing before
-      // Google verification is selected.
-      setVerificationMethod(null);
-    } else if (hasPassword) {
-      setVerificationMethod(
-        "password",
-      );
-    } else if (hasGoogle) {
-      setVerificationMethod("google");
-    } else {
-      setVerificationMethod(null);
-    }
-
+    setChoosingMethod(
+      hasPassword && hasGoogle,
+    );
     setOpen(true);
   }
 
   async function onSubmit(
     values: ConfirmPasswordValues,
   ) {
-    if (
-      verificationMethod === "google" &&
-      !googleRecentlyVerified
-    ) {
-      setFeedback({
-        ok: false,
-        message:
-          "Verify your Google account before deactivating your GermFx account.",
-      });
-      return;
-    }
-
     setPending(true);
     setFeedback(null);
 
     try {
-      const payload =
-        verificationMethod ===
-        "password"
-          ? values
-          : ({} as Parameters<
-              typeof deactivateAccountClient
-            >[0]);
-
       const result =
         await deactivateAccountClient(
-          payload,
+          values,
         );
 
       setFeedback({
         ok: result.ok,
         message: result.message,
       });
-
-      if (
-        !result.ok &&
-        verificationMethod ===
-          "google"
-      ) {
-        // Recent Google verification may have expired
-        // or been revoked.
-        setGoogleRecentlyVerified(
-          false,
-        );
-      }
 
       if (result.ok) {
         setTimeout(() => {
@@ -375,30 +232,16 @@ export default function DeactivateAccountCard({
   }
 
   function usePassword() {
-    setVerificationMethod(
-      "password",
-    );
-    setGoogleRecentlyVerified(false);
+    setChoosingMethod(false);
     setFeedback(null);
     reset();
-  }
-
-  function verifyWithGoogle() {
-    setVerificationMethod("google");
-    setFeedback(null);
-
-    startGoogleReauthentication(
-      buildDeactivateReauthReturnTo(),
-    );
   }
 
   function close() {
     setOpen(false);
-    reset();
+    setChoosingMethod(false);
     setFeedback(null);
-    setGoogleRecentlyVerified(false);
-
-    setVerificationMethod(null);
+    reset();
   }
 
   return (
@@ -422,7 +265,9 @@ export default function DeactivateAccountCard({
             disabled={
               !authCapabilitiesReady
             }
-            onClick={openModal}
+            onClick={
+              openDeactivateFlow
+            }
             className="inline-flex cursor-pointer items-center justify-center rounded-xl border border-amber-400/40 bg-amber-500/10 px-4 py-2 text-sm font-semibold text-amber-700 transition hover:bg-amber-500/15 disabled:cursor-not-allowed disabled:opacity-50 dark:text-amber-400"
           >
             Deactivate
@@ -456,207 +301,137 @@ export default function DeactivateAccountCard({
               </button>
             </div>
           </div>
-        ) : (
+        ) : choosingMethod ? (
           <div className="space-y-4">
-            {supportsPassword &&
-            supportsGoogle &&
-            verificationMethod === null ? (
-              <div className="space-y-3">
-                <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--muted))/20] px-4 py-3">
-                  <p className="text-sm font-medium text-[hsl(var(--foreground))]">
-                    Verify your identity to
-                    continue.
-                  </p>
-                  <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">
-                    Choose the authentication
-                    method you want to use.
-                  </p>
-                </div>
+            <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--muted))/20] px-4 py-3">
+              <p className="text-sm font-medium text-[hsl(var(--foreground))]">
+                Verify your identity to
+                continue.
+              </p>
 
-                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                  <button
-                    type="button"
-                    onClick={usePassword}
-                    className="cursor-pointer rounded-xl border border-amber-400/40 bg-amber-500/8 px-3 py-2.5 text-sm font-semibold text-amber-700 transition hover:bg-amber-500/15 dark:text-amber-300"
-                  >
-                    Use Password
-                  </button>
+              <p className="mt-1 text-sm text-[hsl(var(--muted-foreground))]">
+                Choose the authentication
+                method you want to use.
+              </p>
+            </div>
 
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setVerificationMethod(
-                        "google",
-                      )
-                    }
-                    className="cursor-pointer rounded-xl border border-sky-400/40 bg-sky-500/8 px-3 py-2.5 text-sm font-semibold text-sky-700 transition hover:bg-sky-500/15 dark:text-sky-300"
-                  >
-                    Use Google
-                  </button>
-                </div>
-              </div>
-            ) : null}
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              <button
+                type="button"
+                onClick={usePassword}
+                className="cursor-pointer rounded-xl border border-amber-400/40 bg-amber-500/8 px-3 py-2.5 text-sm font-semibold text-amber-700 transition hover:bg-amber-500/15 dark:text-amber-300"
+              >
+                Use Password
+              </button>
 
-            {supportsPassword &&
-            supportsGoogle &&
-            verificationMethod !== null &&
-            !googleRecentlyVerified ? (
+              <button
+                type="button"
+                onClick={
+                  goToGoogleDeactivation
+                }
+                className="cursor-pointer rounded-xl border border-sky-400/40 bg-sky-500/8 px-3 py-2.5 text-sm font-semibold text-sky-700 transition hover:bg-sky-500/15 dark:text-sky-300"
+              >
+                Use Google
+              </button>
+            </div>
+
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={close}
+                className="cursor-pointer rounded-xl border border-[hsl(var(--border))] px-4 py-2 text-sm font-medium text-[hsl(var(--foreground))]"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        ) : hasPassword ? (
+          <form
+            onSubmit={handleSubmit(
+              onSubmit,
+            )}
+            className="space-y-4"
+          >
+            {hasGoogle ? (
               <button
                 type="button"
                 onClick={() => {
-                  setVerificationMethod(null);
+                  setChoosingMethod(true);
                   setFeedback(null);
                   reset();
                 }}
                 className="text-sm font-medium text-sky-700 underline underline-offset-2 transition-opacity hover:opacity-80 dark:text-sky-300"
               >
-                Use a different verification method
+                Use a different verification
+                method
               </button>
             ) : null}
 
-            {verificationMethod ===
-              "password" &&
-            supportsPassword ? (
-              <form
-                onSubmit={handleSubmit(
-                  onSubmit,
+            <div className="rounded-xl border border-amber-400/30 bg-amber-500/8 px-4 py-3 text-sm text-amber-700 dark:text-amber-300">
+              Enter your current GermFx
+              password to confirm this
+              action.
+            </div>
+
+            <label className="block">
+              <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-[hsl(var(--muted-foreground))]">
+                Current Password
+              </span>
+
+              <input
+                type="password"
+                autoComplete="current-password"
+                className={
+                  inputClass
+                }
+                placeholder="Enter your current password"
+                {...register(
+                  "current_password",
+                  {
+                    required:
+                      "Current password is required",
+                  },
                 )}
-                className="space-y-4"
+              />
+
+              {errors
+                .current_password
+                ?.message ? (
+                <p className="mt-1 text-xs text-[hsl(var(--destructive))]">
+                  {
+                    errors
+                      .current_password
+                      .message
+                  }
+                </p>
+              ) : null}
+            </label>
+
+            <Feedback
+              state={feedback}
+            />
+
+            <div className="flex items-center justify-end gap-3">
+              <button
+                type="button"
+                onClick={close}
+                className="cursor-pointer rounded-xl border border-[hsl(var(--border))] px-4 py-2 text-sm font-medium text-[hsl(var(--foreground))]"
               >
-                <div className="rounded-xl border border-amber-400/30 bg-amber-500/8 px-4 py-3 text-sm text-amber-700 dark:text-amber-300">
-                  Enter your current GermFx
-                  password to confirm this
-                  action.
-                </div>
+                Cancel
+              </button>
 
-                <label className="block">
-                  <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-[hsl(var(--muted-foreground))]">
-                    Current Password
-                  </span>
-
-                  <input
-                    type="password"
-                    autoComplete="current-password"
-                    className={
-                      inputClass
-                    }
-                    placeholder="Enter your current password"
-                    {...register(
-                      "current_password",
-                      {
-                        required:
-                          "Current password is required",
-                      },
-                    )}
-                  />
-
-                  {errors
-                    .current_password
-                    ?.message ? (
-                    <p className="mt-1 text-xs text-[hsl(var(--destructive))]">
-                      {
-                        errors
-                          .current_password
-                          .message
-                      }
-                    </p>
-                  ) : null}
-                </label>
-
-                <Feedback
-                  state={feedback}
-                />
-
-                <div className="flex items-center justify-end gap-3">
-                  <button
-                    type="button"
-                    onClick={close}
-                    className="cursor-pointer rounded-xl border border-[hsl(var(--border))] px-4 py-2 text-sm font-medium text-[hsl(var(--foreground))]"
-                  >
-                    Cancel
-                  </button>
-
-                  <button
-                    type="submit"
-                    disabled={pending}
-                    className="cursor-pointer rounded-xl bg-amber-500 px-4 py-2 text-sm font-semibold text-black transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
-                  >
-                    {pending
-                      ? "Processing..."
-                      : "Confirm Deactivation"}
-                  </button>
-                </div>
-              </form>
-            ) : null}
-
-            {verificationMethod ===
-              "google" &&
-            supportsGoogle ? (
-              <div className="space-y-4">
-                {googleRecentlyVerified ? (
-                  <div className="rounded-xl border border-emerald-400/40 bg-emerald-500/8 px-4 py-3 text-sm text-emerald-700 dark:text-emerald-400">
-                    ✓ Google identity
-                    verified. You can now
-                    confirm account
-                    deactivation.
-                  </div>
-                ) : (
-                  <>
-                    <div className="rounded-xl border border-sky-400/30 bg-sky-500/8 px-4 py-3 text-sm text-sky-700 dark:text-sky-300">
-                      Verify the Google
-                      account linked to this
-                      GermFx account before
-                      deactivating it.
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={
-                        verifyWithGoogle
-                      }
-                      className="inline-flex w-full cursor-pointer items-center justify-center rounded-xl border border-sky-400/40 bg-sky-500/10 px-4 py-2.5 text-sm font-semibold text-sky-700 transition hover:bg-sky-500/15 dark:text-sky-300"
-                    >
-                      Verify with Google
-                    </button>
-                  </>
-                )}
-
-                <Feedback
-                  state={feedback}
-                />
-
-                <div className="flex items-center justify-end gap-3">
-                  <button
-                    type="button"
-                    onClick={close}
-                    className="cursor-pointer rounded-xl border border-[hsl(var(--border))] px-4 py-2 text-sm font-medium text-[hsl(var(--foreground))]"
-                  >
-                    Cancel
-                  </button>
-
-                  <button
-                    type="button"
-                    disabled={
-                      pending ||
-                      !googleRecentlyVerified
-                    }
-                    onClick={() =>
-                      void onSubmit({
-                        current_password:
-                          "",
-                      })
-                    }
-                    className="cursor-pointer rounded-xl bg-amber-500 px-4 py-2 text-sm font-semibold text-black transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
-                  >
-                    {pending
-                      ? "Processing..."
-                      : "Confirm Deactivation"}
-                  </button>
-                </div>
-              </div>
-            ) : null}
-          </div>
-        )}
+              <button
+                type="submit"
+                disabled={pending}
+                className="cursor-pointer rounded-xl bg-amber-500 px-4 py-2 text-sm font-semibold text-black transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {pending
+                  ? "Processing..."
+                  : "Confirm Deactivation"}
+              </button>
+            </div>
+          </form>
+        ) : null}
       </Modal>
     </>
   );

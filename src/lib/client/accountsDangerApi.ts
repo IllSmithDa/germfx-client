@@ -1,11 +1,13 @@
-import { fetchJsonWithAuthRecovery } from "@/lib/client/fetchJsonWithAuthRecovery";
+import {
+  fetchJsonWithAuthRecovery,
+} from "@/lib/client/fetchJsonWithAuthRecovery";
 
 export type ConfirmPasswordPayload = {
-  current_password: string;
+  current_password?: string;
 };
 
 export type DeleteAccountPayload = {
-  current_password: string;
+  current_password?: string;
   confirmation_text: string;
 };
 
@@ -14,9 +16,14 @@ export type AccountDangerResult = {
   message: string;
 };
 
+type MessageDetail = {
+  message?: string;
+  code?: string;
+};
+
 type MessageResponse = {
   message?: string;
-  detail?: string;
+  detail?: string | MessageDetail;
 };
 
 const DEACTIVATE_ACCOUNT_PROXY_PATH =
@@ -27,13 +34,29 @@ const DELETE_ACCOUNT_PROXY_PATH =
 
 function getMessage(
   data: MessageResponse | undefined,
-  fallback: string
-) {
-  return data?.message ?? data?.detail ?? fallback;
+  fallback: string,
+): string {
+  if (typeof data?.message === "string") {
+    return data.message;
+  }
+
+  if (typeof data?.detail === "string") {
+    return data.detail;
+  }
+
+  if (
+    data?.detail &&
+    typeof data.detail === "object" &&
+    typeof data.detail.message === "string"
+  ) {
+    return data.detail.message;
+  }
+
+  return fallback;
 }
 
 export async function deactivateAccountClient(
-  payload: ConfirmPasswordPayload
+  payload: ConfirmPasswordPayload,
 ): Promise<AccountDangerResult> {
   try {
     const data =
@@ -42,18 +65,22 @@ export async function deactivateAccountClient(
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
+            "Content-Type":
+              "application/json",
+            Accept:
+              "application/json",
           },
-          body: JSON.stringify(payload),
-        }
+          body: JSON.stringify(
+            payload,
+          ),
+        },
       );
 
     return {
       ok: true,
       message: getMessage(
         data,
-        "Account deactivated successfully."
+        "Account deactivated successfully.",
       ),
     };
   } catch (error) {
@@ -68,7 +95,7 @@ export async function deactivateAccountClient(
 }
 
 export async function deleteAccountClient(
-  payload: DeleteAccountPayload
+  payload: DeleteAccountPayload,
 ): Promise<AccountDangerResult> {
   try {
     const data =
@@ -77,18 +104,22 @@ export async function deleteAccountClient(
         {
           method: "DELETE",
           headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
+            "Content-Type":
+              "application/json",
+            Accept:
+              "application/json",
           },
-          body: JSON.stringify(payload),
-        }
+          body: JSON.stringify(
+            payload,
+          ),
+        },
       );
 
     return {
       ok: true,
       message: getMessage(
         data,
-        "Account deleted successfully."
+        "Account deleted successfully.",
       ),
     };
   } catch (error) {

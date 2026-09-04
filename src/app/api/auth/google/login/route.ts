@@ -1,3 +1,4 @@
+// api/auth/google/callback/route.ts
 import {
   NextRequest,
   NextResponse,
