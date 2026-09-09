@@ -233,10 +233,8 @@ export default async function DrugDetailPage({
         </header>
 
         <div className="rounded-2xl border border-sky-400/20 bg-sky-500/5 px-3 py-2.5 text-xs leading-5 text-[hsl(var(--muted-foreground))] sm:px-4 sm:py-3 sm:text-sm sm:leading-6">
-          The most user-facing sections are shown first. FDA professional label details are kept below and collapsed because they can be technical, repetitive, or difficult to read out of context.
+          FDA professional label details are kept below and collapsed because they can be technical, repetitive, or difficult to read out of context.
         </div>
-
-        <SafetyWarningsPanel items={safetyWarningsResult.warnings_flat} />
 
         <SideEffectsPanel
           sideEffects={sideEffectsResult.side_effects}
@@ -244,6 +242,7 @@ export default async function DrugDetailPage({
           classifiedDescribed={sideEffectsResult.classified_described}
         />
 
+        <SafetyWarningsPanel items={safetyWarningsResult.warnings_flat} />
         <RawSafetyWarnings
           title="FDA label warnings"
           warningsText={warningsText}
